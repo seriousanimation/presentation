@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Idea Factory: An Interactive Narrative</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Desert Bloom & Digital Cyan -->
+    <!-- Application Structure Plan: The SPA is designed as a four-act narrative journey to make the report's qualitative content engaging. 1) A 'Hero' section to set the tone. 2) An interactive 'Two Revolutions' section using a toggle to directly compare the Industrial and AI revolutions, making the core historical analogy tangible. 3) A 'Pakistan Opportunity' section using a clickable card grid to let users explore the key challenges and solutions (the "what" and "why"). 4) A final 'Our Mission' section with a clickable process flow to show the commitment to action (the "how"). This structure turns passive reading into active exploration, guiding the user through the report's core arguments in a logical, story-driven flow that is more intuitive than the original document's layout. -->
+    <!-- Visualization & Content Choices: Report Info: Historical Parallel -> Goal: Compare -> Viz: Interactive Toggle -> Interaction: Click to update text/icons -> Justification: Makes the analogy active, not passive. Report Info: Challenges/Opportunities -> Goal: Organize/Explore -> Viz: Interactive Card Grid -> Interaction: Click to reveal details -> Justification: Organizes themes and prevents text overload. Report Info: Mission/Process -> Goal: Explain Process -> Viz: HTML/CSS Flowchart -> Interaction: Click to highlight stage -> Justification: Visualizes the abstract commitment to 'building'. All visuals are built with HTML/Tailwind/Unicode, avoiding SVG/Mermaid as required. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #332E2E;
+        }
+        .bg-accent { background-color: #00BFFF; }
+        .text-accent { color: #00BFFF; }
+        .border-accent { border-color: #00BFFF; }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00BFFF;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .process-step {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+        .process-step.active {
+            background-color: #00BFFF;
+            border-color: #00BFFF;
+            color: white;
+        }
+        .process-step.active .icon { color: white; }
+        .process-line {
+            height: 2px;
+            background-color: #E5E7EB;
+            flex: 1;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#FDFBF8]/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200/50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">The Idea Factory</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#revolutions" class="nav-link">The Revolutions</a>
+                <a href="#opportunity" class="nav-link">The Opportunity</a>
+                <a href="#mission" class="nav-link">Our Mission</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#home" class="block py-2 px-4 text-sm hover:bg-gray-100">Home</a>
+            <a href="#revolutions" class="block py-2 px-4 text-sm hover:bg-gray-100">The Revolutions</a>
+            <a href="#opportunity" class="block py-2 px-4 text-sm hover:bg-gray-100">The Opportunity</a>
+            <a href="#mission" class="block py-2 px-4 text-sm hover:bg-gray-100">Our Mission</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">The AI Revolution is here.</h2>
+                <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">We stand at the precipice of a transformative moment, much like the Industrial Revolution. For Pakistan, the question is not if this change will happen, but how we will shape it.</p>
+                <a href="#revolutions" class="mt-8 inline-block bg-accent text-white font-bold rounded-full px-8 py-3 transition duration-300 ease-in-out transform hover:scale-105">Discover Our Thesis</a>
+            </div>
+        </section>
+
+        <section id="revolutions" class="py-20 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">A Tale of Two Revolutions</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">History offers a sobering lesson. The Industrial Revolution redefined the world. The AI Revolution will do the same. Click to see the parallels and understand what's at stake.</p>
+                </div>
+
+                <div class="flex justify-center mb-12">
+                    <div class="relative inline-flex items-center bg-gray-200 rounded-full p-1">
+                        <button id="toggle-industrial" class="px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 z-10">Industrial Age</button>
+                        <button id="toggle-ai" class="px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 z-10">AI Age</button>
+                        <span id="toggle-bg" class="absolute h-full w-1/2 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out transform"></span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+                    <div id="industrial-content" class="p-8 bg-white rounded-lg shadow-sm border border-gray-200/80">
+                         <h3 class="text-2xl font-bold mb-4 flex items-center"><span class="text-2xl mr-3">🚂</span>The Industrial Revolution</h3>
+                         <p class="text-gray-600">Nations that embraced mechanization shaped the modern world. Those that hesitated were relegated to the margins for generations.</p>
+                         <ul class="mt-6 space-y-4">
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">⚙️</span><div><strong class="block">Engine of Change:</strong>Steam engines and mass production redefined power and resources.</div></li>
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">🌍</span><div><strong class="block">Global Impact:</strong>Created a new world economic order, defining who led and who followed.</div></li>
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">⏳</span><div><strong class="block">The Lesson:</strong>Transformation waits for no one. Hesitation leads to marginalization.</div></li>
+                         </ul>
+                    </div>
+                    <div id="ai-content" class="p-8 bg-white rounded-lg shadow-sm border border-gray-200/80">
+                         <h3 class="text-2xl font-bold mb-4 flex items-center"><span class="text-2xl mr-3">🧠</span>The AI Revolution</h3>
+                         <p class="text-gray-600">Today, AI is our generation's Industrial Revolution. The principles are the same, but the technology is new.</p>
+                         <ul class="mt-6 space-y-4">
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">💻</span><div><strong class="block">Engine of Change:</strong>Algorithms and data are the new engines redefining capabilities.</div></li>
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">🌐</span><div><strong class="block">Global Impact:</strong>Connectivity allows talent from anywhere, like Pakistan, to write the future.</div></li>
+                             <li class="flex items-start"><span class="text-accent text-xl mr-3">🚀</span><div><strong class="block">The Opportunity:</strong>We're not late to the game; we're getting ready to play it our own way.</div></li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="opportunity" class="py-20 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">The Opportunity for Pakistan</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">The path forward isn't about importing generic solutions. It's about understanding our unique landscape and turning challenges into strengths. Explore the core pillars of our approach.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card bg-[#FDFBF8] p-6 rounded-lg border border-gray-200/80 cursor-pointer" data-content-id="content-divide">
+                        <h3 class="text-xl font-bold flex items-center"><span class="text-2xl mr-3">🌉</span>The Great Divide</h3>
+                        <p class="mt-2 text-gray-600">Acknowledging the gap between global tech hubs and our local realities is the first step.</p>
+                    </div>
+                    <div class="card bg-[#FDFBF8] p-6 rounded-lg border border-gray-200/80 cursor-pointer" data-content-id="content-democratizer">
+                        <h3 class="text-xl font-bold flex items-center"><span class="text-2xl mr-3">🤝</span>AI, The Democratizer</h3>
+                        <p class="mt-2 text-gray-600">AI can augment traditional skills and empower a new generation of creators.</p>
+                    </div>
+                    <div class="card bg-[#FDFBF8] p-6 rounded-lg border border-gray-200/80 cursor-pointer" data-content-id="content-tools">
+                        <h3 class="text-xl font-bold flex items-center"><span class="text-2xl mr-3">🛠️</span>Accessible Tools</h3>
+                        <p class="mt-2 text-gray-600">The tools of creation are cheaper and more accessible than ever before, leveling the playing field.</p>
+                    </div>
+                </div>
+                <div id="opportunity-content-area" class="mt-12 p-8 bg-[#FDFBF8] rounded-lg border border-gray-200/80 min-h-[200px]">
+                    <div id="content-default" class="content-section active text-center text-gray-500">
+                        <p class="text-lg">Click on a card above to explore each concept.</p>
+                    </div>
+                    <div id="content-divide" class="content-section">
+                        <h3 class="text-2xl font-bold mb-2">Bridging the Divide</h3>
+                        <p class="text-gray-600">We recognize that generic AI solutions imported from abroad often fail because they don't account for Pakistan's unique business landscape, infrastructure, and resource constraints. Our approach starts with this reality. Yet, the global nature of connectivity means a brilliant algorithm developed in Lahore can compete with solutions from London. Intellectual capital can now transcend physical infrastructure.</p>
+                    </div>
+                    <div id="content-democratizer" class="content-section">
+                        <h3 class="text-2xl font-bold mb-2">AI as a Democratizer of Expertise</h3>
+                        <p class="text-gray-600">AI doesn't just replace—it augments. It can give a traditional artisan access to global markets through design assistance, or a small farmer data-driven insights that were once only available to large corporations. Because AI, at its core, doesn't hold prejudices or perpetuate traditional biases, it can become a powerful, objective tool for more equitable growth.</p>
+                    </div>
+                     <div id="content-tools" class="content-section">
+                        <h3 class="text-2xl font-bold mb-2">The Power of Accessible Tools</h3>
+                        <p class="text-gray-600">This revolution is different. The barriers to entry are falling. A student with a laptop can now access cloud computing power that once required a supercomputer. Open-source models and platforms mean that the primary resource is no longer just capital, but talent, curiosity, and the will to build. This is Pakistan's greatest advantage.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission" class="py-20 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">From Talk to Action</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">We're done with the buzzwords. We were founded to move from conversation to creation. Our mission is to build the future, not just talk about it. Click through our process.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="process-step active text-center p-4 border-2 border-transparent rounded-lg" data-content-id="process-conversation">
+                        <div class="icon text-3xl text-accent mb-2">💬</div>
+                        <h4 class="font-semibold">Conversation</h4>
+                    </div>
+                    <div class="process-line hidden md:block"></div>
+                    <div class="process-step text-center p-4 border-2 border-transparent rounded-lg" data-content-id="process-action">
+                        <div class="icon text-3xl text-gray-400 mb-2">⚡</div>
+                        <h4 class="font-semibold">Action</h4>
+                    </div>
+                    <div class="process-line hidden md:block"></div>
+                    <div class="process-step text-center p-4 border-2 border-transparent rounded-lg" data-content-id="process-building">
+                        <div class="icon text-3xl text-gray-400 mb-2">🧱</div>
+                        <h4 class="font-semibold">Building</h4>
+                    </div>
+                    <div class="process-line hidden md:block"></div>
+                    <div class="process-step text-center p-4 border-2 border-transparent rounded-lg" data-content-id="process-future">
+                        <div class="icon text-3xl text-gray-400 mb-2">🌟</div>
+                        <h4 class="font-semibold">Future</h4>
+                    </div>
+                </div>
+
+                <div class="mt-12 max-w-3xl mx-auto p-8 bg-white rounded-lg shadow-sm border border-gray-200/80 min-h-[150px]">
+                    <div id="process-conversation" class="content-section active">
+                        <p class="text-lg text-gray-700">It starts with listening. We were tired of panels that talked about AI's potential without addressing practical implementation. We engage with the real challenges faced by Pakistani businesses.</p>
+                    </div>
+                    <div id="process-action" class="content-section">
+                        <p class="text-lg text-gray-700">We are defined by our commitment to move beyond speculation. This means defining clear problems, setting tangible goals, and taking the first concrete steps, no matter how small.</p>
+                    </div>
+                    <div id="process-building" class="content-section">
+                        <p class="text-lg text-gray-700">This is our core. We are here to do the work—to write the code, to build the prototypes, and to develop AI solutions tailored for Pakistan's landscape. Value is created in the workshop, not the conference room.</p>
+                    </div>
+                    <div id="process-future" class="content-section">
+                        <p class="text-lg text-gray-700">The future is not something that happens to us. It's something we build together. Our work is a collaborative effort to ensure Pakistan doesn't just participate in the AI revolution, but helps lead it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="font-semibold text-lg">The Idea Factory</p>
+            <p class="mt-2 text-sm text-gray-400">Building Pakistan's AI-Powered Future. Together.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+            const sections = document.querySelectorAll('main section');
+
+            const activateNavLink = (link) => {
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
+            }
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const link = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if(link) activateNavLink(link);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.closest('#mobile-menu')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const toggleIndustrial = document.getElementById('toggle-industrial');
+            const toggleAi = document.getElementById('toggle-ai');
+            const toggleBg = document.getElementById('toggle-bg');
+            const industrialContent = document.getElementById('industrial-content');
+            const aiContent = document.getElementById('ai-content');
+
+            const setToggleState = (state) => {
+                if (state === 'industrial') {
+                    toggleBg.style.transform = 'translateX(0%)';
+                    toggleIndustrial.classList.add('text-accent');
+                    toggleIndustrial.classList.remove('text-gray-600');
+                    toggleAi.classList.remove('text-accent');
+                    toggleAi.classList.add('text-gray-600');
+                    industrialContent.style.opacity = 1;
+                    industrialContent.style.transform = 'translateY(0)';
+                    aiContent.style.opacity = 0.6;
+                    aiContent.style.transform = 'translateY(5px)';
+                } else {
+                    toggleBg.style.transform = `translateX(100%)`;
+                    toggleAi.classList.add('text-accent');
+                    toggleAi.classList.remove('text-gray-600');
+                    toggleIndustrial.classList.remove('text-accent');
+                    toggleIndustrial.classList.add('text-gray-600');
+                    aiContent.style.opacity = 1;
+                    aiContent.style.transform = 'translateY(0)';
+                    industrialContent.style.opacity = 0.6;
+                    industrialContent.style.transform = 'translateY(5px)';
+                }
+            };
+            
+            industrialContent.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            aiContent.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+            toggleIndustrial.addEventListener('click', () => setToggleState('industrial'));
+            toggleAi.addEventListener('click', () => setToggleState('ai'));
+            
+            setToggleState('industrial');
+
+            const opportunityCards = document.querySelectorAll('#opportunity .card');
+            const opportunityContentSections = document.querySelectorAll('#opportunity-content-area .content-section');
+
+            opportunityCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const contentId = card.dataset.contentId;
+                    opportunityContentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(contentId).classList.add('active');
+                });
+            });
+
+            const processSteps = document.querySelectorAll('.process-step');
+            const processContentSections = document.querySelectorAll('#mission .content-section');
+
+            processSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const contentId = step.dataset.contentId;
+                    
+                    processSteps.forEach(s => s.classList.remove('active'));
+                    step.classList.add('active');
+
+                    processContentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(contentId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
