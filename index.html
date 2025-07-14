@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Presentation Demo</title>
+    <title>Interactive Presentation</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -101,6 +101,21 @@
             font-weight: bold;
         }
 
+        .subheading-category {
+            font-weight: bold;
+            margin-top: 20px !important;
+            font-size: 22px !important;
+            cursor: default !important;
+            background-color: transparent !important;
+        }
+        .subheading-category:hover {
+             border-left: 4px solid transparent !important;
+        }
+        .indented-subheading {
+            padding-left: 40px !important;
+        }
+
+
         #tooltip {
             display: none;
             position: fixed; 
@@ -125,9 +140,15 @@
             width: 100%;
             height: 100%;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 15px;
+            overflow: hidden;
+            border-radius: 5px;
         }
         
-        #media-container > * {
+        #media-container > *:not(.multi-chart-wrapper):not(.info-graphic) {
             position: absolute;
             top: 0;
             left: 0;
@@ -135,74 +156,57 @@
             height: 100%;
             max-width: 100%;
             max-height: 100%;
-            border-radius: 5px;
-        }
-
-        .video-background {
-            /* MODIFICATION: Opacity set to 8% */
-            opacity: 0.08;
-            z-index: 1;
-        }
-        .chart-foreground {
-            z-index: 2;
-            backdrop-filter: blur(5px);
-        }
-        .video-foreground {
-            opacity: 1;
-            z-index: 3;
-        }
-        .chart-hidden {
-            display: none;
+            border: none;
         }
         
-        #media-switcher {
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            z-index: 10;
+        .multi-chart-wrapper, .info-graphic {
+            position: relative;
+            flex: 1;
+            height: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
         }
+        .info-graphic {
+            font-size: 1.1em;
+            color: var(--main-text-color);
+        }
+        .info-graphic p { margin: 5px; font-weight: bold; }
+        .info-graphic .speed-box { border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin-top: 10px; background: rgba(255,255,255,0.2)}
+        .info-graphic .speed-title { font-weight: bold; font-size: 1.2em; margin-bottom: 5px;}
+        .info-graphic .speed-row { display: flex; justify-content: space-between; width: 100%; padding: 0 5px; margin-top: 5px;}
 
-        .dot {
-            height: 12px;
-            width: 12px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border: 1px solid #333;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
 
-        .dot.active {
-            background-color: var(--accent-color);
-        }
+        .video-background { opacity: 0.08; z-index: 1; pointer-events: none; }
+        .chart-foreground, .svg-foreground { z-index: 2; backdrop-filter: blur(5px); }
+        .video-foreground { opacity: 1; z-index: 3; }
+        .chart-hidden, .svg-hidden { display: none; }
+        
+        #media-switcher { position: absolute; bottom: 15px; left: 20px; z-index: 10; }
+        .dot { height: 12px; width: 12px; background-color: rgba(255, 255, 255, 0.5); border: 1px solid #333; border-radius: 50%; display: inline-block; margin-right: 8px; cursor: pointer; transition: background-color 0.3s; }
+        .dot.active { background-color: var(--accent-color); }
+
+        #page-switcher { position: fixed; bottom: 20px; left: 20px; z-index: 100; }
+        #page-switcher .page-dot { height: 16px; width: 16px; background-color: rgba(0, 0, 0, 0.2); border: 2px solid white; }
+        #page-switcher .page-dot.active { background-color: white; }
 
     </style>
 </head>
 <body>
     <div id="tooltip"></div>
+    <div id="page-switcher"></div>
     
     <canvas id="background-canvas"></canvas>
 
     <div class="presentation-grid">
         <div id="left-pane" class="pane">
-            <h1>Macroeconomics of Pakistan; Demographics</h1>
+            <h1 id="main-title"></h1>
             <div class="scrollable-content">
-                <ul>
-                    <li data-subheading-id="populationRank" data-tooltip="Population Rank: Ranked as the <b>5th</b> most populous country of the world.">
-                        Pakistan is the world's <b>5th</b> most populous nation.
-                    </li>
-                    <li data-subheading-id="youthBulge" data-tooltip="Youth Population: With a median age of <b>23 years</b>, Pakistan is witnessing a youth bulge and currently has the youngest population in the country’s history.">
-                        The country is experiencing a youth bulge with a median age of <b>23 years</b>.
-                    </li>
-                    <li data-subheading-id="ruralUrbanDivide" data-tooltip="Population Divide: The rural – urban population divide is <b>65% - 35%</b>.">
-                        The population is divided between a <b>65%</b> rural and <b>35%</b> urban demographic.
-                    </li>
-                    <li data-subheading-id="demographicDividend" data-tooltip="Demographic Dividend: Pakistan qualifies for ‘demographic dividend’; working age population is almost <b>1.6 times</b> larger than dependent population i.e., <b>60%</b> of the population is <b>30 years</b> and below.">
-                        The working-age population is <b>1.6 times</b> larger than the dependent population.
-                    </li>
-                </ul>
+                <ul id="subheading-list"></ul>
             </div>
         </div>
 
@@ -214,151 +218,226 @@
     </div>
 
     <script>
-        // --- 1. GENERATIVE BACKGROUND SCRIPT ---
-        const bgCanvas = document.getElementById('background-canvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        bgCanvas.width = window.innerWidth;
-        bgCanvas.height = window.innerHeight;
-        let recordedPath = []; let strokes = []; let branches = []; let brancherPool = [];
-        const MARK_LIFETIME = 10000; const BIFURCATION_STEPS = 20; const BRANCH_FPS = 20;
-        function recordMousePosition(e) { recordedPath.push({ x: e.clientX, y: e.clientY }); }
-        window.addEventListener('mousemove', recordMousePosition);
-        function triggerPlayback() { if (recordedPath.length < 2) { recordedPath = []; return; } const pathToDraw = [...recordedPath]; recordedPath = []; const newStroke = pathToDraw.map(p => ({ x: p.x, y: p.y, time: Date.now() })); strokes.push(newStroke); const p1 = newStroke[0]; const p2 = newStroke[1]; let angle = Math.atan2(p2.y - p1.y, p2.x - p1.x); let oppositeAngle = angle + Math.PI; brancherPool.push({ queue: [{ x: p2.x, y: p2.y, angle: oppositeAngle - 0.3, width: 7 * 0.8, step: 0 }, { x: p2.x, y: p2.y, angle: oppositeAngle + 0.3, width: 7 * 0.8, step: 0 }] }); const lastPoint = newStroke[newStroke.length - 1]; const secondLastPoint = newStroke[newStroke.length - 2]; angle = Math.atan2(lastPoint.y - secondLastPoint.y, lastPoint.x - secondLastPoint.x); brancherPool.push({ queue: [{ x: lastPoint.x, y: lastPoint.y, angle: angle - 0.3, width: 7 * 0.8, step: 0 }, { x: lastPoint.x, y: lastPoint.y, angle: angle + 0.3, width: 7 * 0.8, step: 0 }] }); }
-        function getDecayColor(creationTime) { const age = Date.now() - creationTime; const life = Math.min(age / MARK_LIFETIME, 1); const startColor = { r: 173, g: 216, b: 230 }; const endColor = { r: 220, g: 205, b: 190 }; const t = life; const r = startColor.r + t * (endColor.r - startColor.r); const g = startColor.g + t * (endColor.g - startColor.g); const b = startColor.b + t * (endColor.b - startColor.b); const alpha = 1 - Math.pow(t, 2); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
-        function processBranchers() { for (let i = brancherPool.length - 1; i >= 0; i--) { const brancher = brancherPool[i]; for (let j = 0; j < 50 && brancher.queue.length > 0; j++) { const task = brancher.queue.shift(); if (task.step >= BIFURCATION_STEPS || task.width < 0.5) continue; const length = Math.random() * 20 + 10; const endX = task.x + Math.cos(task.angle) * length; const endY = task.y + Math.sin(task.angle) * length; branches.push({ x1: task.x, y1: task.y, x2: endX, y2: endY, width: task.width, time: Date.now() }); const nextWidth = task.width * 0.8; brancher.queue.push({ x: endX, y: endY, angle: task.angle - (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); brancher.queue.push({ x: endX, y: endY, angle: task.angle + (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); } if (brancher.queue.length === 0) { brancherPool.splice(i, 1); } } }
-        function animateBg() { bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height); const now = Date.now(); for (const stroke of strokes) { for (let i = 1; i < stroke.length; i++) { bgCtx.beginPath(); bgCtx.moveTo(stroke[i - 1].x, stroke[i - 1].y); bgCtx.lineTo(stroke[i].x, stroke[i].y); bgCtx.lineWidth = 7; bgCtx.lineCap = 'round'; bgCtx.strokeStyle = getDecayColor(stroke[i].time); bgCtx.stroke(); } } for (const branch of branches) { bgCtx.beginPath(); bgCtx.moveTo(branch.x1, branch.y1); bgCtx.lineTo(branch.x2, branch.y2); bgCtx.lineWidth = branch.width; bgCtx.lineCap = 'round'; bgCtx.strokeStyle = getDecayColor(branch.time); bgCtx.stroke(); } strokes = strokes.map(stroke => stroke.filter(p => now - p.time < MARK_LIFETIME)).filter(stroke => stroke.length > 0); branches = branches.filter(branch => now - branch.time < MARK_LIFETIME); requestAnimationFrame(animateBg); }
-        animateBg(); setInterval(processBranchers, 1000 / BRANCH_FPS); setInterval(triggerPlayback, 5000); window.addEventListener('resize', () => { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; });
+    document.addEventListener('DOMContentLoaded', () => {
 
-        // --- 2. PRESENTATION LOGIC ---
+        const mainTitle = document.getElementById('main-title');
+        const subheadingList = document.getElementById('subheading-list');
         const mediaContainer = document.getElementById('media-container');
         const mediaSwitcher = document.getElementById('media-switcher');
-        let currentChart = null;
+        const pageSwitcher = document.getElementById('page-switcher');
+        const tooltip = document.getElementById('tooltip');
         
-        // MODIFICATION: Swapped video placements
-        const subheadingsData = {
-            'populationRank': {
-                content: [ { type: 'chart', generator: 'populationRankChart' } ]
-            }, 
-            'youthBulge': { 
-                content: [ 
-                    { type: 'chart', generator: 'youthBulgeChart' },
-                    { type: 'video', url: 'https://raw.githack.com/seriousanimation/presentation/main/videos/youth.mp4' }
-                ] 
+        let currentCharts = [];
+        let currentPageIndex = 0;
+
+        const presentationData = [
+            { // Page 1
+                title: "Macroeconomics of Pakistan; Demographics",
+                subheadings: {
+                    'populationRank': { text: "Pakistan is the world's <b>5th</b> most populous nation.", tooltip: "Population Rank: Ranked as the <b>5th</b> most populous country of the world.", content: [ { type: 'chart', generator: 'populationRankChart' } ] },
+                    'youthBulge': { text: "The country is experiencing a youth bulge with a median age of <b>23 years</b>.", tooltip: "Youth Population: With a median age of <b>23 years</b>, Pakistan is witnessing a youth bulge and currently has the youngest population in the country’s history.", content: [ { type: 'chart', generator: 'youthBulgeChart' }, { type: 'video', url: 'https://raw.githack.com/seriousanimation/presentation/main/videos/youth.mp4' } ] },
+                    'ruralUrbanDivide': { text: "The population is divided between a <b>65%</b> rural and <b>35%</b> urban demographic.", tooltip: "Population Divide: The rural – urban population divide is <b>65% - 35%</b>.", content: [ { type: 'chart', generator: 'ruralUrbanDivideChart' }, { type: 'video', url: 'https://raw.githack.com/seriousanimation/presentation/main/videos/rural.mp4' } ] },
+                    'demographicDividend': { text: "The working-age population is <b>1.6 times</b> larger than the dependent population.", tooltip: "Demographic Dividend: Pakistan qualifies for ‘demographic dividend’; working age population is almost <b>1.6 times</b> larger than dependent population i.e., <b>60%</b> of the population is <b>30 years</b> and below.", content: [ { type: 'chart', generator: 'demographicDividendChart' } ] }
+                }
             },
-            'ruralUrbanDivide': {
-                content: [
-                    { type: 'chart', generator: 'ruralUrbanDivideChart' },
-                    { type: 'video', url: 'https://raw.githack.com/seriousanimation/presentation/main/videos/rural.mp4' }
-                ]
-            }, 
-            'demographicDividend': { 
-                content: [ { type: 'chart', generator: 'demographicDividendChart' } ] 
+            { // Page 2
+                title: "Macroeconomics of Pakistan; Frontier Market",
+                subheadings: {
+                    'freelancingRank': { text: "Pakistan ranks among the top <b>five</b> countries for ICT freelancing.", tooltip: "Freelancing Hub: Pakistan is amongst top <b>five</b> countries in the world in ‘freelancing’ within ICT space.", content: [ { type: 'chart', generator: 'freelancingRankChart' } ] },
+                    'exportGrowth': { text: "Freelance earnings grew by <b>26.53%</b> to reach <b>$2.177 billion</b>.", tooltip: "Export Growth: Pakistan earned <b>$2.177 billion</b> which represents a growth of <b>26.53%</b> compared to the same period in the previous fiscal year.", content: [ { type: 'chart', generator: 'exportGrowthChart' } ] },
+                    'telecomGrowth': { text: "The Telecom sector has a mobile base of <b>197M</b> subscribers.", tooltip: "Telecom Growth: Phenomenal growth in the Telecom sector; <b>197M</b> mobile base (tele density <b>~81%</b>) and <b>143M</b> mobile broadband subscribers (tele density <b>~58%</b>).", content: [ { type: 'chart', generator: 'telecomGrowthChart' } ] },
+                    'startupFunding': { text: "The startup ecosystem has attracted over <b>$850M</b> in VC funding since 2015.", tooltip: "Startup Ecosystem: Pakistan’s young and digital native demographic; the startup ecosystem energized by VC funding with funding of <b>$850M+</b> between <b>2015 - 2024</b>.", content: [ { type: 'chart', generator: 'startupFundingChart' } ] }
+                }
+            },
+            { // Page 3
+                title: "Macroeconomics of Pakistan; Policy",
+                subheadings: {
+                    '5gAuction': { text: "The PTA has issued guidelines for the upcoming <b>5G spectrum</b> auction.", tooltip: "<b>5G Auction:</b> PTA (Pakistan Telecom Authority) issued policy guidelines for <b>5G spectrum</b> auction.", content: [ { type: 'svg', generator: 'svg5gAuction' } ] },
+                    'ldiLicensing': { text: "New <b>LDI</b> licenses are being offered to service providers by the PTA.", tooltip: "<b>LDI Licensing:</b> PTA invited service providers for new <b>LDI (Long Distance International)</b> licenses.", content: [ { type: 'svg', generator: 'svgLdiLicensing' } ] },
+                    'mvnoLicensing': { text: "The government will soon begin <b>MVNO</b> licensing.", tooltip: "<b>MVNO Licensing:</b> The Government will soon be initiating <b>MVNO (Mobile Virtual Network Operator)</b> licensing in the country.", content: [ { type: 'svg', generator: 'svgMvnoLicensing' } ] },
+                    'cloudFirst': { text: "The <b>'Pakistan Cloud First Policy'</b> has been issued for the public sector.", tooltip: "<b>Cloud First Policy:</b> The Government focusing on digitalization; <b>Pakistan Cloud First Policy</b> issued by the Ministry of IT & Telecom for the public sector entities.", content: [ { type: 'svg', generator: 'svgCloudFirst' } ] },
+                    'bankingCloud': { text: "The State Bank has issued guidelines for <b>cloud services</b> in banking.", tooltip: "<b>Banking Cloud Guidelines:</b> The State Bank of Pakistan issued guidelines for outsourcing arrangements for <b>cloud services</b> for the Banking sector.", content: [ { type: 'svg', generator: 'svgBankingCloud' } ] }
+                }
+            },
+            { // Page 4
+                title: "Pakistan Country Overview – GDP Growth Outlook",
+                subheadings: {
+                    'population': { text: "The total population of Pakistan is <b>244 million</b>.", tooltip: "Population: <b>244M</b> | <b>42%</b> Population about to reach 18 | <b>48%</b> Population between 18 to 55 | Population Growth: <b>1.96%</b>", content: [{type: 'multi-chart', generator: 'gdpPage_populationCharts'}] },
+                    'gdp': { text: "The GDP per capita stands at <b>$1,680</b>.", tooltip: "GDP/Capita: <b>$1,680</b> | GDP: <b>$375B</b> | GNI: <b>$368.9B</b> | GDP Growth (IMF Proj): <b>2%</b> (2024) <b>3.5%</b> (2025)", content: [{type: 'multi-chart', generator: 'gdpPage_gdpCharts'}]},
+                    'broadband': { text: "There are <b>135 million</b> broadband subscribers in the country.", tooltip: "BB Subscribers: <b>135M</b> | <b>132M</b> Mobile BB Customer | <b>2.74M</b> Fixed BB Subscriber", content: [{type: 'multi-chart', generator: 'gdpPage_broadbandCharts'}]},
+                    'households': { text: "Pakistan consists of <b>39.6 million</b> households.", tooltip: "Households: <b>39.6M</b> | Approx. <b>6.16</b> persons per house hold | Access to Electricity: <b>94.9%</b>", content: [{type: 'info-graphic', generator: 'gdpPage_householdStats'}]}
+                }
+            },
+            { // Page 5
+                title: "Pakistan Telecom Market – Mobile dominated",
+                subheadings: {
+                    'revenue': { text: "The total telecom market revenue is <b>$3.4 billion</b>.", tooltip: "Revenue: <b>$3.4B</b> | Cellular: <b>2.24B</b> | Fixed BB: <b>0.39B</b> | Teledensity: <b>81.1%</b>", content: [{type: 'chart', generator: 'telecomPage_revenueChart'}]},
+                    'cellularSubs': { text: "There are <b>197 million</b> cellular subscribers across <b>4 major players</b>.", tooltip: "Cellular Subscribers: <b>197M</b> | <b>4</b> Major Players (soon to be 3) | ARPU (PKR): <b>311</b>", content: [{type: 'chart', generator: 'telecomPage_cellularSubsChart'}]},
+                    'fixedSubs': { text: "The fixed broadband market consists of <b>3.7 million</b> subscribers.", tooltip: "Fixed BB Subscribers: <b>3.7M</b> | <b>8</b> Major Players | ARPU (PKR): <b>3,000</b>", content: [{type: 'chart', generator: 'telecomPage_fixedSubsChart'}]},
+                    'medianSpeeds': { text: "Median cellular download speed in Pakistan is <b>26.33 Mbps</b>.", tooltip: "Median Speeds (April-25): Cellular (Global: <b>92.31</b>/<b>13.76</b> Mbps | PAK: <b>26.33</b>/<b>9.18</b> Mbps), Fixed (Global: <b>101.37</b>/<b>57.39</b> Mbps | PAK: <b>15.82</b>/<b>15.75</b> Mbps)", content: [{type: 'info-graphic', generator: 'telecomPage_medianSpeedsInfo'}]}
+                }
+            },
+            { // Page 6
+                title: "Case Study: T-Nor's Challenges",
+                subheadings: {
+                    'launch': { text: "In <b>March 2005</b>, Norwegian operator T-Nor launched its operations.", tooltip: "On <b>15th March 2005</b>, a Norwegian mobile operator ‘T-Nor’ launched its operations with a big fanfare in the country.", content: [{type: 'svg', generator: 'telenor_launch'}, {type: 'youtube', videoId: 'e452_k1g-s4'}]},
+                    'networkIssues': { text: "Weeks after launch, the network experienced choking due to forecasting errors.", tooltip: "Within weeks of its launch, there was a network choaking due to miscalculation on part of ‘network dimensioning’ and ‘forecasting error’.", content: [{type: 'chart', generator: 'telenor_networkIssues'}]},
+                    'priceWars': { text: "Intense price wars caused revenue and ARPU to nosedive.", tooltip: "Then came ‘price wars’ as all operators tried hard to grab ‘market share’...This resulted in erosion of revenues and ARPU (average revenue per user) nosedived.", content: [{type: 'chart', generator: 'telenor_priceWars'}]},
+                    'fourGLicense': { text: "In <b>2014</b>, T-Nor invested in a <b>4G</b> license to drive revenue via mobile data.", tooltip: "In <b>2014</b>, 4G licensing kicked in and T-Nor along with other operators invested with an intention to take a lead to drive revenues via mobile data.", content: [{type: 'svg', generator: 'telenor_timeline'}]},
+                    'loyaltyErosion': { text: "Constant price wars led to eroding customer loyalty and multi-SIM ownership.", tooltip: "All along the ‘customer loyalty’ was eroding over time i.e., price wars and customers were lured in to have ‘multiple SIM cards’ to avail offers.", content: [{type: 'chart', generator: 'telenor_loyalty'}]},
+                    'prepaidMarket': { text: "The market was dominated by a <b>95%</b> prepaid subscriber base.", tooltip: "The market was predominantly a PAYG (pay as you go) market... prepaid market segment was <b>95%</b> while only <b>5%</b> was postpaid.", content: [{type: 'chart', generator: 'telenor_prepaidMarket'}]},
+                    'customerChurn': { text: "A lack of customer centricity resulted in significant 'churn'.", tooltip: "A focus away from brand building, customer centricity, technology upgrades etc. resulted in ‘flight of subscribers’ what we call ‘churn’ of customers.", content: [{type: 'svg', generator: 'telenor_churn'}]},
+                    'consultant': { text: "A team recommended hiring Gradient Advisors for an unbiased, SMART action plan.", tooltip: "The cross functional team recommended to onboard a consultant...to produce a realistic action plan which should be SMART (specific, measurable, achievable, relevant and time bound).", content: [{type: 'svg', generator: 'telenor_consultant'}]}
+                }
+            },
+            { // Page 7
+                title: "Context & Remedial Measures",
+                subheadings: {
+                    'hireConsultant': { text: "A cross-functional team recommended hiring a consultant for a <b>SMART</b> action plan.", tooltip: "The cross functional team recommended to onboard a consultant in business advisory capacity to do away with biases and produce a realistic action plan which should be <b>SMART</b> (specific, measurable, achievable, relevant and time bound).", content: [{type: 'svg', generator: 'context_smartPlan'}]},
+                    'engageAdvisors': { text: "T-Nor engaged <b>‘Gradient Advisors’</b> to define key focal areas for a turnaround.", tooltip: "The T-Nor team approached <b>‘Gradient Advisors’</b> and after multiple iterations, the below mentioned areas were shortlisted to be ‘key focal areas’ in upcoming weeks and months to make T-Nor regain its competitive position in the market.", content: [{type: 'svg', generator: 'context_gradientAdvisors'}]},
+                    'focalAreas': { text: "The key focal areas include:", isCategory: true, content: [{type: 'empty'}] },
+                    'churnMgmt': { text: "<b>1.</b> Prioritize churn management using predictive analysis.", tooltip: "The biggest challenge was ‘churn management’... using predictive analysis to identify at-risk customers and proactively offer retention incentives.", isIndented: true, content: [{type: 'svg', generator: 'remedial_churn'}] },
+                    'custCentric': { text: "<b>2.</b> Establish customer centricity as a cornerstone of the organization.", tooltip: "The ‘customer centric’ was set as a cornerstone of the organization and elevating customer experience was suggested to be a major differentiator.", isIndented: true, content: [{type: 'svg', generator: 'remedial_centricity'}] },
+                    'netHealth': { text: "<b>3.</b> Ensure <b>99.99%</b> network health with AI-powered predictive maintenance.", tooltip: "The network health had to be supreme at all times with <b>99.99%</b> service levels... with AI-powered predictive maintenance for cell towers and anomaly detection.", isIndented: true, content: [{type: 'chart', generator: 'remedial_network'}] },
+                    'persoMarketing': { text: "<b>4.</b> Implement personalized marketing based on AI-driven user behavior.", tooltip: "Personalized marketing to drive user behavior studies had to be in place for better customer insights in terms of needs and wants.", isIndented: true, content: [{type: 'svg', generator: 'remedial_marketing'}] },
+                    'loyaltyProg': { text: "<b>5.</b> Create market traction with new customer loyalty programs.", tooltip: "And last but not the least customer loyalty programs had to be in place to create market traction.", isIndented: true, content: [{type: 'svg', generator: 'remedial_loyalty'}] }
+                }
             }
+        ];
+        
+        const createChart = (container, config) => { const canvas = document.createElement('canvas'); container.appendChild(canvas); const chart = new Chart(canvas.getContext('2d'), config); currentCharts.push(chart); return canvas; };
+        const mediaGenerators = { 
+            'populationRankChart':(c)=>{const co={type:'bar',data:{labels:['India','China','US','Indonesia','Pakistan'],datasets:[{label:'Population (B)',data:[1.428,1.425,0.339,0.277,0.244],backgroundColor:['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Top 5 Most Populous Countries'}}}};return createChart(c,co)},
+            'youthBulgeChart':(c)=>{const co={type:'doughnut',data:{labels:['30 & Below','Over 30'],datasets:[{data:[60,40],backgroundColor:['#4bc0c0','#ff9f40']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Youth Bulge (Median Age: 23)'}}}};return createChart(c,co)},
+            'ruralUrbanDivideChart':(c)=>{const co={type:'pie',data:{labels:['Rural','Urban'],datasets:[{data:[65,35],backgroundColor:['#36a2eb','#ff6384']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Rural vs. Urban Population Divide'}}}};return createChart(c,co)},
+            'demographicDividendChart':(c)=>{const co={type:'bar',data:{labels:['Working-Age','Dependent'],datasets:[{label:'Population Ratio',data:[1.6,1],backgroundColor:['#9966ff','#c9cbcf']}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{title:{display:true,text:'Demographic Dividend'}}}};return createChart(c,co)},
+            'freelancingRankChart':(c)=>{const co={type:'bar',data:{labels:['USA','UK','Brazil','Pakistan','Ukraine'],datasets:[{label:'Top Freelancing Countries',data:[100,80,75,70,65],backgroundColor:'#4bc0c0'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Global ICT Freelancing Rank'}}}};return createChart(c,co)},
+            'exportGrowthChart':(c)=>{const co={type:'bar',data:{labels:['Previous Year','Current Year'],datasets:[{label:'Earnings ($B)',data:[1.72,2.177],backgroundColor:['#ff9f40','#36a2eb']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Freelance Earnings Growth'}}}};return createChart(c,co)},
+            'telecomGrowthChart':(c)=>{const co={type:'bar',data:{labels:['Mobile Base','Broadband'],datasets:[{label:'Subscribers (M)',data:[197,143],backgroundColor:['#9966ff','#ff6384']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Telecom Subscriber Base'}}}};return createChart(c,co)},
+            'startupFundingChart':(c)=>{const co={type:'pie',data:{labels:['Ecommerce','Fintech','Health-Tech','Ed-tech'],datasets:[{label:'VC Funding ($M)',data:[527,277,44,13],backgroundColor:['#ff6384','#36a2eb','#4bc0c0','#ffce56']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Startup Funding by Category'}}}};return createChart(c,co)},
+            'svg5gAuction':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family);font-size:16px;font-weight:bold;fill:var(--main-text-color);}.w4{animation:w 2s ease-in-out forwards;opacity:0.2;}.w5{animation:w 2s 1s ease-in-out forwards;opacity:0;}@keyframes w{to{opacity:1;}}</style><text x="200" y="30" text-anchor="middle" class="f">Transition to 5G</text><path class="w4" d="M 50 150 C 100 50, 150 50, 200 150 S 250 50, 300 150" stroke="#ccc" stroke-width="4" fill="none"/><text class="w4 f" x="175" y="170">4G</text><path class="w5" d="M 100 150 C 140 50, 180 50, 220 150 S 260 50, 300 150" stroke="var(--accent-color)" stroke-width="6" fill="none" stroke-dasharray="5 5"/><text class="w5 f" x="200" y="60">5G</text></svg>`;return c},
+            'svgLdiLicensing':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family);font-size:14px;fill:var(--main-text-color);font-weight:bold;}.l{stroke-dasharray:200;stroke-dashoffset:200;animation:c 2s ease-out forwards;}@keyframes c{to{stroke-dashoffset:0;}}</style><path d="M96.7,166.36,92.53,153.21l-3.5,6.13-7.5-1.74,10.1-17.51,6.8,1.45-3.6,6.23,4.17,13.15Z" fill="var(--accent-color)"/><path d="M110.51,148.9l-13.6-4.13,3.8-12.57,13.5,4.13Z" fill="var(--accent-color)"/><circle cx="150" cy="100" r="40" fill="none" stroke="#333" stroke-width="2"/><text class="f" x="20" y="30">New LDI Providers</text><text class="f" x="20" y="50">Connecting Pakistan</text><g class="l"><path d="M110 100 L 150 100" stroke="var(--accent-color)" stroke-width="3"/><path d="M150 100 C 200 50, 250 80, 300 80" fill="none" stroke="var(--accent-color)" stroke-width="3"/></g><g class="l" style="animation-delay:0.5s"><path d="M150 100 C 200 150, 250 120, 300 120" fill="none" stroke="var(--accent-color)" stroke-width="3"/></g></svg>`;return c},
+            'svgMvnoLicensing':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family);font-size:14px;fill:var(--main-text-color);font-weight:bold;}.flow{animation:flow 3s linear infinite;}@keyframes flow{from{transform:translateX(0);}to{transform:translateX(40px);}}</style><text class="f" x="200" y="25" text-anchor="middle">MVNOs use MNO Infrastructure</text><rect x="50" y="80" width="300" height="40" fill="#ccc" rx="20"/><g class="flow"><circle cx="70" cy="100" r="8" fill="white"/><circle cx="110" cy="100" r="8" fill="white"/><circle cx="150" cy="100" r="8" fill="white"/></g><text class="f" x="200" y="140" text-anchor="middle">MNO Main Network</text><rect x="180" y="40" width="100" height="30" fill="var(--accent-color)" rx="15"/><path d="M230 70 V 80" stroke="var(--accent-color)" stroke-width="10"/><text class="f" fill="white" x="230" y="60" text-anchor="middle">MVNO</text></svg>`;return c},
+            'svgCloudFirst':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.t{font:bold 14px var(--font-family);fill:#333;}.p{animation:m 2s ease-in-out forwards;}@keyframes m{from{transform:translateX(0);}to{transform:translateX(150px);}}</style><g><rect x="20" y="75" width="80" height="50" fill="#ccc"/><text class="t" x="60" y="105" text-anchor="middle">Min. of IT</text></g><g class="p"><path d="M125,80 h20 v-20 l15,15 l15-15 v20 h20 v40 h-70z" fill="#e0e0e0"/><text class="t" x="160" y="105" text-anchor="middle">Policy</text></g><g><path d="M300 125 L 380 125 L 380 75 L 350 75 L 350 45 L 330 45 L 330 75 L 300 75z" fill="#ccc"/><text class="t" x="340" y="105" text-anchor="middle">Public Sector</text></g></svg>`;return c},
+            'svgBankingCloud':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.t{font:bold 14px var(--font-family);fill:#333;}.s{animation:s 1.5s ease-in-out forwards;transform-origin:center;opacity:0;}@keyframes s{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}</style><g><path d="M250,70 h80 v60 h-80z M250,130 l40,20 l40-20" fill="#ccc" stroke="#333" stroke-width="2"/><text class="t" x="290" y="110" text-anchor="middle">Banking</text><text class="t" x="290" y="125" text-anchor="middle">Sector</text></g><g class="s" transform="translate(100 60)"><path d="M50,0 C10,0 10,40 10,40 V90 H90 V40 C90,40 90,0 50,0z" fill="var(--accent-color)"/><path d="M50,20 a15,10 0 0,0 0,20 a10,5 0 0,0 0-20" fill="none" stroke="white" stroke-width="3"/><text class="t" x="50" y="75" text-anchor="middle" fill="white">Guidelines</text></g></svg>`;return c},
+            'gdpPage_populationCharts':(c)=>{const w1=document.createElement('div');w1.className='multi-chart-wrapper';const w2=document.createElement('div');w2.className='multi-chart-wrapper';c.appendChild(w1);c.appendChild(w2);createChart(w1,{type:'bar',data:{labels:['2023','2024','2030','2040'],datasets:[{label:'Population (M)',data:[240.5,245.2,274,322.6],backgroundColor:'rgba(54,162,235,0.8)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Population Growth'}}}});createChart(w2,{type:'pie',data:{labels:['18-55','<18','55+','8-17'],datasets:[{data:[48,42.4,5.2,4.4],backgroundColor:['#36a2eb','#ffcd56','#ff6384','#4bc0c0']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Population by Age Slab'}}}})},
+            'gdpPage_gdpCharts':(c)=>{const w1=document.createElement('div');w1.className='multi-chart-wrapper';const w2=document.createElement('div');w2.className='multi-chart-wrapper';c.appendChild(w1);c.appendChild(w2);createChart(w1,{type:'bar',data:{labels:['2020','2021','2022','2023'],datasets:[{label:'GDP (US$B)',data:[300.43,348.5,374.7,338.24],backgroundColor:'rgba(75,192,192,0.8)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'GDP by Year'}}}});createChart(w2,{type:'line',data:{labels:['2022','2023','2024(P)','2025(P)','2029(P)'],datasets:[{label:'GDP Growth (%)',data:[6.2,0.2,2.0,3.5,5.0],borderColor:'rgba(255,99,132,1)',tension:0.1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'GDP Growth (%) by Year'}}}})},
+            'gdpPage_broadbandCharts':(c)=>{c.style.flexDirection='column';const w1=document.createElement('div');w1.className='multi-chart-wrapper';const w2=document.createElement('div');w2.className='multi-chart-wrapper';c.appendChild(w1);c.appendChild(w2);createChart(w1,{type:'bar',data:{labels:['Fixed BB Subs (M)'],datasets:[{label:'FTTH',data:[1.49]},{label:'DSL',data:[1.24]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Fixed Broadband Subscribers'}}}});createChart(w2,{type:'bar',data:{labels:['Mobile BB Subs (M)'],datasets:[{label:'2023-24',data:[133.4]},{label:'2024-25',data:[141.9]},{label:'2025-26',data:[150.4]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Mobile Broadband Subscribers'}}}})},
+            'gdpPage_householdStats':(c)=>{c.innerHTML=`<div class="info-graphic"><p>6.16 Persons / Household</p><p>94.9% Access to Electricity</p><p>SPI: 71.1 | HCI: 0.4</p></div>`;return c},
+            'telecomPage_revenueChart':(c)=>{const co={type:'line',data:{labels:['2023','2025','2030'],datasets:[{label:'Market Revenue ($)',data:[3050000000,4670000000,5490000000],borderColor:'rgba(75,192,192,1)',tension:0.1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Telecom Market Revenue Projection'}}}};return createChart(c,co)},
+            'telecomPage_cellularSubsChart':(c)=>{const co={type:'bar',data:{labels:['Jazz','Zong','Telenor','Ufone','SCO'],datasets:[{label:'Subscribers (M)',data:[72.4,43.9,43.9,26.8,1.87],backgroundColor:['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Cellular Subscribers by Operator'}}}};return createChart(c,co)},
+            'telecomPage_fixedSubsChart':(c)=>{const co={type:'bar',data:{labels:['PTCL','Cybernet','NayaTel','Connect'],datasets:[{label:'Subscribers (Thousands)',data:[1911,598.8,189,166.4],backgroundColor:['#4bc0c0','#ff9f40','#ff6384','#36a2eb']}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{title:{display:true,text:'Fixed Broadband Subscribers by Operator'}}}};return createChart(c,co)},
+            'telecomPage_medianSpeedsInfo':(c)=>{c.innerHTML=`<div class="info-graphic"><div class="speed-box"><div class="speed-title">Cellular</div><div class="speed-row"><span>Global:</span><span><b>92.31</b> Mbps ⇩</span><span><b>13.76</b> Mbps ⇧</span></div><div class="speed-row"><span>PAK:</span><span><b>26.33</b> Mbps ⇩</span><span><b>9.18</b> Mbps ⇧</span></div></div><div class="speed-box"><div class="speed-title">Fixed</div><div class="speed-row"><span>Global:</span><span><b>101.37</b> Mbps ⇩</span><span><b>57.39</b> Mbps ⇧</span></div><div class="speed-row"><span>PAK:</span><span><b>15.82</b> Mbps ⇩</span><span><b>15.75</b> Mbps ⇧</span></div></div></div>`;return c},
+            'telenor_launch':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.main-logo{animation:pop-in .5s ease-out forwards;transform-origin:center;transform:scale(0)}.wave{fill:none;stroke:var(--accent-color);stroke-width:2;transform-origin:center;animation:radiate 2.5s ease-out infinite;opacity:0}.node{animation:pop-in .5s ease-out forwards;transform-origin:center;opacity:0}@keyframes pop-in{to{transform:scale(1);opacity:1}}@keyframes radiate{0%{transform:scale(.1);opacity:1}100%{transform:scale(1.5);opacity:0}}</style><g transform="translate(120 20) scale(.6)"><path fill="#ccc" d="M96.7,166.36,92.53,153.21l-3.5,6.13-7.5-1.74,10.1-17.51,6.8,1.45-3.6,6.23,4.17,13.15Z"/><path fill="#ccc" d="M110.51,148.9l-13.6-4.13,3.8-12.57,13.5,4.13Z"/><path fill="#ccc" d="M178,165 l-2,-15 -10,-2 -5,10z M140,142 l-12,-10 -8,-15 10,-5 12,8 5,12z"/><path fill="#ccc" d="M160,50 l20,-10 30,5 10,20 -15,15 -30,-5z"/></g><g class="main-logo"><circle cx="200" cy="100" r="25" fill="var(--accent-color)"/><text x="200" y="106" text-anchor="middle" font-size="24" fill="white" font-weight="bold">T</text></g><g><circle class="wave" cx="200" cy="100" r="30"/><circle class="wave" style="animation-delay:.8s" cx="200" cy="100" r="30"/><circle class="wave" style="animation-delay:1.6s" cx="200" cy="100" r="30"/></g><g fill="var(--accent-color)"><circle class="node" style="animation-delay:.8s" cx="250" cy="120" r="5"/><circle class="node" style="animation-delay:1s" cx="150" cy="80" r="5"/><circle class="node" style="animation-delay:1.2s" cx="180" cy="140" r="5"/><circle class="node" style="animation-delay:1.4s" cx="230" cy="60" r="5"/><circle class="node" style="animation-delay:1.6s" cx="260" cy="90" r="5"/></g><text x="200" y="180" class="f" text-anchor="middle">T-Nor Launch - March 2005</text></svg>`;return c},
+            'telenor_networkIssues':(c)=>{const co={type:'line',data:{labels:['Week 1','Week 2','Week 3','Week 4'],datasets:[{label:'Actual Traffic',data:[120,180,250,350],borderColor:'#ff6384',tension:0.1},{label:'Forecasted Traffic',data:[100,110,120,130],borderColor:'#999',borderDash:[5,5],tension:0.1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Network Traffic: Actual vs. Forecast'}}}};return createChart(c,co)},
+            'telenor_priceWars':(c)=>{const co={type:'line',data:{labels:['2005','2006','2007','2008'],datasets:[{label:'Average Revenue Per User (ARPU)',data:[450,320,210,180],borderColor:'#ff6384',backgroundColor:'rgba(255,99,132,0.5)',fill:true,tension:0.2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'ARPU Decline During Price Wars'}}}};return createChart(c,co)},
+            'telenor_timeline':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);}.p{animation:p 2s ease-out forwards;}@keyframes p{from{stroke-dashoffset:400;}to{stroke-dashoffset:0;}}</style><text class="f" x="200" y="20" text-anchor="middle">T-Nor Company Timeline</text><path d="M20 100 L 380 100" stroke="#ccc" stroke-width="3"/><path class="p" d="M20 100 L 380 100" stroke="var(--accent-color)" stroke-width="3" stroke-dasharray="400"/><circle cx="50" cy="100" r="8" fill="white" stroke="var(--accent-color)" stroke-width="2"/><text class="f" x="50" y="130" text-anchor="middle">2005<tspan x="50" dy="1.2em">Launch</tspan></text><circle cx="190" cy="100" r="8" fill="white" stroke="var(--accent-color)" stroke-width="2"/><text class="f" x="190" y="70" text-anchor="middle">2007<tspan x="190" dy="1.2em">Price Wars</tspan></text><circle cx="350" cy="100" r="8" fill="white" stroke="var(--accent-color)" stroke-width="2"/><text class="f" x="350" y="130" text-anchor="middle">2014<tspan x="350" dy="1.2em">4G License</tspan></text></svg>`;return c},
+            'telenor_loyalty':(c)=>{const co={type:'pie',data:{labels:['Loyal Customers','Multi-SIM Users'],datasets:[{data:[30,70],backgroundColor:['#c9cbcf','#ff9f40']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Erosion of Customer Loyalty'}}}};return createChart(c,co)},
+            'telenor_prepaidMarket':(c)=>{const co={type:'doughnut',data:{labels:['Prepaid (PAYG)','Postpaid'],datasets:[{data:[95,5],backgroundColor:['#36a2eb','#c9cbcf']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Market Segmentation (95% Prepaid)'}}}};return createChart(c,co)},
+            'telenor_churn':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.in{animation:fall 2s linear infinite, fadein 2s linear infinite;}@keyframes fall{from{transform:translateY(-20px);}to{transform:translateY(60px);}}.out{animation:fall 2s 1s linear infinite, fadeout 2s 1s linear infinite;}@keyframes fadein{0%{opacity:0;}25%{opacity:1;}75%{opacity:1;}100%{opacity:0;}}@keyframes fadeout{0%{opacity:1;}25%{opacity:1;}75%{opacity:0;}100%{opacity:0;}}</style><path d="M150 50 L 120 150 H 280 L 250 50 H 150z" fill="#ccc"/><text class="f" x="200" y="40" text-anchor="middle">T-Nor</text><path d="M240 150 L 260 180" stroke="#333" stroke-width="2"/><path d="M235 160 L 245 185" stroke="#333" stroke-width="2"/><g fill="var(--accent-color)"><circle class="in" cx="200" cy="80" r="5"/><circle class="in" style="animation-delay:0.5s" cx="180" cy="80" r="5"/><circle class="in" style="animation-delay:1s" cx="220" cy="80" r="5"/></g><g fill="#ff6384"><circle class="out" cx="250" cy="150" r="5"/><circle class="out" style="animation-delay:0.2s" cx="255" cy="155" r="5"/></g><text class="f" x="300" y="180" text-anchor="middle">Churn</text></svg>`;return c},
+            'telenor_consultant':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.a{animation:a 1.5s ease-out forwards;}@keyframes a{from{stroke-dashoffset:100;}to{stroke-dashoffset:0;}}</style><g><circle cx="80" cy="100" r="20" fill="#ccc"/><circle cx="100" cy="80" r="20" fill="#ccc"/><circle cx="120" cy="100" r="20" fill="#ccc"/><text class="f" x="100" y="150" text-anchor="middle">Internal Team</text></g><path class="a" d="M150 100 H 250 L 240 90 M 250 100 L 240 110" stroke="var(--accent-color)" stroke-width="4" fill="none" stroke-dasharray="100"/><g><rect x="260" y="75" width="120" height="50" fill="var(--accent-color)"/><text class="f" x="320" y="105" text-anchor="middle" fill="white">Gradient Advisors</text></g></svg>`;return c},
+            'context_smartPlan': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family);font-size:16px;fill:var(--main-text-color);}.l{animation:fade-in 1s ease-out forwards;opacity:0;}.w{font-size:14px;}.letter-text{font-size:24px;font-weight:bold;text-anchor:middle;}.word-text{font-style:italic;}@keyframes fade-in{to{opacity:1;}}</style><g class="l" style="animation-delay:0s;"><text class="f letter-text" x="50" y="68">S</text><text class="f w word-text" x="70" y="68">pecific</text></g><g class="l" style="animation-delay:0.2s;"><text class="f letter-text" x="50" y="98">M</text><text class="f w word-text" x="70" y="98">easurable</text></g><g class="l" style="animation-delay:0.4s;"><text class="f letter-text" x="50" y="128">A</text><text class="f w word-text" x="70" y="128">chievable</text></g><g class="l" style="animation-delay:0.6s;"><text class="f letter-text" x="220" y="68">R</text><text class="f w word-text" x="240" y="68">elevant</text></g><g class="l" style="animation-delay:0.8s;"><text class="f letter-text" x="220" y="98">T</text><text class="f w word-text" x="240" y="98">ime-bound</text></g></svg>`; return c;},
+            'context_gradientAdvisors':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s .5s 1s ease-out forwards;transform-origin:center;}.t{opacity:0;animation:o .5s 1.5s forwards;}@keyframes s{to{transform:scale(1);}}@keyframes o{to{opacity:1;}}</style><g><rect x="50" y="80" width="100" height="40" fill="#ccc" rx="5"/><text class="f" x="100" y="105" text-anchor="middle">T-Nor</text></g><g><rect x="250" y="80" width="100" height="40" fill="var(--accent-color)" rx="5"/><text class="f" fill="white" x="300" y="105" text-anchor="middle">GA</text></g><g class="s"><path d="M165 90 l-10 10 l20 20 l40-40 l-10-10 l-30 30z" fill="limegreen"/></g><text class="f t" x="200" y="160" text-anchor="middle">Key Focal Areas Defined</text></svg>`;return c},
+            'remedial_churn':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.cust{animation:c 4s linear infinite;}@keyframes c{0%{fill:var(--accent-color);}40%{fill:red;}60%{fill:red;}100%{fill:limegreen;}}.offer{opacity:0;animation:o 4s linear infinite;}@keyframes o{45%{opacity:0;}60%{opacity:1;}100%{opacity:0;}}</style><text class="f" x="200" y="30" text-anchor="middle">Predictive Churn Management</text><circle class="cust" cx="100" cy="100" r="20"/><path class="offer" d="M130 100 L 250 100" stroke="limegreen" stroke-width="3" stroke-dasharray="5 5"/><text class="offer f" fill="limegreen" x="260" y="105">Retention Offer</text><circle class="cust" style="animation-delay: -1s;" cx="200" cy="100" r="20"/><circle class="cust" style="animation-delay: -2s;" cx="300" cy="100" r="20"/></svg>`;return c},
+            'remedial_centricity':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.orb{animation:orb 10s linear infinite;transform-origin:200px 100px;}.p2{animation-delay:-3.3s;}.p3{animation-delay:-6.6s;}@keyframes orb{from{transform:rotate(0deg) translateX(100px) rotate(0deg);}to{transform:rotate(360deg) translateX(100px) rotate(-360deg);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Centricity</text><path fill="var(--accent-color)" d="M200,90 C180,80 180,120 200,110 C220,120 220,80 200,90 Z"/><g class="orb"><circle fill="#333" r="15"/></g><g class="orb p2"><circle fill="#333" r="15"/></g><g class="orb p3"><circle fill="#333" r="15"/></g></svg>`;return c},
+            'remedial_network':(c)=>{const co={type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Network Uptime (%)',data:[99.98,99.99,99.97,99.99,99.98,99.99,99.99],borderColor:'limegreen',backgroundColor:'rgba(50,205,50,0.2)',fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:99.95,max:100}},plugins:{title:{display:true,text:'Network Health (Target: 99.99%)'}}}};return createChart(c,co)},
+            'remedial_marketing':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.p{animation:p 3s ease-in-out infinite alternate;}@keyframes p{from{opacity:0.2;}to{opacity:1;}}</style><text class="f" x="200" y="30" text-anchor="middle">AI-Driven Personalized Marketing</text><g><circle cx="80" cy="100" r="25" fill="#ccc"/><text class="f" x="80" y="105" text-anchor="middle">User</text></g><g><path class="p" d="M110 90 L 160 90" stroke="#333" stroke-width="2"/><path class="p" style="animation-delay:0.2s" d="M110 110 L 160 110" stroke="#333" stroke-width="2"/></g><g><path d="M170,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="100" text-anchor="middle">AI</text></g><g><path class="p" style="animation-delay:0.4s" d="M240 100 L 300 100" stroke="limegreen" stroke-width="3"/><rect class="p" style="animation-delay:0.5s" x="310" y="80" width="60" height="40" fill="limegreen" rx="5"/><text class="p f" style="animation-delay:0.5s" fill="white" x="340" y="105" text-anchor="middle">Offer</text></g></svg>`;return c},
+            'remedial_loyalty':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s 1s .5s ease-out forwards;}@keyframes s{to{transform:scale(1);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Loyalty Programs</text><circle cx="120" cy="100" r="25" fill="#ccc"/><g class="s"><path d="M300 100 L 200 100" stroke="var(--accent-color)" stroke-width="4"/><path d="M200 100 l30 -30 l-10 0 l-20 20 l-20-20 l-10 0z" fill="var(--accent-color)"/><text class="f" x="250" y="90" text-anchor="middle">Rewards</text></g></svg>`;return c}
         };
-
-        const chartGenerators = { 'populationRankChart': (canvasCtx) => { const data = { labels: ['India', 'China', 'United States', 'Indonesia', 'Pakistan'], datasets: [{ label: 'Population (in Billions)', data: [1.428, 1.425, 0.339, 0.277, 0.244], backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.8)'], borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'], borderWidth: 1 }] }; return new Chart(canvasCtx, { type: 'bar', data: data, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500, easing: 'easeInOutQuart' }, plugins: { title: { display: true, text: 'Top 5 Most Populous Countries' } } } }); }, 'youthBulgeChart': (canvasCtx) => { const data = { labels: ['Population 30 & Below', 'Population Over 30'], datasets: [{ data: [60, 40], backgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(255, 159, 64, 0.8)'], hoverOffset: 4 }] }; return new Chart(canvasCtx, { type: 'doughnut', data: data, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500, easing: 'easeInOutQuart' }, plugins: { title: { display: true, text: 'Pakistan\'s Youth Bulge (Median Age: 23)' } } } }); }, 'ruralUrbanDivideChart': (canvasCtx) => { const data = { labels: ['Rural Population', 'Urban Population'], datasets: [{ data: [65, 35], backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(255, 99, 132, 0.8)'], hoverOffset: 4 }] }; return new Chart(canvasCtx, { type: 'pie', data: data, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500, easing: 'easeInOutQuart' }, plugins: { title: { display: true, text: 'Rural vs. Urban Population Divide' } } } }); }, 'demographicDividendChart': (canvasCtx) => { const data = { labels: ['Working-Age Population', 'Dependent Population'], datasets: [{ label: 'Population Ratio', data: [1.6, 1], backgroundColor: ['rgba(153, 102, 255, 0.8)', 'rgba(201, 203, 207, 0.8)'], barPercentage: 0.5 }] }; return new Chart(canvasCtx, { type: 'bar', data: data, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', animation: { duration: 1500, easing: 'easeInOutQuart' }, plugins: { title: { display: true, text: 'Demographic Dividend: Working vs. Dependent' } } } }); } };
-
+        
+        function renderPage(pageIndex) { currentPageIndex = pageIndex; const pageData = presentationData[pageIndex]; mainTitle.innerHTML = pageData.title; subheadingList.innerHTML = ''; for (const id in pageData.subheadings) { const subheading = pageData.subheadings[id]; const li = document.createElement('li'); li.innerHTML = subheading.text; li.dataset.subheadingId = id; li.dataset.tooltip = subheading.tooltip; if(subheading.isCategory){ li.classList.add('subheading-category'); } if(subheading.isIndented){ li.classList.add('indented-subheading'); } subheadingList.appendChild(li); } const firstClickable = subheadingList.querySelector('li:not(.subheading-category)'); if (firstClickable) { firstClickable.click(); } renderPageSwitcher(); }
+        function renderPageSwitcher() { pageSwitcher.innerHTML = ''; presentationData.forEach((page, index) => { const dot = document.createElement('div'); dot.className = 'dot page-dot'; if (index === currentPageIndex) { dot.classList.add('active'); } dot.dataset.pageIndex = index; pageSwitcher.appendChild(dot); }); }
+        
         function renderMedia(subheadingId, contentIndex = 0) {
-            if (currentChart) {
-                currentChart.destroy();
-                currentChart = null;
-            }
-            mediaContainer.innerHTML = '';
+            currentCharts.forEach(c => c.destroy()); currentCharts = [];
+            mediaContainer.innerHTML = ''; mediaContainer.style.flexDirection = 'row';
             
-            const subheading = subheadingsData[subheadingId];
-            if (!subheading) return;
+            const subheading = presentationData[currentPageIndex].subheadings[subheadingId];
+            if (!subheading || !subheading.content) return;
 
             const selectedContent = subheading.content[contentIndex];
-            const chartContent = subheading.content.find(item => item.type === 'chart');
-            const videoContent = subheading.content.find(item => item.type === 'video');
+             if (!selectedContent || selectedContent.type === 'empty') { updateMediaSwitcher(subheadingId, contentIndex); return; }
+
+            const primaryContent = subheading.content.find(item => ['chart','svg','multi-chart', 'info-graphic'].includes(item.type));
+            const videoContent = subheading.content.find(item => item.type === 'video' || item.type === 'youtube');
 
             if (videoContent) {
-                const video = document.createElement('video');
-                video.src = videoContent.url;
-                video.autoplay = true;
-                video.muted = true;
-                video.loop = true;
-                video.playsInline = true;
-
-                const canvas = document.createElement('canvas');
-                
-                mediaContainer.appendChild(video);
-                mediaContainer.appendChild(canvas);
-
-                currentChart = chartGenerators[chartContent.generator](canvas.getContext('2d'));
-
-                if (selectedContent.type === 'chart') {
-                    video.className = 'video-background';
-                    canvas.className = 'chart-foreground';
+                let videoElement;
+                if(videoContent.type === 'youtube') {
+                    videoElement = document.createElement('iframe');
+                    videoElement.src = `https://www.youtube.com/embed/${videoContent.videoId}?autoplay=1&mute=1&loop=1&playlist=${videoContent.videoId}&controls=0&showinfo=0&iv_load_policy=3`;
+                    videoElement.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                    videoElement.setAttribute('allowfullscreen', '');
                 } else {
-                    video.className = 'video-foreground';
-                    canvas.className = 'chart-hidden';
+                    videoElement = document.createElement('video');
+                    videoElement.src = videoContent.url; videoElement.autoplay = true; videoElement.muted = true; videoElement.loop = true; videoElement.playsInline = true;
                 }
-            } 
-            else if (chartContent) {
-                const canvas = document.createElement('canvas');
-                mediaContainer.appendChild(canvas);
-                currentChart = chartGenerators[chartContent.generator](canvas.getContext('2d'));
+                mediaContainer.appendChild(videoElement);
+                
+                if (primaryContent && mediaGenerators[primaryContent.generator]) {
+                    const foregroundElement = mediaGenerators[primaryContent.generator](mediaContainer);
+                    if (selectedContent.type !== 'video' && selectedContent.type !== 'youtube') { 
+                        videoElement.className = 'video-background'; 
+                        if (foregroundElement) foregroundElement.className = ['multi-chart', 'info-graphic'].includes(primaryContent.type) ? '' : 'chart-foreground'; 
+                    } else { 
+                        videoElement.className = 'video-foreground'; 
+                        if (foregroundElement) foregroundElement.className = 'chart-hidden'; 
+                    }
+                } else { videoElement.className = 'video-foreground'; }
+            } else if (primaryContent) {
+                 mediaGenerators[primaryContent.generator](mediaContainer);
             }
-
-            updateSwitcher(subheadingId, contentIndex);
+            updateMediaSwitcher(subheadingId, contentIndex);
         }
         
-        function updateSwitcher(subheadingId, activeIndex) {
+        function updateMediaSwitcher(subheadingId, activeIndex) {
             mediaSwitcher.innerHTML = '';
-            const subheading = subheadingsData[subheadingId];
-            if (!subheading || subheading.content.length <= 1) return;
-
-            subheading.content.forEach((item, index) => {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (index === activeIndex) {
-                    dot.classList.add('active');
-                }
-                dot.addEventListener('click', () => {
-                    renderMedia(subheadingId, index);
-                });
-                mediaSwitcher.appendChild(dot);
-            });
+            const subheading = presentationData[currentPageIndex].subheadings[subheadingId];
+            if (!subheading || !subheading.content || subheading.content[0].type === 'empty' || subheading.content.length <= 1) return;
+            subheading.content.forEach((item, index) => { const dot = document.createElement('div'); dot.className = 'dot'; if (index === activeIndex) { dot.classList.add('active'); } dot.dataset.mediaIndex = index; dot.dataset.subheadingId = subheadingId; mediaSwitcher.appendChild(dot); });
         }
-
-        const subHeadingList = document.querySelector('#left-pane ul');
-        subHeadingList.addEventListener('click', (e) => {
-            const targetLi = e.target.closest('li');
-            if (!targetLi) return;
-            
-            document.querySelectorAll('#left-pane li').forEach(li => li.classList.remove('active'));
-            targetLi.classList.add('active');
-            
-            const subheadingId = targetLi.dataset.subheadingId;
-            renderMedia(subheadingId, 0);
-        });
         
-        // --- 3. TOOLTIP LOGIC ---
-        const headings = document.querySelectorAll('#left-pane li');
-        const tooltip = document.getElementById('tooltip');
-        headings.forEach(heading => {
-            heading.addEventListener('mouseover', (e) => {
-                tooltip.innerHTML = heading.getAttribute('data-tooltip');
-                tooltip.style.display = 'block';
-            });
-            heading.addEventListener('mousemove', (e) => {
-                const tooltipHeight = tooltip.offsetHeight;
-                const viewportHeight = window.innerHeight;
-                let topPosition = e.clientY + 15;
-                if (topPosition + tooltipHeight > viewportHeight) {
-                    topPosition = e.clientY - tooltipHeight - 15;
-                }
-                tooltip.style.left = `${e.clientX + 15}px`;
-                tooltip.style.top = `${topPosition}px`;
-            });
-            heading.addEventListener('mouseout', () => {
-                tooltip.style.display = 'none';
-            });
-        });
+        subheadingList.addEventListener('click', (e) => { const targetLi = e.target.closest('li'); if (!targetLi || targetLi.classList.contains('subheading-category')) return; document.querySelectorAll('#left-pane li').forEach(li => li.classList.remove('active')); targetLi.classList.add('active'); const subheadingId = targetLi.dataset.subheadingId; renderMedia(subheadingId, 0); });
+        pageSwitcher.addEventListener('click', (e) => { const targetDot = e.target.closest('.page-dot'); if (targetDot) { renderPage(parseInt(targetDot.dataset.pageIndex)); } });
+        mediaSwitcher.addEventListener('click', (e) => { const targetDot = e.target.closest('.dot'); if (targetDot) { const subheadingId = targetDot.dataset.subheadingId; const mediaIndex = parseInt(targetDot.dataset.mediaIndex); renderMedia(subheadingId, mediaIndex); } });
+        subheadingList.addEventListener('mouseover', (e) => { const targetLi = e.target.closest('li'); if(targetLi && !targetLi.classList.contains('subheading-category')) { tooltip.innerHTML = targetLi.getAttribute('data-tooltip'); tooltip.style.display = 'block'; } });
+        subheadingList.addEventListener('mousemove', (e) => { const targetLi = e.target.closest('li'); if(targetLi && !targetLi.classList.contains('subheading-category')){ const tooltipHeight = tooltip.offsetHeight; const viewportHeight = window.innerHeight; let topPosition = e.clientY + 15; if (topPosition + tooltipHeight > viewportHeight) { topPosition = e.clientY - tooltipHeight - 15; } tooltip.style.left = `${e.clientX + 15}px`; tooltip.style.top = `${topPosition}px`; } });
+        subheadingList.addEventListener('mouseout', (e) => { const targetLi = e.target.closest('li'); if(targetLi){ tooltip.style.display = 'none'; } });
 
-        // Initial Load
-        document.querySelector('#left-pane li:first-child').click();
+        function init() {
+            document.addEventListener('keydown', (e) => {
+                let newIndex = currentPageIndex;
+                if (e.key === 'ArrowRight') {
+                    newIndex = (currentPageIndex + 1) % presentationData.length;
+                } else if (e.key === 'ArrowLeft') {
+                    newIndex = (currentPageIndex - 1 + presentationData.length) % presentationData.length;
+                }
+                if (newIndex !== currentPageIndex) {
+                    renderPage(newIndex);
+                }
+            });
+            
+            const bgCanvas = document.getElementById('background-canvas');
+            const bgCtx = bgCanvas.getContext('2d');
+            bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; animateBg(bgCtx, bgCanvas); 
+            let _recordedPath = [];
+            const recordFn = (e) => _recordedPath.push({x:e.clientX, y:e.clientY});
+            window.addEventListener('mousemove', recordFn);
+            setInterval(() => processBranchers(), 1000 / 20); 
+            setInterval(() => triggerPlayback(_recordedPath), 5000); 
+            window.addEventListener('resize', () => { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; });
+            renderPage(0);
+        }
+        
+        let strokes = []; let branches = []; let brancherPool = [];
+        const MARK_LIFETIME = 10000; const BIFURCATION_STEPS = 20;
+        function triggerPlayback(path) { if (path.length < 2) { path.length=0; return; } const newStroke = path.map(p => ({ x: p.x, y: p.y, time: Date.now() })); strokes.push(newStroke); path.length = 0; const p1 = newStroke[0]; const p2 = newStroke[1]; let angle = Math.atan2(p2.y - p1.y, p2.x - p1.x); let oppositeAngle = angle + Math.PI; brancherPool.push({ queue: [{ x: p2.x, y: p2.y, angle: oppositeAngle - 0.3, width: 7 * 0.8, step: 0 }, { x: p2.x, y: p2.y, angle: oppositeAngle + 0.3, width: 7 * 0.8, step: 0 }] }); const lastPoint = newStroke[newStroke.length - 1]; const secondLastPoint = newStroke[newStroke.length - 2]; angle = Math.atan2(lastPoint.y - secondLastPoint.y, lastPoint.x - secondLastPoint.x); brancherPool.push({ queue: [{ x: lastPoint.x, y: lastPoint.y, angle: angle - 0.3, width: 7 * 0.8, step: 0 }, { x: lastPoint.x, y: lastPoint.y, angle: angle + 0.3, width: 7 * 0.8, step: 0 }] }); }
+        function getDecayColor(creationTime) { const age = Date.now() - creationTime; const life = Math.min(age / MARK_LIFETIME, 1); const startColor = { r: 173, g: 216, b: 230 }; const endColor = { r: 220, g: 205, b: 190 }; const t = life; const r = startColor.r + t * (endColor.r - startColor.r); const g = startColor.g + t * (endColor.g - startColor.g); const b = startColor.b + t * (endColor.b - startColor.b); const alpha = 1 - Math.pow(t, 2); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
+        function processBranchers() { for (let i = brancherPool.length - 1; i >= 0; i--) { const brancher = brancherPool[i]; for (let j = 0; j < 50 && brancher.queue.length > 0; j++) { const task = brancher.queue.shift(); if (task.step >= BIFURCATION_STEPS || task.width < 0.5) continue; const length = Math.random() * 20 + 10; const endX = task.x + Math.cos(task.angle) * length; const endY = task.y + Math.sin(task.angle) * length; branches.push({ x1: task.x, y1: task.y, x2: endX, y2: endY, width: task.width, time: Date.now() }); const nextWidth = task.width * 0.8; brancher.queue.push({ x: endX, y: endY, angle: task.angle - (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); brancher.queue.push({ x: endX, y: endY, angle: task.angle + (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); } if (brancher.queue.length === 0) { brancherPool.splice(i, 1); } } }
+        function animateBg(ctx, canvas) { ctx.clearRect(0, 0, canvas.width, canvas.height); const now = Date.now(); for (const stroke of strokes) { for (let i = 1; i < stroke.length; i++) { ctx.beginPath(); ctx.moveTo(stroke[i - 1].x, stroke[i - 1].y); ctx.lineTo(stroke[i].x, stroke[i].y); ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(stroke[i].time); ctx.stroke(); } } for (const branch of branches) { ctx.beginPath(); ctx.moveTo(branch.x1, branch.y1); ctx.lineTo(branch.x2, branch.y2); ctx.lineWidth = branch.width; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(branch.time); ctx.stroke(); } strokes = strokes.map(stroke => stroke.filter(p => now - p.time < MARK_LIFETIME)).filter(stroke => stroke.length > 0); branches = branches.filter(branch => now - branch.time < MARK_LIFETIME); requestAnimationFrame(() => animateBg(ctx, canvas)); }
+        
+        init();
+    });
     </script>
 </body>
 </html>
