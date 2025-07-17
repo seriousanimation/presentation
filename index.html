@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Presentation</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         :root {
             --bg-color: #f0f0f0;
@@ -25,13 +26,22 @@
             color: var(--main-text-color);
         }
 
-        #background-canvas {
+        #background-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
+            overflow: hidden;
+        }
+
+        #background-container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .presentation-grid {
@@ -200,7 +210,7 @@
     <div id="tooltip"></div>
     <div id="page-switcher"></div>
     
-    <canvas id="background-canvas"></canvas>
+    <div id="background-container"></div>
 
     <div class="presentation-grid">
         <div id="left-pane" class="pane">
@@ -229,6 +239,13 @@
         
         let currentCharts = [];
         let currentPageIndex = 0;
+        
+        // --- Updated global variables for background management ---
+        let bgContainer;
+        let p5Sketch = null;
+        let vanillaWaveArt = null;
+        let originalAnimationId = null;
+
 
         const presentationData = [
             { // Page 1
@@ -307,6 +324,7 @@
         
         const createChart = (container, config) => { const canvas = document.createElement('canvas'); container.appendChild(canvas); const chart = new Chart(canvas.getContext('2d'), config); currentCharts.push(chart); return canvas; };
         const mediaGenerators = { 
+            // All generators are complete and restored here
             'populationRankChart':(c)=>{const co={type:'bar',data:{labels:['India','China','US','Indonesia','Pakistan'],datasets:[{label:'Population (B)',data:[1.428,1.425,0.339,0.277,0.244],backgroundColor:['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Top 5 Most Populous Countries'}}}};return createChart(c,co)},
             'youthBulgeChart':(c)=>{const co={type:'doughnut',data:{labels:['30 & Below','Over 30'],datasets:[{data:[60,40],backgroundColor:['#4bc0c0','#ff9f40']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Youth Bulge (Median Age: 23)'}}}};return createChart(c,co)},
             'ruralUrbanDivideChart':(c)=>{const co={type:'pie',data:{labels:['Rural','Urban'],datasets:[{data:[65,35],backgroundColor:['#36a2eb','#ff6384']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Rural vs. Urban Population Divide'}}}};return createChart(c,co)},
@@ -338,14 +356,263 @@
             'telenor_consultant':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.a{animation:a 1.5s ease-out forwards;}@keyframes a{from{stroke-dashoffset:100;}to{stroke-dashoffset:0;}}</style><g><circle cx="80" cy="100" r="20" fill="#ccc"/><circle cx="100" cy="80" r="20" fill="#ccc"/><circle cx="120" cy="100" r="20" fill="#ccc"/><text class="f" x="100" y="150" text-anchor="middle">Internal Team</text></g><path class="a" d="M150 100 H 250 L 240 90 M 250 100 L 240 110" stroke="var(--accent-color)" stroke-width="4" fill="none" stroke-dasharray="100"/><g><rect x="260" y="75" width="120" height="50" fill="var(--accent-color)"/><text class="f" x="320" y="105" text-anchor="middle" fill="white">Gradient Advisors</text></g></svg>`;return c},
             'context_smartPlan': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family);font-size:16px;fill:var(--main-text-color);}.l{animation:fade-in 1s ease-out forwards;opacity:0;}.w{font-size:14px;}.letter-text{font-size:24px;font-weight:bold;text-anchor:middle;}.word-text{font-style:italic;}@keyframes fade-in{to{opacity:1;}}</style><g class="l" style="animation-delay:0s;"><text class="f letter-text" x="50" y="68">S</text><text class="f w word-text" x="70" y="68">pecific</text></g><g class="l" style="animation-delay:0.2s;"><text class="f letter-text" x="50" y="98">M</text><text class="f w word-text" x="70" y="98">easurable</text></g><g class="l" style="animation-delay:0.4s;"><text class="f letter-text" x="50" y="128">A</text><text class="f w word-text" x="70" y="128">chievable</text></g><g class="l" style="animation-delay:0.6s;"><text class="f letter-text" x="220" y="68">R</text><text class="f w word-text" x="240" y="68">elevant</text></g><g class="l" style="animation-delay:0.8s;"><text class="f letter-text" x="220" y="98">T</text><text class="f w word-text" x="240" y="98">ime-bound</text></g></svg>`; return c;},
             'context_gradientAdvisors':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s .5s 1s ease-out forwards;transform-origin:center;}.t{opacity:0;animation:o .5s 1.5s forwards;}@keyframes s{to{transform:scale(1);}}@keyframes o{to{opacity:1;}}</style><g><rect x="50" y="80" width="100" height="40" fill="#ccc" rx="5"/><text class="f" x="100" y="105" text-anchor="middle">T-Nor</text></g><g><rect x="250" y="80" width="100" height="40" fill="var(--accent-color)" rx="5"/><text class="f" fill="white" x="300" y="105" text-anchor="middle">GA</text></g><g class="s"><path d="M165 90 l-10 10 l20 20 l40-40 l-10-10 l-30 30z" fill="limegreen"/></g><text class="f t" x="200" y="160" text-anchor="middle">Key Focal Areas Defined</text></svg>`;return c},
-            'remedial_churn':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.cust{animation:c 4s linear infinite;}@keyframes c{0%{fill:var(--accent-color);}40%{fill:red;}60%{fill:red;}100%{fill:limegreen;}}.offer{opacity:0;animation:o 4s linear infinite;}@keyframes o{45%{opacity:0;}60%{opacity:1;}100%{opacity:0;}}</style><text class="f" x="200" y="30" text-anchor="middle">Predictive Churn Management</text><circle class="cust" cx="100" cy="100" r="20"/><path class="offer" d="M130 100 L 250 100" stroke="limegreen" stroke-width="3" stroke-dasharray="5 5"/><text class="offer f" fill="limegreen" x="260" y="105">Retention Offer</text><circle class="cust" style="animation-delay: -1s;" cx="200" cy="100" r="20"/><circle class="cust" style="animation-delay: -2s;" cx="300" cy="100" r="20"/></svg>`;return c},
-            'remedial_centricity':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.orb{animation:orb 10s linear infinite;transform-origin:200px 100px;}.p2{animation-delay:-3.3s;}.p3{animation-delay:-6.6s;}@keyframes orb{from{transform:rotate(0deg) translateX(100px) rotate(0deg);}to{transform:rotate(360deg) translateX(100px) rotate(-360deg);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Centricity</text><path fill="var(--accent-color)" d="M200,90 C180,80 180,120 200,110 C220,120 220,80 200,90 Z"/><g class="orb"><circle fill="#333" r="15"/></g><g class="orb p2"><circle fill="#333" r="15"/></g><g class="orb p3"><circle fill="#333" r="15"/></g></svg>`;return c},
-            'remedial_network':(c)=>{const co={type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Network Uptime (%)',data:[99.98,99.99,99.97,99.99,99.98,99.99,99.99],borderColor:'limegreen',backgroundColor:'rgba(50,205,50,0.2)',fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:99.95,max:100}},plugins:{title:{display:true,text:'Network Health (Target: 99.99%)'}}}};return createChart(c,co)},
-            'remedial_marketing':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.p{animation:p 3s ease-in-out infinite alternate;}@keyframes p{from{opacity:0.2;}to{opacity:1;}}</style><text class="f" x="200" y="30" text-anchor="middle">AI-Driven Personalized Marketing</text><g><circle cx="80" cy="100" r="25" fill="#ccc"/><text class="f" x="80" y="105" text-anchor="middle">User</text></g><g><path class="p" d="M110 90 L 160 90" stroke="#333" stroke-width="2"/><path class="p" style="animation-delay:0.2s" d="M110 110 L 160 110" stroke="#333" stroke-width="2"/></g><g><path d="M170,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="100" text-anchor="middle">AI</text></g><g><path class="p" style="animation-delay:0.4s" d="M240 100 L 300 100" stroke="limegreen" stroke-width="3"/><rect class="p" style="animation-delay:0.5s" x="310" y="80" width="60" height="40" fill="limegreen" rx="5"/><text class="p f" style="animation-delay:0.5s" fill="white" x="340" y="105" text-anchor="middle">Offer</text></g></svg>`;return c},
-            'remedial_loyalty':(c)=>{c.innerHTML=`<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s 1s .5s ease-out forwards;}@keyframes s{to{transform:scale(1);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Loyalty Programs</text><circle cx="120" cy="100" r="25" fill="#ccc"/><g class="s"><path d="M300 100 L 200 100" stroke="var(--accent-color)" stroke-width="4"/><path d="M200 100 l30 -30 l-10 0 l-20 20 l-20-20 l-10 0z" fill="var(--accent-color)"/><text class="f" x="250" y="90" text-anchor="middle">Rewards</text></g></svg>`;return c}
+            'remedial_churn': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.cust{animation:c 4s linear infinite;}@keyframes c{0%{fill:var(--accent-color);}40%{fill:red;}60%{fill:red;}100%{fill:limegreen;}}.offer{opacity:0;animation:o 4s linear infinite;}@keyframes o{45%{opacity:0;}60%{opacity:1;}100%{opacity:0;}}</style><text class="f" x="200" y="30" text-anchor="middle">Predictive Churn Management</text><circle class="cust" cx="100" cy="100" r="20"/><path class="offer" d="M130 100 L 250 100" stroke="limegreen" stroke-width="3" stroke-dasharray="5 5"/><text class="offer f" fill="limegreen" x="260" y="105">Retention Offer</text><circle class="cust" style="animation-delay: -1s;" cx="200" cy="100" r="20"/><circle class="cust" style="animation-delay: -2s;" cx="300" cy="100" r="20"/></svg>`; return c; },
+            'remedial_centricity': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.orb{animation:orb 10s linear infinite;transform-origin:200px 100px;}.p2{animation-delay:-3.3s;}.p3{animation-delay:-6.6s;}@keyframes orb{from{transform:rotate(0deg) translateX(100px) rotate(0deg);}to{transform:rotate(360deg) translateX(100px) rotate(-360deg);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Centricity</text><path fill="var(--accent-color)" d="M200,90 C180,80 180,120 200,110 C220,120 220,80 200,90 Z"/><g class="orb"><circle fill="#333" r="15"/></g><g class="orb p2"><circle fill="#333" r="15"/></g><g class="orb p3"><circle fill="#333" r="15"/></g></svg>`; return c; },
+            'remedial_network': (c) => { const co={type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Network Uptime (%)',data:[99.98,99.99,99.97,99.99,99.98,99.99,99.99],borderColor:'limegreen',backgroundColor:'rgba(50,205,50,0.2)',fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:99.95,max:100}},plugins:{title:{display:true,text:'Network Health (Target: 99.99%)'}}}};return createChart(c,co)},
+            'remedial_marketing': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.p{animation:p 3s ease-in-out infinite alternate;}@keyframes p{from{opacity:0.2;}to{opacity:1;}}</style><text class="f" x="200" y="30" text-anchor="middle">AI-Driven Personalized Marketing</text><g><circle cx="80" cy="100" r="25" fill="#ccc"/><text class="f" x="80" y="105" text-anchor="middle">User</text></g><g><path class="p" d="M110 90 L 160 90" stroke="#333" stroke-width="2"/><path class="p" style="animation-delay:0.2s" d="M110 110 L 160 110" stroke="#333" stroke-width="2"/></g><g><path d="M170,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="100" text-anchor="middle">AI</text></g><g><path class="p" style="animation-delay:0.4s" d="M240 100 L 300 100" stroke="limegreen" stroke-width="3"/><rect class="p" style="animation-delay:0.5s" x="310" y="80" width="60" height="40" fill="limegreen" rx="5"/><text class="p f" style="animation-delay:0.5s" fill="white" x="340" y="105" text-anchor="middle">Offer</text></g></svg>`; return c; },
+            'remedial_loyalty': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s 1s .5s ease-out forwards;}@keyframes s{to{transform:scale(1);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Loyalty Programs</text><circle cx="120" cy="100" r="25" fill="#ccc"/><g class="s"><path d="M300 100 L 200 100" stroke="var(--accent-color)" stroke-width="4"/><path d="M200 100 l30 -30 l-10 0 l-20 20 l-20-20 l-10 0z" fill="var(--accent-color)"/><text class="f" x="250" y="90" text-anchor="middle">Rewards</text></g></svg>`; return c; }
         };
+
+        // --- Added: New p5.js background art from NodeBg.html ---
+        const p5_sketch = (p) => {
+            let nodes = [];
+            const numNodes = 300;
+            const cursorRadius = 300;
+            const neighborRadius = 120;
+            const collisionDistance = 10;
+            const attractionStrength = 1.0 / 3.0; 
+            const wanderStrength = 0.05;
+
+            let blackColor, saturatedBlueColor, greenColor;
+
+            class Node {
+                constructor(x, y) {
+                    this.position = p.createVector(x, y);
+                    this.velocity = p.createVector(0, 0);
+                    this.acceleration = p.createVector(0, 0);
+                    this.damping = 0.96;
+                    this.age = 0;
+                    this.maxAge = p.random(500, 900);
+                    this.color = p.color(255); 
+                }
+                applyForce(force) { this.acceleration.add(force); }
+                update() {
+                    this.velocity.add(this.acceleration);
+                    this.position.add(this.velocity);
+                    this.acceleration.mult(0);
+                    this.velocity.mult(this.damping);
+                    this.age++;
+                }
+                isOld() { return this.age > this.maxAge; }
+            }
+
+            p.setup = () => {
+                p.createCanvas(p.windowWidth, p.windowHeight);
+                blackColor = p.color(100, 100, 100);
+                saturatedBlueColor = p.color(0, 170, 255);
+                greenColor = p.color(100, 255, 100);
+
+                for (let i = 0; i < numNodes; i++) {
+                    nodes.push(new Node(p.random(p.width), p.random(p.height)));
+                }
+            };
+
+            p.draw = () => {
+                p.background(228); 
+                let mouseSpeed = p.dist(p.mouseX, p.mouseY, p.pmouseX, p.pmouseY);
+
+                for (let i = 0; i < nodes.length; i++) {
+                    let node = nodes[i];
+                    node.update();
+                    
+                    let died = false;
+                    if (node.isOld()) {
+                        died = true;
+                    } else {
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            if (p.dist(node.position.x, node.position.y, nodes[j].position.x, nodes[j].position.y) < collisionDistance) {
+                                died = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (died) {
+                        nodes[i] = new Node(p.random(p.width), p.random(p.height));
+                        continue;
+                    }
+                    
+                    let wanderForce = p.constructor.Vector.random2D();
+                    wanderForce.setMag(wanderStrength);
+                    node.applyForce(wanderForce);
+
+                    let cursorDist = p.dist(p.mouseX, p.mouseY, node.position.x, node.position.y);
+                    if (cursorDist < cursorRadius && mouseSpeed > 0.5) {
+                        let force = p.constructor.Vector.sub(p.createVector(p.mouseX, p.mouseY), node.position);
+                        let magnitude = p.map(mouseSpeed, 1, 60, 0, attractionStrength); 
+                        force.setMag(magnitude);
+                        node.applyForce(force);
+                    }
+                    
+                    let ageRatio = node.age / node.maxAge;
+                    if (ageRatio < 0.5) {
+                        let amount = p.map(ageRatio, 0, 0.5, 0, 1);
+                        node.color = p.lerpColor(blackColor, saturatedBlueColor, amount);
+                    } else {
+                        let amount = p.map(ageRatio, 0.5, 1, 0, 1);
+                        node.color = p.lerpColor(saturatedBlueColor, greenColor, amount);
+                    }
+                }
+
+                for (let i = 0; i < nodes.length; i++) {
+                    let nodeA = nodes[i];
+                    let cursorDist = p.dist(p.mouseX, p.mouseY, nodeA.position.x, nodeA.position.y);
+
+                    if (cursorDist < cursorRadius) {
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            let nodeB = nodes[j];
+                            if (p.dist(nodeA.position.x, nodeA.position.y, nodeB.position.x, nodeB.position.y) < neighborRadius) {
+                                let lineColor = p.lerpColor(nodeA.color, nodeB.color, 0.5);
+                                let alpha = p.map(cursorDist, 0, cursorRadius, 255, 50);
+                                lineColor.setAlpha(alpha);
+                                let weight = p.map(p.dist(nodeA.position.x, nodeA.position.y, nodeB.position.x, nodeB.position.y), 0, neighborRadius, 1.5, 0.2);
+                                p.stroke(lineColor);
+                                p.strokeWeight(weight);
+                                p.line(nodeA.position.x, nodeA.position.y, nodeB.position.x, nodeB.position.y);
+                            }
+                        }
+                    }
+                }
+            };
+            
+            p.windowResized = () => {
+                p.resizeCanvas(p.windowWidth, p.windowHeight);
+                nodes = [];
+                 for (let i = 0; i < numNodes; i++) {
+                    nodes.push(new Node(p.random(p.width), p.random(p.height)));
+                }
+            };
+        };
+
+        function WaveArt(container) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            container.appendChild(canvas);
+
+            let width, height, mouseX, mouseY, animationId, time = 0;
+            const resizeCanvas = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; };
+            resizeCanvas();
+            mouseX = width / 2; mouseY = height / 2;
+
+            const createGradient = (colors, vertical = false) => {
+                let gradient = vertical ? ctx.createLinearGradient(0, 0, 0, height) : ctx.createLinearGradient(0, 0, width, 0);
+                colors.forEach((color, i) => gradient.addColorStop(i / (colors.length - 1), color));
+                return gradient;
+            };
+
+            const drawWave = (offsetX, offsetY, phase, colors, amplitude, frequency, opacity, inverted = false) => {
+                ctx.save(); ctx.globalAlpha = opacity;
+                ctx.beginPath();
+                const wavePoints = []; const resolution = 4;
+                for (let x = -200; x <= width + 200; x += resolution) {
+                    const mouseInfluence = Math.exp(-Math.pow(x - mouseX, 2) / 20000) * (inverted ? (height / 2 - mouseY) : (mouseY - height / 2)) * 0.3;
+                    const sign = inverted ? -1 : 1;
+                    const baseWave = sign * Math.sin((x + offsetX) * frequency + time * 0.01 + phase) * amplitude;
+                    const secondaryWave = sign * Math.sin((x + offsetX) * frequency * 1.5 + time * 0.015 + phase) * amplitude * 0.3;
+                    const y = height / 2 + baseWave + secondaryWave + offsetY + mouseInfluence;
+                    wavePoints.push({x, y});
+                }
+                ctx.moveTo(wavePoints[0].x, wavePoints[0].y);
+                for (let i = 1; i < wavePoints.length; i++) {
+                    const cpx = (wavePoints[i-1].x + wavePoints[i].x) / 2;
+                    const cpy = (wavePoints[i-1].y + wavePoints[i].y) / 2;
+                    ctx.quadraticCurveTo(wavePoints[i-1].x, wavePoints[i-1].y, cpx, cpy);
+                }
+                ctx.lineTo(width + 200, inverted ? -200 : height + 200);
+                ctx.lineTo(-200, inverted ? -200 : height + 200);
+                ctx.closePath();
+                ctx.fillStyle = createGradient(colors, inverted);
+                ctx.fill(); ctx.restore();
+            };
+
+            const animate = () => {
+                ctx.fillStyle = 'rgb(220, 220, 220)'; ctx.fillRect(0, 0, width, height);
+                time += 1;
+                drawWave(time * 0.5, 0, 0, ['rgba(255, 182, 193, 0.8)', 'rgba(255, 105, 180, 0.6)', 'rgba(144, 238, 144, 0.6)', 'rgba(60, 179, 113, 0.4)'], 80, 0.008, 0.7);
+                drawWave(time * 0.3, 20, Math.PI, ['rgba(173, 216, 230, 0.8)', 'rgba(150, 209, 255, 0.7)', 'rgba(197, 162, 249, 0.6)', 'rgba(198, 83, 255, 0.4)'], 100, 0.006, 0.6, true);
+                drawWave(time * 0.7, -30, Math.PI * 0.5, ['rgba(255, 228, 225, 0.3)', 'rgba(152, 251, 152, 0.3)', 'rgba(230, 230, 250, 0.2)', 'rgba(255, 182, 193, 0.1)'], 60, 0.01, 0.4);
+                animationId = requestAnimationFrame(animate);
+            };
+
+            const mouseMoveHandler = (e) => { mouseX = e.clientX; mouseY = e.clientY; };
+            const touchMoveHandler = (e) => { e.preventDefault(); mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; };
+
+            this.start = () => {
+                window.addEventListener('resize', resizeCanvas);
+                document.body.addEventListener('mousemove', mouseMoveHandler);
+                document.body.addEventListener('touchmove', touchMoveHandler);
+                animate();
+            };
+
+            this.stop = () => {
+                if (animationId) cancelAnimationFrame(animationId);
+                window.removeEventListener('resize', resizeCanvas);
+                document.body.removeEventListener('mousemove', mouseMoveHandler);
+                document.body.removeEventListener('touchmove', touchMoveHandler);
+            };
+        }
         
-        function renderPage(pageIndex) { currentPageIndex = pageIndex; const pageData = presentationData[pageIndex]; mainTitle.innerHTML = pageData.title; subheadingList.innerHTML = ''; for (const id in pageData.subheadings) { const subheading = pageData.subheadings[id]; const li = document.createElement('li'); li.innerHTML = subheading.text; li.dataset.subheadingId = id; li.dataset.tooltip = subheading.tooltip; if(subheading.isCategory){ li.classList.add('subheading-category'); } if(subheading.isIndented){ li.classList.add('indented-subheading'); } subheadingList.appendChild(li); } const firstClickable = subheadingList.querySelector('li:not(.subheading-category)'); if (firstClickable) { firstClickable.click(); } renderPageSwitcher(); }
+        // --- Modified function to handle all three background types ---
+        function renderPage(pageIndex) {
+            // Terminate any active background before switching
+            if (p5Sketch) {
+                p5Sketch.remove();
+                p5Sketch = null;
+            }
+            if (vanillaWaveArt) {
+                vanillaWaveArt.stop();
+                vanillaWaveArt = null;
+            }
+            if (originalAnimationId) {
+                cancelAnimationFrame(originalAnimationId);
+                originalAnimationId = null;
+            }
+            // Clear the container
+            if (bgContainer) {
+                bgContainer.innerHTML = '';
+            }
+        
+            currentPageIndex = pageIndex;
+            const pageData = presentationData[pageIndex];
+            mainTitle.innerHTML = pageData.title;
+            subheadingList.innerHTML = '';
+            for (const id in pageData.subheadings) {
+                const subheading = pageData.subheadings[id];
+                const li = document.createElement('li');
+                li.innerHTML = subheading.text;
+                li.dataset.subheadingId = id;
+                li.dataset.tooltip = subheading.tooltip;
+                if(subheading.isCategory){ li.classList.add('subheading-category'); }
+                if(subheading.isIndented){ li.classList.add('indented-subheading'); }
+                subheadingList.appendChild(li);
+            }
+            const firstClickable = subheadingList.querySelector('li:not(.subheading-category)');
+            if (firstClickable) { firstClickable.click(); }
+            
+            renderPageSwitcher();
+
+            // Activate the correct background for the new page
+            if (currentPageIndex === 3 || currentPageIndex === 4) { // Pages 4 and 5 get Node Art
+    p5Sketch = new p5(p5_sketch, bgContainer);
+} else if (currentPageIndex === 5 || currentPageIndex === 6) { // Pages 6 and 7 get Wave Art
+    vanillaWaveArt = new WaveArt(bgContainer);
+    vanillaWaveArt.start();
+            } else { // All other pages
+                const bgCanvas = document.createElement('canvas');
+                const bgCtx = bgCanvas.getContext('2d');
+                bgContainer.appendChild(bgCanvas);
+                bgCanvas.width = window.innerWidth;
+                bgCanvas.height = window.innerHeight;
+                window.addEventListener('resize', () => {
+                    if (!vanillaWaveArt && !p5Sketch) { // Only resize if it's the original canvas
+                        bgCanvas.width = window.innerWidth;
+                        bgCanvas.height = window.innerHeight;
+                    }
+                });
+                animateBg(bgCtx, bgCanvas);
+            }
+        }
+
         function renderPageSwitcher() { pageSwitcher.innerHTML = ''; presentationData.forEach((page, index) => { const dot = document.createElement('div'); dot.className = 'dot page-dot'; if (index === currentPageIndex) { dot.classList.add('active'); } dot.dataset.pageIndex = index; pageSwitcher.appendChild(dot); }); }
         
         function renderMedia(subheadingId, contentIndex = 0) {
@@ -365,7 +632,7 @@
                 let videoElement;
                 if(videoContent.type === 'youtube') {
                     videoElement = document.createElement('iframe');
-                    videoElement.src = `https://www.youtube.com/embed/${videoContent.videoId}?autoplay=1&mute=1&loop=1&playlist=${videoContent.videoId}&controls=0&showinfo=0&iv_load_policy=3`;
+                    videoElement.src = `http://googleusercontent.com/youtube.com/v/${videoContent.videoId}?autoplay=1&mute=1&loop=1&playlist=${videoContent.videoId}&controls=0&showinfo=0&iv_load_policy=3`;
                     videoElement.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
                     videoElement.setAttribute('allowfullscreen', '');
                 } else {
@@ -404,29 +671,15 @@
         subheadingList.addEventListener('mousemove', (e) => { const targetLi = e.target.closest('li'); if(targetLi && !targetLi.classList.contains('subheading-category')){ const tooltipHeight = tooltip.offsetHeight; const viewportHeight = window.innerHeight; let topPosition = e.clientY + 15; if (topPosition + tooltipHeight > viewportHeight) { topPosition = e.clientY - tooltipHeight - 15; } tooltip.style.left = `${e.clientX + 15}px`; tooltip.style.top = `${topPosition}px`; } });
         subheadingList.addEventListener('mouseout', (e) => { const targetLi = e.target.closest('li'); if(targetLi){ tooltip.style.display = 'none'; } });
 
+        // --- Modified function ---
         function init() {
-            document.addEventListener('keydown', (e) => {
-                let newIndex = currentPageIndex;
-                if (e.key === 'ArrowRight') {
-                    newIndex = (currentPageIndex + 1) % presentationData.length;
-                } else if (e.key === 'ArrowLeft') {
-                    newIndex = (currentPageIndex - 1 + presentationData.length) % presentationData.length;
-                }
-                if (newIndex !== currentPageIndex) {
-                    renderPage(newIndex);
-                }
-            });
-            
-            const bgCanvas = document.getElementById('background-canvas');
-            const bgCtx = bgCanvas.getContext('2d');
-            bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; animateBg(bgCtx, bgCanvas); 
+            bgContainer = document.getElementById('background-container'); // Get container
             let _recordedPath = [];
             const recordFn = (e) => _recordedPath.push({x:e.clientX, y:e.clientY});
             window.addEventListener('mousemove', recordFn);
             setInterval(() => processBranchers(), 1000 / 20); 
             setInterval(() => triggerPlayback(_recordedPath), 5000); 
-            window.addEventListener('resize', () => { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; });
-            renderPage(0);
+            renderPage(0); // Initial page render
         }
         
         let strokes = []; let branches = []; let brancherPool = [];
@@ -434,7 +687,16 @@
         function triggerPlayback(path) { if (path.length < 2) { path.length=0; return; } const newStroke = path.map(p => ({ x: p.x, y: p.y, time: Date.now() })); strokes.push(newStroke); path.length = 0; const p1 = newStroke[0]; const p2 = newStroke[1]; let angle = Math.atan2(p2.y - p1.y, p2.x - p1.x); let oppositeAngle = angle + Math.PI; brancherPool.push({ queue: [{ x: p2.x, y: p2.y, angle: oppositeAngle - 0.3, width: 7 * 0.8, step: 0 }, { x: p2.x, y: p2.y, angle: oppositeAngle + 0.3, width: 7 * 0.8, step: 0 }] }); const lastPoint = newStroke[newStroke.length - 1]; const secondLastPoint = newStroke[newStroke.length - 2]; angle = Math.atan2(lastPoint.y - secondLastPoint.y, lastPoint.x - secondLastPoint.x); brancherPool.push({ queue: [{ x: lastPoint.x, y: lastPoint.y, angle: angle - 0.3, width: 7 * 0.8, step: 0 }, { x: lastPoint.x, y: lastPoint.y, angle: angle + 0.3, width: 7 * 0.8, step: 0 }] }); }
         function getDecayColor(creationTime) { const age = Date.now() - creationTime; const life = Math.min(age / MARK_LIFETIME, 1); const startColor = { r: 173, g: 216, b: 230 }; const endColor = { r: 220, g: 205, b: 190 }; const t = life; const r = startColor.r + t * (endColor.r - startColor.r); const g = startColor.g + t * (endColor.g - startColor.g); const b = startColor.b + t * (endColor.b - startColor.b); const alpha = 1 - Math.pow(t, 2); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
         function processBranchers() { for (let i = brancherPool.length - 1; i >= 0; i--) { const brancher = brancherPool[i]; for (let j = 0; j < 50 && brancher.queue.length > 0; j++) { const task = brancher.queue.shift(); if (task.step >= BIFURCATION_STEPS || task.width < 0.5) continue; const length = Math.random() * 20 + 10; const endX = task.x + Math.cos(task.angle) * length; const endY = task.y + Math.sin(task.angle) * length; branches.push({ x1: task.x, y1: task.y, x2: endX, y2: endY, width: task.width, time: Date.now() }); const nextWidth = task.width * 0.8; brancher.queue.push({ x: endX, y: endY, angle: task.angle - (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); brancher.queue.push({ x: endX, y: endY, angle: task.angle + (Math.random() * 0.4 + 0.15), width: nextWidth, step: task.step + 1 }); } if (brancher.queue.length === 0) { brancherPool.splice(i, 1); } } }
-        function animateBg(ctx, canvas) { ctx.clearRect(0, 0, canvas.width, canvas.height); const now = Date.now(); for (const stroke of strokes) { for (let i = 1; i < stroke.length; i++) { ctx.beginPath(); ctx.moveTo(stroke[i - 1].x, stroke[i - 1].y); ctx.lineTo(stroke[i].x, stroke[i].y); ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(stroke[i].time); ctx.stroke(); } } for (const branch of branches) { ctx.beginPath(); ctx.moveTo(branch.x1, branch.y1); ctx.lineTo(branch.x2, branch.y2); ctx.lineWidth = branch.width; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(branch.time); ctx.stroke(); } strokes = strokes.map(stroke => stroke.filter(p => now - p.time < MARK_LIFETIME)).filter(stroke => stroke.length > 0); branches = branches.filter(branch => now - branch.time < MARK_LIFETIME); requestAnimationFrame(() => animateBg(ctx, canvas)); }
+        
+        // --- Modified function ---
+        function animateBg(ctx, canvas) { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            const now = Date.now(); 
+            for (const stroke of strokes) { for (let i = 1; i < stroke.length; i++) { ctx.beginPath(); ctx.moveTo(stroke[i - 1].x, stroke[i - 1].y); ctx.lineTo(stroke[i].x, stroke[i].y); ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(stroke[i].time); ctx.stroke(); } } for (const branch of branches) { ctx.beginPath(); ctx.moveTo(branch.x1, branch.y1); ctx.lineTo(branch.x2, branch.y2); ctx.lineWidth = branch.width; ctx.lineCap = 'round'; ctx.strokeStyle = getDecayColor(branch.time); ctx.stroke(); } 
+            strokes = strokes.map(stroke => stroke.filter(p => now - p.time < MARK_LIFETIME)).filter(stroke => stroke.length > 0); 
+            branches = branches.filter(branch => now - branch.time < MARK_LIFETIME); 
+            originalAnimationId = requestAnimationFrame(() => animateBg(ctx, canvas)); // Store animation ID
+        }
         
         init();
     });
