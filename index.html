@@ -308,18 +308,421 @@
                 }
             },
             { // Page 7
-                title: "Context & Remedial Measures",
-                subheadings: {
-                    'hireConsultant': { text: "A cross-functional team recommended hiring a consultant for a <b>SMART</b> action plan.", tooltip: "The cross functional team recommended to onboard a consultant in business advisory capacity to do away with biases and produce a realistic action plan which should be <b>SMART</b> (specific, measurable, achievable, relevant and time bound).", content: [{type: 'svg', generator: 'context_smartPlan'}]},
-                    'engageAdvisors': { text: "T-Nor engaged <b>‘Gradient Advisors’</b> to define key focal areas for a turnaround.", tooltip: "The T-Nor team approached <b>‘Gradient Advisors’</b> and after multiple iterations, the below mentioned areas were shortlisted to be ‘key focal areas’ in upcoming weeks and months to make T-Nor regain its competitive position in the market.", content: [{type: 'svg', generator: 'context_gradientAdvisors'}]},
-                    'focalAreas': { text: "The key focal areas include:", isCategory: true, content: [{type: 'empty'}] },
-                    'churnMgmt': { text: "<b>1.</b> Prioritize churn management using predictive analysis.", tooltip: "The biggest challenge was ‘churn management’... using predictive analysis to identify at-risk customers and proactively offer retention incentives.", isIndented: true, content: [{type: 'svg', generator: 'remedial_churn'}] },
-                    'custCentric': { text: "<b>2.</b> Establish customer centricity as a cornerstone of the organization.", tooltip: "The ‘customer centric’ was set as a cornerstone of the organization and elevating customer experience was suggested to be a major differentiator.", isIndented: true, content: [{type: 'svg', generator: 'remedial_centricity'}] },
-                    'netHealth': { text: "<b>3.</b> Ensure <b>99.99%</b> network health with AI-powered predictive maintenance.", tooltip: "The network health had to be supreme at all times with <b>99.99%</b> service levels... with AI-powered predictive maintenance for cell towers and anomaly detection.", isIndented: true, content: [{type: 'chart', generator: 'remedial_network'}] },
-                    'persoMarketing': { text: "<b>4.</b> Implement personalized marketing based on AI-driven user behavior.", tooltip: "Personalized marketing to drive user behavior studies had to be in place for better customer insights in terms of needs and wants.", isIndented: true, content: [{type: 'svg', generator: 'remedial_marketing'}] },
-                    'loyaltyProg': { text: "<b>5.</b> Create market traction with new customer loyalty programs.", tooltip: "And last but not the least customer loyalty programs had to be in place to create market traction.", isIndented: true, content: [{type: 'svg', generator: 'remedial_loyalty'}] }
-                }
-            }
+    title: "Context",
+    subheadings: {
+        'hireConsultant': { 
+            text: "A cross-functional team recommended hiring a consultant for a <b>SMART</b> action plan.", 
+            tooltip: "The cross functional team recommended to onboard a consultant in business advisory capacity to do away with biases and produce a realistic action plan which should be <b>SMART</b> (specific, measurable, achievable, relevant and time bound). ", 
+            content: [{type: 'svg', generator: 'context_smartPlan'}]
+        },
+        'engageAdvisors': { 
+            text: "T-Nor engaged <b>‘Gradient Advisors’</b> to define key focal areas for a turnaround.", 
+            tooltip: "The T-Nor team approached <b>‘Gradient Advisors’</b> and after multiple iterations, the below mentioned areas were shortlisted to be ‘key focal areas’ in upcoming weeks and months to make T-Nor regain its competitive position in the market. ", 
+            content: [{type: 'svg', generator: 'context_gradientAdvisors'}]
+        },
+        'focalAreas': { 
+            text: "The key focal areas include: ", 
+            isCategory: true, 
+            content: [{type: 'empty'}] 
+        },
+        'churnMgmt': { 
+            text: "<b>1.</b> Prioritize <b>churn management</b> using predictive analysis.", 
+            tooltip: "The biggest challenge as a top priority was ‘churn management’ that is to have better estimations and forecasts with predictive analysis available at all times to minimize flight of customers to other operators. ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_churn'}] 
+        },
+        'custCentric': { 
+            text: "<b>2.</b> Establish <b>‘customer centric’</b> as a cornerstone of the organization.", 
+            tooltip: "The ‘customer centric’ was set as a cornerstone of the organization and elevating customer experience was suggested to be a major differentiator for T-Nor. ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_centricity'}] 
+        },
+        'netHealth': { 
+            text: "<b>3.</b> Ensure <b>99.99% network health</b> with predictive maintenance.", 
+            tooltip: "The network health had to be supreme at all times with <b>99.99%</b> service levels had to be in place and all network outages and maintenance activities had to be well anticipated to avoid hiccups. ", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'remedial_network'}] 
+        },
+        'persoMarketing': { 
+            text: "<b>4.</b> Implement <b>personalized marketing</b> based on user behavior.", 
+            tooltip: "Personalized marketing to drive user behavior studies had to be in place for better customer insights in terms of needs and wants. ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_marketing'}] 
+        },
+        'loyaltyProg': { 
+            text: "<b>5.</b> Create market traction with new <b>customer loyalty programs</b>.", 
+            tooltip: "And last but not the least customer loyalty programs had to be in place to create market traction. ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_loyalty'}] 
+        }
+    }
+},
+{ // Page 8
+    title: "Remedial Measures - Gradient Advisors",
+    subheadings: {
+        'aiBlueprint': { 
+            text: "Gradient Advisors proposed AI interventions after creating a blueprint for T-Nor.", 
+            tooltip: "The Gradient Advisors specialized in emerging technologies with focus on AI decided to propose AI based interventions and the team decided to work on blueprint for T-Nor with specific agenda to gauge appetite within an organization for AI interventions, understanding key DMU (decision making unit)... and budgetary approval process etc.  ", 
+            content: [{type: 'svg', generator: 'remedial_blueprint'}]
+        },
+        'interventionIntro': {
+            text: "The AI interventions were designed to address the top-priority issues.",
+            tooltip: "These AI interventions would be geared to address issues highlighted as top priority items earlier, the details are as under:  ",
+            content: [{type: 'svg', generator: 'remedial_target'}]
+        },
+        'netOptimization': { 
+            text: "<b>1.</b> Implement AI-powered <b>Network Optimization</b> for predictive maintenance.  ", 
+            tooltip: "AI-powered predictive maintenance for cell towers, dynamic resource allocation to manage network traffic, and anomaly detection to prevent outages.  ", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'remedial_netOptimization'}] 
+        },
+        'churnPrediction': { 
+            text: "<b>2.</b> Use machine learning for <b>Customer Churn Prediction</b>.  ", 
+            tooltip: "Machine learning models to identify at-risk customers and proactively offer retention incentives.  ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_churnPrediction'}] 
+        },
+        'persMarketing': { 
+            text: "<b>3.</b> Deploy AI-driven <b>Personalized Marketing</b> for targeted promotions.  ", 
+            tooltip: "AI-driven analysis of user behavior to deliver targeted promotions and service recommendations.  ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_persMarketing'}] 
+        },
+        'custService': { 
+            text: "<b>4.</b> Introduce <b>Customer Service Automation</b> with AI chatbots.  ", 
+            tooltip: "AI-powered chatbots and voice assistants to handle customer queries, bill payments, and package subscriptions.  ", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'remedial_custService'}] 
+        },
+        'sentimentAnalysis': { 
+            text: "<b>5.</b> Use <b>Sentiment Analysis</b> to gauge public perception.  ", 
+            tooltip: "Analyzing social media and customer feedback to gauge public perception and improve services.  ", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'remedial_sentiment'}] 
+        }
+    }
+},
+{ // Page 9
+    title: "The Game Plan - Gradient Advisors",
+    dotColor: 'rgb(190, 190, 190)',
+    subheadings: {
+        'coreTeam': { 
+            text: "Gradient Advisors formed a core team with a clear game plan to win the T-Nor project.", 
+            tooltip: "The Gradient Advisors made a core team with well defined tasks to each member to win T-Nor project for AI interventions as there is clearly an opportunity but there must be a clear game plan to be in place with well thought out approach.", 
+            content: [{type: 'svg', generator: 'gameplan_coreTeam'}]
+        },
+        'playbookIntro': {
+            text: "A detailed playbook was created to structure the engagement with T-Nor and others.",
+            tooltip: "A playbook must be in place to win T-Nor project and others.",
+            content: [{type: 'svg', generator: 'gameplan_playbook'}]
+        },
+        'playbookElements': {
+            text: "The major elements of the playbook are as under:",
+            isCategory: true,
+            content: [{type: 'empty'}]
+        },
+        'playbook_pitch': { 
+            text: "<b>1. Pitch:</b> Position as a <b>Business Partner</b>, not a Third-Party Consultant.", 
+            tooltip: "Pitch includes who we are, our core expertise, references etc. We are a <b>Business Partner</b> not a Third-Party Consultant.", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_pitch'}] 
+        },
+        'playbook_questionnaire': { 
+            text: "<b>2. Detailed Questionnaire:</b> Gauge appetite and work processes across multiple tiers.", 
+            tooltip: "Detailed Questionnaire to ascertain overall appetite, perspectives and gauge overall way of work at multiple tiers i.e., C levels, Technology Leadership and Operational Manager.", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_questionnaire'}] 
+        },
+        'playbook_diagnostics': { 
+            text: "<b>3. Run Diagnostics:</b> Recommend AI interventions for key problem areas.", 
+            tooltip: "Run Diagnostics and recommend AI based interventions targeting key problematic areas as highlighted earlier", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_diagnostics'}] 
+        },
+        'playbook_capacity': { 
+            text: "<b>4. Capacity Building:</b> Educate T-Nor's existing resources on AI's impact.", 
+            tooltip: "Capacity Building to educate existing resources at T-Nor about AI interventions and its impact", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_capacity'}] 
+        },
+        'playbook_poc': { 
+            text: "<b>5. POC / Pilot Project:</b> Showcase the impact of AI tools on a small scale.", 
+            tooltip: "POC (proof of concept) of existing AI tools followed by <b>Pilot Project</b> on small scale to showcase impact", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'gameplan_poc'}] 
+        },
+        'playbook_nda': { 
+            text: "<b>6. Sign off NDA's:</b> Finalize non-disclosure agreements.", 
+            tooltip: "Sign off NDA's (non-disclosure agreements)", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_nda'}] 
+        },
+        'playbook_commercials': { 
+            text: "<b>7. Commercials:</b> Secure the project budget.", 
+            tooltip: "Commercials and Secure Budget", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_commercials'}] 
+        },
+        'playbook_matrix': { 
+            text: "<b>8. Responsibility Matrix:</b> Define roles for Gradient Advisors and T-Nor.", 
+            tooltip: "Responsibility Matrix i.e., roles for Gradient Advisors and T-Nor", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_matrix'}] 
+        },
+        'playbook_contract': { 
+            text: "<b>9. Contract Sign Off:</b> Define <b>Deliverables, Timelines, and Costs</b>.", 
+            tooltip: "Contract Sign Off with clearly defined <b>Deliverables, Timelines and Associated Costs</b> (manhours)", 
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'gameplan_contract'}] 
+        },
+        'playbook_realization': { 
+            text: "<b>10. Affect Realization:</b> Showcase quantifiable impact post-deployment.", 
+            tooltip: "Affect Realization i.e., post deployment analysis showcasing quantifiable impact", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'gameplan_realization'}] 
+        }
+    }
+},
+{ // page 10
+    title: "Applying the Playbook",
+    dotColor: 'rgb(255, 255, 160)',
+    subheadings:{
+        ' ':{ text: " " }
+    }
+},
+{ // Page 11
+    title: "Client Background: T-Nor",
+    dotColor: 'rgb(255, 210, 160)',
+    subheadings: {
+        'client_history': { 
+            text: "<b>1. Company History:</b> Launched in 2005, T-Nor's aggressive start triggered intense price wars.", 
+            tooltip: "Company History: T-Nor, a Norwegian mobile operator, launched in Pakistan in 2005. An aggressive launch and network rollout led to initial success but also triggered intense 'price wars' with incumbent operators.", 
+            isIndented: true, 
+            content: [{type: 'chart', generator: 'client_history_diagram'}] 
+        },
+        'client_problem': {
+            text: "<b>2. The Core Problem:</b> Revenue erosion, nosediving ARPU, and significant subscriber churn.",
+            tooltip: "The Core Problem: Erosion of revenues, nosediving ARPU, and a market dynamic where customer loyalty became virtually non-existent. The company's focus was diverted from brand building and customer-centricity, resulting in a 'flight of subscribers,' or churn, which has now become a 'serious red flag'.",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'client_problem_diagram'}]
+        },
+        'client_market': {
+            text: "<b>3. Market Context:</b> A <b>95% prepaid</b> (PAYG) market creates high price sensitivity.",
+            tooltip: "Market Context: The market is predominantly prepaid (95% PAYG), making customers highly price-sensitive.",
+            isIndented: true,
+            content: [{type: 'chart', generator: 'client_market_diagram'}]
+        },
+        'client_need': {
+            text: "The Need: Interventions for <b>better predictability</b> to foresee business risks.",
+            tooltip: "They need a series of interventions that can bring 'better predictability' to foresee business risks.",
+            content: [{type: 'svg', generator: 'client_need_diagram'}]
+        }
+    }
+},
+{ // Page 11
+    title: "Key Focal Areas Identified by Client",
+    dotColor: 'rgb(255, 210, 160)',
+    subheadings: {
+        'focal_churn': { 
+            text: "<b>1. Churn Management:</b> The client needs better estimations and predictive analysis to minimize the flight of customers.", 
+            tooltip: "The client needs better estimations and predictive analysis to minimize the flight of customers.",
+            content: [{type: 'svg', generator: 'focal_churn_dashboard'}] 
+        },
+        'focal_experience': {
+            text: "<b>2. Customer Experience:</b> 'Customer centricity' is to be a cornerstone of the new strategy and a major differentiator.",
+            tooltip: "'Customer centricity' is to be a cornerstone of the new strategy and a major differentiator.",
+            content: [{type: 'svg', generator: 'focal_experience_journey'}]
+        },
+        'focal_network': {
+            text: "<b>3. Network Health:</b> The network must be supreme at all times , with well-anticipated maintenance to avoid outages.",
+            tooltip: "The network must be supreme at all times , with well-anticipated maintenance to avoid outages.",
+            content: [{type: 'svg', generator: 'focal_network_map'}]
+        },
+        'focal_marketing': {
+            text: "<b>4. Personalized Marketing:</b> user behavior studies for better customer insights.",
+            tooltip: "user behavior studies for better customer insights.",
+            content: [{type: 'svg', generator: 'focal_marketing_funnel'}]
+        },
+        'focal_loyalty': {
+            text: "<b>5. Customer Loyalty Programs:</b> Generate Market Traction",
+            tooltip: "Generate Market Traction",
+            content: [{type: 'svg', generator: 'focal_loyalty_ladder'}]
+        }
+    }
+},
+{ // Page 12
+    title: "Applying the 'Idea Factory Way': An Engagement Roadmap",
+     dotColor: 'rgb(255, 160, 160)',
+    subheadings: {
+        'roadmap_phase1': { 
+            text: "<b>Phase 1: Diagnose & Strategize</b> - Deploy an AI Readiness Toolkit to validate focal areas and assess infrastructure.", 
+            tooltip: "We will deploy our AI Readiness & Opportunity Diagnostic Toolkit. The goal is to validate the five focal areas and uncover deeper insights into their data posture and technical infrastructure.",
+            content: [{type: 'svg', generator: 'roadmap_phase1_diagnose'}] 
+        },
+        'roadmap_phase2': {
+            text: "<b>Phase 2: Pilot & Prove</b> - Execute a high-impact, low-risk pilot project focused on churn prediction.",
+            tooltip: "Based on the diagnosis, we will propose a high-impact, low-risk pilot project. The 'AI-Powered Churn Prediction & Prevention' service blueprint would be the prime candidate for this phase, as it addresses the client's #1 priority.",
+            content: [{type: 'svg', generator: 'roadmap_phase2_pilot'}]
+        },
+        'roadmap_phase3': {
+            text: "<b>Phase 3: Scale & Transform</b> - Roll out the successful pilot solution across the entire subscriber base.",
+            tooltip: "Upon successful completion of the pilot, we will work with T-Nor to roll out the solution across their entire subscriber base and integrate it into their core marketing and retention workflows.",
+            content: [{type: 'svg', generator: 'roadmap_phase3_scale'}]
+        },
+        'roadmap_phase4': {
+            text: "<b>Phase 4: Sustain & Optimize</b> - Establish governance and provide capacity building for long-term success.",
+            tooltip: "We will establish governance mechanisms and provide capacity building to T-Nor's existing resources to ensure they can manage and continuously improve the AI models long-term.",
+            content: [{type: 'svg', generator: 'roadmap_phase4_sustain'}]
+        }
+    }
+},
+{ // page 13
+    title: "Service Blueprints",
+    dotColor: 'rgb(160, 160, 255)',
+    subheadings:{
+        ' ':{ text: " " }
+    }
+},
+{ // Page 14
+    title: "AI Adoption Plan for T-Nor",
+    dotColor: 'rgb(160, 255, 160)',
+    subheadings: {
+        'plan_title': { 
+            text: "Using AI to Mitigate Churn and Enhance Competitiveness", 
+            tooltip: "Using AI to Mitigate Churn and Enhance Competitiveness",
+            content: [{type: 'svg', generator: 'plan_title_diagram'}] 
+        },
+        'plan_intro': {
+            text: "Key AI Interventions to Reduce Churn:",
+            isCategory: true,
+            content: [{type: 'empty'}]
+        }
+    }
+},
+{ // Page 15
+    title: "AI Interventions to Reduce Churn (1/2)",
+    dotColor: 'rgb(160, 255, 160)',
+    subheadings: {
+        'category_predication': { text: "<b>Predication and Retention</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_ml_models': { 
+            text: "• ML Models: XGBoost, Random Forest", 
+            tooltip: "ML Models: XGBoost, Random Forest",
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'intervention_ml_models'}] 
+        },
+        'item_data': {
+            text: "• Data: CDRs, usage, complaints, location",
+            tooltip: "Data: CDRs, usage, complaints, location",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_data'}]
+        },
+        'item_likelihood': {
+            text: "• Predict churn likelihood",
+            tooltip: "Predict churn likelihood",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_likelihood'}]
+        },
+        'item_retention': {
+            text: "• Trigger real-time retention offers",
+            tooltip: "Trigger real-time retention offers",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_retention'}]
+        },
+        'item_crm': {
+            text: "• CRM integration for proactive actions",
+            tooltip: "CRM integration for proactive actions",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_crm'}]
+        },
+        'category_network': { text: "<b>Network Optimization</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_maintenance': {
+            text: "• Predictive maintenance using time-series analysis",
+            tooltip: "Predictive maintenance using time-series analysis",
+            isIndented: true,
+            content: [{type: 'chart', generator: 'intervention_maintenance'}]
+        },
+        'item_anomaly': {
+            text: "• Anomaly detection to prevent outages",
+            tooltip: "Anomaly detection to prevent outages",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_anomaly'}]
+        },
+        'item_allocation': {
+            text: "• Dynamic resource allocation for traffic spikes",
+            tooltip: "Dynamic resource allocation for traffic spikes",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_allocation'}]
+        },
+        'item_downtime': {
+            text: "• Minimize network downtime",
+            tooltip: "Minimize network downtime",
+            isIndented: true,
+            content: [{type: 'chart', generator: 'intervention_downtime'}]
+        }
+    }
+},
+{ // Page 16
+    title: "AI Interventions to Reduce Churn (2/2)",
+    dotColor: 'rgb(160, 255, 160)',
+    subheadings: {
+        'category_marketing': { text: "<b>Personalized Marketing</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_recommendation': { 
+            text: "• Recommendation engines (Collaborative Filtering)", 
+            tooltip: "Recommendation engines (Collaborative Filtering)",
+            isIndented: true, 
+            content: [{type: 'svg', generator: 'intervention_recommendation'}] 
+        },
+        'item_bundles': {
+            text: "• Targeted bundles based on usage behavior",
+            tooltip: "Targeted bundles based on usage behavior",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_bundles'}]
+        },
+        'item_upsell': {
+            text: "• Cross-sell/up-sell to increase ARPU",
+            tooltip: "Cross-sell/up-sell to increase ARPU",
+            isIndented: true,
+            content: [{type: 'chart', generator: 'intervention_upsell'}]
+        },
+        'item_campaign': {
+            text: "• Campaign effectiveness tracking",
+            tooltip: "Campaign effectiveness tracking",
+            isIndented: true,
+            content: [{type: 'chart', generator: 'intervention_campaign'}]
+        },
+        'category_automation': { text: "<b>Customer Service Automation</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_chatbots': {
+            text: "• Chatbots and Voicebots (Regional, Urdu, English)",
+            tooltip: "Chatbots and Voicebots (Regional, Urdu, English)",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_chatbots'}]
+        },
+        'item_automate': {
+            text: "• Automate FAQs, billing, subscriptions",
+            tooltip: "Automate FAQs, billing, subscriptions",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_automate'}]
+        },
+        'item_escalation': {
+            text: "• Sentiment-based escalation",
+            tooltip: "Sentiment-based escalation",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_escalation'}]
+        },
+        'item_adjustments': {
+            text: "• Trigger service adjustments",
+            tooltip: "Trigger service adjustments",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_adjustments'}]
+        },
+        'item_trust': {
+            text: "• Enhance brand trust",
+            tooltip: "Enhance brand trust",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'intervention_trust'}]
+        }
+    }
+}
         ];
         
         const createChart = (container, config) => { const canvas = document.createElement('canvas'); container.appendChild(canvas); const chart = new Chart(canvas.getContext('2d'), config); currentCharts.push(chart); return canvas; };
@@ -359,8 +762,426 @@
             'remedial_churn': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.cust{animation:c 4s linear infinite;}@keyframes c{0%{fill:var(--accent-color);}40%{fill:red;}60%{fill:red;}100%{fill:limegreen;}}.offer{opacity:0;animation:o 4s linear infinite;}@keyframes o{45%{opacity:0;}60%{opacity:1;}100%{opacity:0;}}</style><text class="f" x="200" y="30" text-anchor="middle">Predictive Churn Management</text><circle class="cust" cx="100" cy="100" r="20"/><path class="offer" d="M130 100 L 250 100" stroke="limegreen" stroke-width="3" stroke-dasharray="5 5"/><text class="offer f" fill="limegreen" x="260" y="105">Retention Offer</text><circle class="cust" style="animation-delay: -1s;" cx="200" cy="100" r="20"/><circle class="cust" style="animation-delay: -2s;" cx="300" cy="100" r="20"/></svg>`; return c; },
             'remedial_centricity': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.orb{animation:orb 10s linear infinite;transform-origin:200px 100px;}.p2{animation-delay:-3.3s;}.p3{animation-delay:-6.6s;}@keyframes orb{from{transform:rotate(0deg) translateX(100px) rotate(0deg);}to{transform:rotate(360deg) translateX(100px) rotate(-360deg);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Centricity</text><path fill="var(--accent-color)" d="M200,90 C180,80 180,120 200,110 C220,120 220,80 200,90 Z"/><g class="orb"><circle fill="#333" r="15"/></g><g class="orb p2"><circle fill="#333" r="15"/></g><g class="orb p3"><circle fill="#333" r="15"/></g></svg>`; return c; },
             'remedial_network': (c) => { const co={type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Network Uptime (%)',data:[99.98,99.99,99.97,99.99,99.98,99.99,99.99],borderColor:'limegreen',backgroundColor:'rgba(50,205,50,0.2)',fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:99.95,max:100}},plugins:{title:{display:true,text:'Network Health (Target: 99.99%)'}}}};return createChart(c,co)},
+            'remedial_blueprint': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.box{fill:rgba(233,233,233,0.8);stroke:#333;stroke-width:1;}.arrow{stroke:var(--accent-color);stroke-width:2;marker-end:url(#arrowhead);animation:flow 2s ease-out forwards;stroke-dasharray:100;stroke-dashoffset:100;}@keyframes flow{to{stroke-dashoffset:0;}}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/></marker></defs><g><rect class="box" x="20" y="30" width="80" height="30" rx="5"/><text class="f" x="60" y="50">DMU / Tech</text></g><g><rect class="box" x="20" y="85" width="80" height="30" rx="5"/><text class="f" x="60" y="105">Budget</text></g><g><rect class="box" x="150" y="57" width="100" height="45" rx="5" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="85">Blueprint</text></g><g><rect class="box" x="300" y="57" width="80" height="45" rx="5"/><text class="f" x="340" y="80">AI</text><text class="f" x="340" y="95">Interventions</text></g><path class="arrow" d="M100 65 H 150" style="animation-delay:0s;"/><path class="arrow" d="M250 80 H 300" style="animation-delay:1s;"/></svg>`; return c; },
+            'remedial_target': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);}.c{stroke-width:8;fill:none;}.c1{stroke:white;}.c2{stroke:#e15451;}.c3{stroke:#5789c1;}.arr{animation:hit 1s ease-out forwards;transform-origin:0 50%;opacity:0;}@keyframes hit{from{transform:translateX(-30px);opacity:0;}to{transform:translateX(0);opacity:1;}}</style><circle class="c c1" cx="200" cy="100" r="60"/><circle class="c c2" cx="200" cy="100" r="40"/><circle class="c c3" cx="200" cy="100" r="20"/><g class="arr" style="animation-delay:0.2s;"><path d="M50 60 H 150" stroke="#333" stroke-width="3"/><text class="f" x="40" y="64" text-anchor="end">Churn</text></g><g class="arr" style="animation-delay:0.4s;"><path d="M50 100 H 170" stroke="#333" stroke-width="3"/><text class="f" x="50" y="104" text-anchor="end">Network</text></g><g class="arr" style="animation-delay:0.6s;"><path d="M50 140 H 150" stroke="#333" stroke-width="3"/><text class="f" x="40" y="144" text-anchor="end">Service</text></g></svg>`; return c; },
+            'remedial_netOptimization': (c) => { const co={type:'line',data:{labels:['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6'],datasets:[{label:'Network Performance',data:[98,99,85,97,99,98],borderColor:'rgba(75,192,192,1)',tension:0.4},{label:'Anomaly Detected',type:'scatter',data:[null,null,{x:'Day 3',y:85}],backgroundColor:'red',radius:8},{label:'Maintenance',type:'scatter',data:[null,null,null,{x:'Day 4',y:97}],backgroundColor:'orange',radius:8,pointStyle:'rectRot'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'AI-Powered Predictive Maintenance'}}}};return createChart(c,co)},
+            'remedial_churnPrediction': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.cust{transition:fill 0.5s;fill:#ccc;}.at-risk{animation:pulse 1s 1s infinite alternate;}@keyframes pulse{to{fill:red;stroke:red;stroke-width:3;}}</style><text class="f" x="200" y="25">Identifying At-Risk Customers</text><g id="cust-group"><circle id="c1" class="cust" cx="50" cy="100" r="15"/><circle id="c2" class="cust at-risk" cx="100" cy="100" r="15"/><circle id="c3" class="cust" cx="150" cy="100" r="15"/><circle id="c4" class="cust" cx="200" cy="100" r="15"/><circle id="c5" class="cust at-risk" cx="250" cy="100" r="15"/><circle id="c6" class="cust" cx="300" cy="100" r="15"/></g><path d="M250 120 l 20 20 l -10 10 l -10 -20z" fill="gold" style="opacity:0;animation:fade-in 1s 2s forwards;"/><text class="f" x="265" y="165" style="opacity:0;animation:fade-in 1s 2s forwards;">Incentive</text></svg>`; return c; },
+            'remedial_persMarketing': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.line{animation:flow 1s ease-out forwards;stroke-dasharray:50;stroke-dashoffset:50;}@keyframes flow{to{stroke-dashoffset:0;}}</style><g><rect x="40" y="70" width="100" height="60" fill="#ccc" rx="5"/><text class="f" x="90" y="105">User Profile</text></g><path class="line" d="M140 100 H 190" stroke="#333" stroke-width="2"/><g><path d="M200,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" fill="white" x="230" y="100">AI</text></g><path class="line" d="M260 90 L 300 60" stroke="limegreen" stroke-width="2" style="animation-delay:0.5s"/><rect x="310" y="45" width="60" height="30" fill="limegreen" rx="5" style="opacity:0;animation:fade-in .5s 1s forwards;"/><text class="f" x="340" y="65" fill="white" style="opacity:0;animation:fade-in .5s 1s forwards;">Offer A</text><path class="line" d="M260 110 L 300 140" stroke="orange" stroke-width="2" style="animation-delay:0.7s"/><rect x="310" y="125" width="60" height="30" fill="orange" rx="5" style="opacity:0;animation:fade-in .5s 1.2s forwards;"/><text class="f" x="340" y="145" fill="white" style="opacity:0;animation:fade-in .5s 1.2s forwards;">Offer B</text></svg>`; return c; },
+            'remedial_custService': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{animation:send 2s ease-in-out infinite alternate;}@keyframes send{from{transform:translateX(0)}to{transform:translateX(100px)}}</style><g><circle cx="60" cy="100" r="25" fill="#ccc"/><text class="f" x="60" y="135">Customer</text></g><g><path d="M280 80 h 40 v 40 h -10 l -10 -10 v -20 l -20 0 z" fill="var(--accent-color)"/><circle cx="300" cy="95" r="5" fill="white"/><text class="f" x="300" y="135" fill="var(--accent-color)">Chatbot</text></g><path class="item" d="M100 90 L 120 90 L 120 80 L 130 95 L 120 110 L 120 100 L 100 100 Z" fill="limegreen"/><path class="item" d="M100 90 L 120 90 L 120 80 L 130 95 L 120 110 L 120 100 L 100 100 Z" fill="orange" style="animation-delay:0.5s; animation-direction:alternate-reverse;"/></svg>`; return c; },
             'remedial_marketing': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.p{animation:p 3s ease-in-out infinite alternate;}@keyframes p{from{opacity:0.2;}to{opacity:1;}}</style><text class="f" x="200" y="30" text-anchor="middle">AI-Driven Personalized Marketing</text><g><circle cx="80" cy="100" r="25" fill="#ccc"/><text class="f" x="80" y="105" text-anchor="middle">User</text></g><g><path class="p" d="M110 90 L 160 90" stroke="#333" stroke-width="2"/><path class="p" style="animation-delay:0.2s" d="M110 110 L 160 110" stroke="#333" stroke-width="2"/></g><g><path d="M170,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="100" text-anchor="middle">AI</text></g><g><path class="p" style="animation-delay:0.4s" d="M240 100 L 300 100" stroke="limegreen" stroke-width="3"/><rect class="p" style="animation-delay:0.5s" x="310" y="80" width="60" height="40" fill="limegreen" rx="5"/><text class="p f" style="animation-delay:0.5s" fill="white" x="340" y="105" text-anchor="middle">Offer</text></g></svg>`; return c; },
-            'remedial_loyalty': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s 1s .5s ease-out forwards;}@keyframes s{to{transform:scale(1);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Loyalty Programs</text><circle cx="120" cy="100" r="25" fill="#ccc"/><g class="s"><path d="M300 100 L 200 100" stroke="var(--accent-color)" stroke-width="4"/><path d="M200 100 l30 -30 l-10 0 l-20 20 l-20-20 l-10 0z" fill="var(--accent-color)"/><text class="f" x="250" y="90" text-anchor="middle">Rewards</text></g></svg>`; return c; }
+            'remedial_loyalty': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 14px var(--font-family);}.s{transform:scale(0);animation:s 1s .5s ease-out forwards;}@keyframes s{to{transform:scale(1);}}</style><text class="f" x="200" y="30" text-anchor="middle">Customer Loyalty Programs</text><circle cx="120" cy="100" r="25" fill="#ccc"/><g class="s"><path d="M300 100 L 200 100" stroke="var(--accent-color)" stroke-width="4"/><path d="M200 100 l30 -30 l-10 0 l-20 20 l-20-20 l-10 0z" fill="var(--accent-color)"/><text class="f" x="250" y="90" text-anchor="middle">Rewards</text></g></svg>`; return c; },
+            'gameplan_coreTeam': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{animation:pop-in 0.5s ease-out forwards;transform:scale(0);transform-origin:center;}@keyframes pop-in{to{transform:scale(1);}}@keyframes fade-in{to{opacity:1;}}</style><rect x="150" y="80" width="100" height="40" fill="var(--accent-color)" rx="5" class="item" style="animation-delay:1s;"/><text class="f" x="200" y="105" fill="white" style="opacity:0;animation:fade-in 0.5s 1.5s forwards;">Game Plan</text><g class="item" style="animation-delay:0s;"><circle cx="100" cy="60" r="15" fill="#ccc"/></g><g class="item" style="animation-delay:0.2s;"><circle cx="120" cy="140" r="15" fill="#ccc"/></g><g class="item" style="animation-delay:0.4s;"><circle cx="280" cy="60" r="15" fill="#ccc"/></g><g class="item" style="animation-delay:0.6s;"><circle cx="300" cy="140" r="15" fill="#ccc"/></g></svg>`; return c; },
+            'gameplan_playbook': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);}.line{animation:fade-in 0.5s forwards;opacity:0;}@keyframes fade-in{to{opacity:1;}}</style><path d="M50 20 L 200 20 L 200 180 L 50 180 Q 60 100 50 20" fill="#f9f9f9" stroke="#333"/><path d="M350 20 L 200 20 L 200 180 L 350 180 Q 340 100 350 20" fill="#f9f9f9" stroke="#333"/><line x1="200" y1="20" x2="200" y2="180" stroke="#ccc"/><text class="f" x="125" y="50" text-anchor="middle">Pitch</text><path class="line" d="M80 60 H 170" stroke="#ccc" style="animation-delay:0.2s"/><text class="f line" x="125" y="80" text-anchor="middle" style="animation-delay:0.4s">Diagnostics</text><path class="line" d="M80 90 H 170" stroke="#ccc" style="animation-delay:0.6s"/><text class="f line" x="125" y="110" text-anchor="middle" style="animation-delay:0.8s">POC</text><path class="line" d="M80 120 H 170" stroke="#ccc" style="animation-delay:1s"/><text class="f line" x="275" y="50" text-anchor="middle" style="animation-delay:1.2s">NDA</text><path class="line" d="M230 60 H 320" stroke="#ccc" style="animation-delay:1.4s"/><text class="f line" x="275" y="80" text-anchor="middle" style="animation-delay:1.6s">Contract</text><path class="line" d="M230 90 H 320" stroke="#ccc" style="animation-delay:1.8s"/></svg>`; return c; },
+            'gameplan_pitch': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 16px var(--font-family);text-anchor:middle;}.hand{animation:shake 1s ease-in-out forwards;transform-origin:center;}@keyframes shake{0%{transform:rotate(0)}25%{transform:rotate(-10deg) translateX(-10px)}50%{transform:rotate(10deg) translateX(10px)}75%{transform:rotate(-5deg)}100%{transform:rotate(0)}}</style><text class="f" x="200" y="40">Business Partners</text><g class="hand"><path d="M150 100 l-30 0 v-20 l-20 0 v50 h50z" fill="#ccc"/><text class="f" x="115" y="150">T-Nor</text></g><g class="hand" style="animation-delay:0.1s"><path d="M250 100 l30 0 v-20 l20 0 v50 h-50z" fill="var(--accent-color)"/><text class="f" x="285" y="150">GA</text></g></svg>`; return c; },
+            'gameplan_questionnaire': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:flow 1s forwards;}@keyframes flow{to{stroke-dashoffset:0;}}</style><g><rect x="50" y="80" width="80" height="40" fill="#ccc" rx="5"/><text class="f" x="90" y="105">Questionnaire</text></g><g><path class="line" d="M130 90 H 250" stroke="#333" stroke-width="2"/><circle cx="280" cy="60" r="15" fill="var(--accent-color)"/><text class="f" x="280" y="90">C-Level</text></g><g><path class="line" d="M130 110 H 250" stroke="#333" stroke-width="2" style="animation-delay:0.2s"/><circle cx="280" cy="110" r="15" fill="var(--accent-color)"/><text class="f" x="280" y="140">Tech</text></g><g><path class="line" d="M130 100 h 120 l 30 50" stroke="#333" stroke-width="2" style="animation-delay:0.4s"/><circle cx="280" cy="160" r="15" fill="var(--accent-color)"/><text class="f" x="280" y="190">Ops</text></g></svg>`; return c; },
+            'gameplan_diagnostics': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.mag{animation:scan 2s ease-in-out infinite alternate;}@keyframes scan{from{transform:translateX(-20px) rotate(-10deg);}to{transform:translateX(20px) rotate(10deg);}}@keyframes fade-in{to{opacity:1;}}</style><path d="M150 50 L 250 50 L 250 150 L 150 150 Z" fill="#ccc"/><path d="M180 80 L 220 120 M 180 120 L 220 80" stroke="red" stroke-width="8" style="opacity:0;animation:fade-in 1s 1.5s forwards;"/><g class="mag"><circle cx="150" cy="100" r="40" fill="rgba(173,216,230,0.5)" stroke="var(--accent-color)" stroke-width="4"/><line x1="110" y1="140" x2="80" y2="170" stroke="var(--accent-color)" stroke-width="8"/></g></svg>`; return c; },
+            'gameplan_capacity': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.bulb{animation:light-up 1s 1s forwards;opacity:0;}@keyframes light-up{to{opacity:1;fill:yellow;}}</style><g><circle cx="100" cy="100" r="20" fill="var(--accent-color)"/><text class="f" x="100" y="135">GA</text></g><path d="M130 100 H 220" stroke="#333" stroke-width="2"/><g><circle cx="250" cy="100" r="15" fill="#ccc"/><circle cx="300" cy="80" r="15" fill="#ccc"/><circle cx="300" cy="120" r="15" fill="#ccc"/><text class="f" x="285" y="150">T-Nor Team</text></g><path class="bulb" d="M285 40 l -10 10 a15,15 0 1,1 0,20 l 10 10 M 285 60 v20" fill="#ccc" stroke="black"/></svg>`; return c; },
+            'gameplan_poc': (c) => { const co={type:'bar',data:{labels:['Pilot Project'],datasets:[{label:'Before',data:[25],backgroundColor:'#ff6384'},{label:'After (Impact)',data:[85],backgroundColor:'#4bc0c0'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'POC / Pilot Project Impact'}}}};return createChart(c,co)},
+            'gameplan_nda': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.sig{stroke-dasharray:200;stroke-dashoffset:200;animation:sign 1s 0.5s forwards;}@keyframes sign{to{stroke-dashoffset:0;}}@keyframes fade-in{to{opacity:1;}}</style><rect x="100" y="50" width="200" height="100" fill="#f9f9f9" stroke="#333"/><text class="f" x="200" y="80">Non-Disclosure Agreement</text><path class="sig" d="M150 130 C 170 120, 190 140, 210 130 S 240 120, 250 135" stroke="blue" stroke-width="2" fill="none"/><text class="f" fill="red" x="200" y="120" style="opacity:0;animation:fade-in 0.5s 1.5s forwards;transform:rotate(-15deg);font-size:16px;">CONFIDENTIAL</text></svg>`; return c; },
+            'gameplan_commercials': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 24px var(--font-family);text-anchor:middle;}.coin{animation:drop 1s ease-out forwards;}@keyframes drop{from{transform:translateY(-100px);opacity:0;}to{transform:translateY(0);opacity:1;}}</style><path d="M150 50 h100 v100 h-100z M150 50 h100 l20 20 h-100z M250 50 v100 l20-20 v-100z" fill="#ccc" stroke="#333"/><circle cx="200" cy="100" r="15" fill="#333"/><g class="coin"><circle cx="200" cy="100" r="30" fill="gold"/><text class="f" x="200" y="110">$</text></g></svg>`; return c; },
+            'gameplan_matrix': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);}.cell{animation:check 0.5s forwards;opacity:0;}@keyframes check{to{opacity:1;}}</style><path d="M100 50 h200 v100 h-200z M100 90 h200 M100 120 h200 M200 50 v100" fill="none" stroke="#333"/><text class="f" x="150" y="75">Task 1</text><text class="f" x="150" y="105">Task 2</text><text class="f" x="150" y="135">Task 3</text><text class="f" x="250" y="75">Task A</text><text class="f" x="250" y="105">Task B</text><text class="f" x="250" y="135">Task C</text><text class="f" x="150" y="40">T-Nor</text><text class="f" x="250" y="40">GA</text><path class="cell" d="M140 125 l5 5 l10 -10" stroke="green" stroke-width="3" fill="none" style="animation-delay:0.5s;"/><path class="cell" d="M240 65 l5 5 l10 -10" stroke="green" stroke-width="3" fill="none" style="animation-delay:0.8s;"/><path class="cell" d="M240 95 l5 5 l10 -10" stroke="green" stroke-width="3" fill="none" style="animation-delay:1.1s;"/></svg>`; return c; },
+            'gameplan_contract': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 24px var(--font-family);text-anchor:middle;transform-origin:center;}.stamp{animation:stamp 0.5s cubic-bezier(.36,-0.64,.34,1.76) 1s forwards;transform:scale(3);opacity:0;}@keyframes stamp{to{transform:scale(1);opacity:1;}}</style><rect x="100" y="50" width="200" height="100" fill="#f9f9f9" stroke="#333"/><text class="f" x="200" y="90" font-size="14">Contract</text><text class="f" x="200" y="110" font-size="10">Deliverables, Timelines, Costs</text><g class="stamp"><circle cx="200" cy="100" r="40" fill="none" stroke="green" stroke-width="3"/><text class="f" fill="green" font-size="18" x="200" y="108">SIGNED</text></g></svg>`; return c; },
+            'gameplan_realization': (c) => { const co={type:'line',data:{labels:['Q1','Q2','Q3 (Deploy)','Q4','Q1'],datasets:[{label:'Efficiency Metric',data:[30,32,35,78,85],borderColor:'limegreen',tension:0.2,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Post-Deployment Affect Realization'}}}};return createChart(c,co)},
+            'plan_title_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); fill:var(--main-text-color); font-size:12px; text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><g class="item"><path d="M100,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" x="130" y="125">AI</text></g><path class="line" d="M160 100 H 200" stroke="#333" style="animation-delay:0.5s;"/><g class="item" style="animation-delay:0.8s;"><circle cx="230" cy="100" r="20" fill="#d9534f"/><path d="M230 90 L 250 100 L 230 110" stroke="white" fill="none" stroke-width="2"/><text class="f" x="230" y="135">Mitigate Churn</text></g><g class="item" style="animation-delay:1.1s;"><path d="M130 65 L 200 30 L 270 65" fill="none" stroke="#5cb85c" stroke-width="3"/><text class="f" x="200" y="20">Enhance Competitiveness</text></g></svg>`; return c; },
+            'intervention_ml_models': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); text-anchor:middle; font-size:11px;}.item{opacity:0; animation:fade 0.5s forwards;}@keyframes fade{to{opacity:1;}}</style><text class="f item" x="70" y="105">Data</text><path d="M100 100 H 150" stroke="#333" class="item" style="animation-delay:0.2s;"/><g class="item" style="animation-delay:0.5s;"><rect x="150" y="70" width="100" height="60" rx="5" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="95">ML Models</text><text class="f" fill="white" x="200" y="115" font-size="9">(XGBoost, etc.)</text></g><path d="M250 100 H 300" stroke="#333" class="item" style="animation-delay:0.7s;"/><text class="f item" x="330" y="105" style="animation-delay:1s;">Prediction</text></svg>`; return c; },
+            'intervention_data': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}</style><g class="item"><rect x="40" y="80" width="60" height="40" fill="#ccc" rx="3"/><text class="f" x="70" y="135">CDRs</text></g><g class="item" style="animation-delay:0.2s;"><rect x="120" y="80" width="60" height="40" fill="#ccc" rx="3"/><path d="M130 110 v-20 h 10 v 20 h 10 v-10 h 10 v 10" stroke="var(--accent-color)" fill="none" stroke-width="2"/><text class="f" x="150" y="135">Usage</text></g><g class="item" style="animation-delay:0.4s;"><rect x="220" y="80" width="60" height="40" fill="#ccc" rx="3"/><path d="M230 90 L 270 110 M 270 90 L 230 110" stroke="red" fill="none"/><text class="f" x="250" y="135">Complaints</text></g><g class="item" style="animation-delay:0.6s;"><rect x="300" y="80" width="60" height="40" fill="#ccc" rx="3"/><circle cx="330" cy="100" r="10" fill="var(--accent-color)"/><text class="f" x="330" y="135">Location</text></g></svg>`; return c; },
+            'intervention_likelihood': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); font-size:12px;}.gauge{transform:rotate(-90deg); transform-origin:center;}.bg{stroke:#eee;}.fill{stroke:#d9534f; stroke-dasharray:314; stroke-dashoffset:314; animation:fill 1s 0.5s ease-out forwards;}@keyframes fill{to{stroke-dashoffset:80;}}</style><text class="f" x="200" text-anchor="middle" y="40">Churn Likelihood</text><g class="gauge"><circle class="bg" cx="200" cy="100" r="50" stroke-width="20" fill="none"/><circle class="fill" cx="200" cy="100" r="50" stroke-width="20" fill="none"/></g><text class="f" x="200" text-anchor="middle" y="105" font-size="24" font-weight="bold">75%</text></svg>`; return c; },
+            'intervention_retention': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.cust{animation:move 2s ease-in-out forwards;}@keyframes move{to{transform:translateX(100px);opacity:0;}}.offer{opacity:0; animation:pop 0.5s 1s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}</style><g class="cust"><circle cx="100" cy="100" r="20" fill="#d9534f"/><text class="f" x="100" y="135">At-Risk Customer</text></g><g class="offer"><rect x="180" y="80" width="60" height="40" fill="gold" rx="5"/><text class="f" x="210" y="105">Offer!</text></g></svg>`; return c; },
+            'intervention_crm': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.alert{animation:pulse 1.5s 1s infinite;}@keyframes pulse{50%{opacity:0.3;}}</style><rect x="100" y="50" width="200" height="100" fill="#f0f0f0" stroke="#ccc" rx="5"/><text class="f" x="200" y="70">CRM Dashboard</text><g class="alert"><circle cx="200" cy="105" r="20" fill="#d9534f"/><text class="f" fill="white" x="200" y="110">!</text></g></svg>`; return c; },
+            'intervention_maintenance': (c) => { const co={type:'line',data:{labels:['W1','W2','W3','W4','W5','W6'],datasets:[{label:'Health Score',data:[98,99,97,96,95,94],borderColor:'#ccc'},{label:'Predicted Failure',data:[null,null,null,null,null,85],pointBackgroundColor:'red',pointRadius:8,borderColor:'red',borderDash:[5,5]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Time-Series Analysis'}}}}; return createChart(c,co);},
+            'intervention_anomaly': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.node{fill:#ccc;}.anomaly{animation:flash 1s infinite;}@keyframes flash{50%{fill:red;}}</style><path d="M100 100 L 150 150 L 200 100 L 250 150 L 300 100 M150 50 L 175 75 L 225 75 L 250 50" stroke="#ccc" fill="none"/><circle class="node" cx="100" cy="100" r="10"/><circle class="node" cx="150" cy="150" r="10"/><circle class="node" cx="200" cy="100" r="10"/><circle class="node anomaly" cx="250" cy="150" r="10"/><circle class="node" cx="300" cy="100" r="10"/><circle class="node" cx="150" cy="50" r="10"/><circle class="node" cx="250" cy="50" r="10"/></svg>`; return c; },
+            'intervention_allocation': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.bar{fill:var(--accent-color); transition: height 0.5s;}.spike{animation:spike 2s 1s ease-in-out infinite alternate;}@keyframes spike{to{fill:red;}}</style><rect class="bar" y="100" x="50" width="40" height="50"/><rect class="bar" y="120" x="100" width="40" height="30"/><rect class="bar spike" y="50" x="150" width="40" height="100"/><rect class="bar" y="110" x="200" width="40" height="40"/><rect class="bar" y="120" x="250" width="40" height="30"/><rect class="bar" y="100" x="300" width="40" height="50"/></svg>`; return c; },
+            'intervention_downtime': (c) => { const co={type:'bar',data:{labels:['Downtime'],datasets:[{label:'Before AI',data:[100],backgroundColor:'#ff6384'},{label:'After AI',data:[15],backgroundColor:'#4bc0c0'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Minimize Network Downtime'}}}}; return createChart(c,co);},
+            'intervention_recommendation': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s 1s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><circle cx="80" cy="100" r="20" fill="var(--accent-color)"/><text class="f" x="80" y="135" text-anchor="middle">User</text><rect x="200" y="40" width="50" height="30" fill="#ccc"/><rect x="280" y="85" width="50" height="30" fill="#ccc"/><rect x="200" y="130" width="50" height="30" fill="#ccc"/><path class="line" d="M100 100 L 280 100" stroke="gold" stroke-width="3"/></svg>`; return c; },
+            'intervention_bundles': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{animation:bundle 1s 0.5s ease-in-out forwards;}@keyframes bundle{to{transform:translateX(130px);opacity:0;}}</style><g class="item"><rect x="50" y="40" width="50" height="30" fill="#ccc"/><text class="f" x="75" y="80">Data</text></g><g class="item" style="animation-delay:0.2s"><rect x="50" y="85" width="50" height="30" fill="#ccc"/><text class="f" x="75" y="125">Calls</text></g><g class="item" style="animation-delay:0.4s"><rect x="50" y="130" width="50" height="30" fill="#ccc"/><text class="f" x="75" y="170">SMS</text></g><rect x="200" y="50" width="150" height="100" rx="10" fill="var(--accent-color)" style="opacity:0;animation:pop 0.5s 1.5s forwards;"/><text class="f" fill="white" x="275" y="105" style="opacity:0;animation:pop 0.5s 1.5s forwards;">Targeted Bundle</text></svg>`; return c; },
+            'intervention_upsell': (c) => { const co={type:'bar',data:{labels:['ARPU'],datasets:[{label:'Current',data:[250],backgroundColor:'#ccc'},{label:'Potential w/ Up-sell',data:[320],backgroundColor:'var(--accent-color)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Increase ARPU'}}}}; return createChart(c,co);},
+            'intervention_campaign': (c) => { const co={type:'line',data:{labels:['W1','W2','W3','W4'],datasets:[{label:'Effectiveness',data:[30,50,65,85],borderColor:'var(--accent-color)',tension:0.2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Campaign Effectiveness Tracking'}}}}; return createChart(c,co);},
+            'intervention_chatbots': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s forwards;}@keyframes fade{to{opacity:1}}</style><path d="M180 80 h40 v40 h-10 l-5-5 v-10 l-5 0z" fill="var(--accent-color)"/><text class="f" x="200" y="140">Chatbot</text><g class="item" style="animation-delay:0.5s;"><rect x="250" y="80" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="100">English</text></g><g class="item" style="animation-delay:0.8s;"><rect x="250" y="115" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="135">Urdu (اردو)</text></g><g class="item" style="animation-delay:1.1s;"><rect x="250" y="150" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="170">Regional</text></g></svg>`; return c; },
+            'intervention_automate': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); text-anchor:middle; font-size:11px;}.item{opacity:0; animation:fade 0.5s forwards;}@keyframes fade{to{opacity:1}}</style><g class="item"><rect x="100" y="50" width="200" height="110" fill="#f0f0f0" rx="5"/><text class="f" x="200" y="70" style="font-weight:bold">Automated Tasks</text><text class="f item" x="200" y="95" style="animation-delay:0.5s;">✓ FAQs</text><text class="f item" x="200" y="115" style="animation-delay:0.8s;">✓ Billing</text><text class="f item" x="200" y="135" style="animation-delay:1.1s;">✓ Subscriptions</text></g></svg>`; return c; },
+            'intervention_escalation': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); text-anchor:middle; font-size:11px;}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s 1s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><text class="f" x="80" y="105" font-size="24">😠</text><text class="f" x="80" y="135">Negative Sentiment</text><path class="line" d="M120 100 H 220" stroke="red" stroke-width="2"/><circle cx="280" cy="100" r="20" fill="#ccc"/><text class="f" x="280" y="135">Human Agent</text></svg>`; return c; },
+            'intervention_trust': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.shield{opacity:0; transform:scale(0.5); animation:grow 1s 0.5s forwards; transform-origin:center;}@keyframes grow{to{opacity:1;transform:scale(1);}}</style><text x="200" y="105" text-anchor="middle" font-size="24" font-weight="bold">T-Nor</text><path class="shield" d="M200 50 L 150 80 V 120 C 150 150, 200 170, 200 170 C 200 170, 250 150, 250 120 V 80 Z" fill="rgba(92,184,92,0.5)"/></svg>`; return c; },
+            'intervention_adjustments': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .item{opacity:0; animation:fade 0.5s 0.5s forwards;}
+            @keyframes fade{to{opacity:1;}}
+            .line{stroke-dasharray:300; stroke-dashoffset:300; animation:draw 2s 1s ease-in-out forwards;}
+            @keyframes draw{to{stroke-dashoffset:0;}}
+            .switch-bg{fill:#ccc; transition:fill 0.5s;}
+            .switch-btn{fill:white; transform:translateX(0); transition:transform 0.5s;}
+            .switch.on .switch-bg{fill:#5cb85c;}
+            .switch.on .switch-btn{transform:translateX(20px);}
+            .switch{animation:flip 0.5s 3s forwards;}
+            @keyframes flip{to{transform:scale(1);}} /* dummy to trigger transition */
+        </style>
+        <text class="f" x="200" y="30" style="font-weight:bold;">Automatic Service Adjustment</text>
+        <g class="item">
+            <path d="M100,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/>
+            <text class="f" x="130" y="125">AI Monitor</text>
+        </g>
+        <path class="line" d="M30 100 H 100 C 120 100, 130 50, 150 50 S 180 150, 200 100 H 370" stroke="#ccc" stroke-width="2" fill="none"/>
+        <g class="item" style="animation-delay:2.5s;">
+            <g class="switch">
+                <rect class="switch-bg" x="280" y="80" width="50" height="30" rx="15"/>
+                <circle class="switch-btn" cx="295" cy="95" r="12"/>
+            </g>
+            <text class="f" x="305" y="130">Adjust Service</text>
+        </g>
+    </svg>`;
+    return c; 
+},
+            'focal_churn_dashboard': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color);}
+            .bg{fill: #f0f0f0; stroke: #ccc; stroke-width:1;}
+            .title{font-size:14px; font-weight:bold; text-anchor:middle;}
+            .label{font-size:10px;}
+            .value{font-size:16px; font-weight:bold; fill: #d9534f;}
+            .item{opacity:0; animation:fadeInUp 0.5s ease-out forwards;}
+            @keyframes fadeInUp{ from{opacity:0; transform:translateY(15px);} to{opacity:1; transform:translateY(0);} }
+        </style>
+        <rect class="bg" x="10" y="10" width="380" height="180" rx="10"/>
+        <text class="f title" x="200" y="35">Churn Prediction Dashboard</text>
+        <path d="M50 80 H 150" stroke="#ccc" stroke-width="15" stroke-linecap="round"/>
+        <path id="gauge" d="M50 80 H 125" stroke="#d9534f" stroke-width="15" stroke-linecap="round" style="stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawGauge 1s 0.5s ease-out forwards;"/>
+        @keyframes drawGauge{to{stroke-dashoffset: 25;}}
+        <text class="f label" x="100" y="65" text-anchor="middle">Predicted Monthly Churn</text>
+        <text class="f value" x="100" y="110" text-anchor="middle">7.5%</text>
+
+        <line x1="180" y1="50" x2="180" y2="180" stroke="#ccc"/>
+        <text class="f label" x="280" y="65" text-anchor="middle">High-Risk Segments</text>
+        <g class="item" style="animation-delay: 1.0s;">
+            <rect x="200" y="80" width="160" height="25" fill="#fff"/>
+            <text class="f label" x="205" y="96">1. Low Data Usage</text>
+        </g>
+        <g class="item" style="animation-delay: 1.2s;">
+            <rect x="200" y="110" width="160" height="25" fill="#fff"/>
+            <text class="f label" x="205" y="126">2. Frequent Call Drops</text>
+        </g>
+        <g class="item" style="animation-delay: 1.4s;">
+            <rect x="200" y="140" width="160" height="25" fill="#fff"/>
+            <text class="f label" x="205" y="156">3. Inactive for 15+ Days</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'focal_experience_journey': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:10px; text-anchor:middle;}
+            .path{stroke-dasharray:500; stroke-dashoffset:500; animation:drawPath 2s ease-out 0.5s forwards;}
+            @keyframes drawPath{to{stroke-dashoffset:0;}}
+            .node{opacity:0; animation:popIn 0.5s ease-out forwards;}
+            @keyframes popIn{from{transform:scale(0);} to{transform:scale(1);}}
+            .face{font-size:14px; animation:changeFace 1s ease-out forwards;}
+            @keyframes changeFace{0%{fill:orange;} 100%{fill:green;}}
+        </style>
+        <path class="path" d="M40 100 C 100 50, 150 150, 200 100 S 300 50, 360 100" stroke="#ccc" stroke-width="2" fill="none"/>
+        <g class="node" style="animation-delay:0.8s;">
+            <circle cx="40" cy="100" r="15" fill="#fff" stroke="var(--accent-color)" stroke-width="2"/>
+            <text class="f face">😐</text><text class="f" y="30">App</text>
+        </g>
+        <g class="node" transform="translate(125, 93)" style="animation-delay:1.2s;">
+            <circle r="15" fill="#fff" stroke="var(--accent-color)" stroke-width="2"/>
+            <text class="f face" style="animation-delay:1.2s;">🙂</text><text class="f" y="-20">Store</text>
+        </g>
+        <g class="node" transform="translate(200, 100)" style="animation-delay:1.6s;">
+            <circle r="15" fill="#fff" stroke="var(--accent-color)" stroke-width="2"/>
+            <text class="f face" style="animation-delay:1.6s;">😊</text><text class="f" y="30">Call Center</text>
+        </g>
+        <g class="node" transform="translate(360, 100)" style="animation-delay:2.0s;">
+            <circle r="20" fill="gold"/>
+            <text class="f" style="font-size:8px; font-weight:bold;">CSAT: 9/10</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'focal_network_map': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:10px;}
+            .land{fill:#dcedc8; stroke:#a5d6a7;}
+            .tower{fill:green; transition: fill 0.5s;}
+            .scanner{opacity:0; animation:scan 3s ease-in-out 0.5s forwards;}
+            @keyframes scan{
+                0%{opacity:1; transform:translateX(0);} 
+                50%{transform:translateX(100px);} 
+                100%{opacity:0; transform:translateX(200px);}
+            }
+            .fault{animation:flash 2s 1.5s infinite;}
+            @keyframes flash{50%{fill:gold;}}
+            .team{opacity:0; animation:dispatch 2s ease-out 2.5s forwards;}
+            @keyframes dispatch{to{opacity:1; transform:translate(120px, -20px);}}
+        </style>
+        <path class="land" d="M100 20 L 150 10 L 200 40 L 280 30 L 320 80 L 290 150 L 200 180 L 120 160 L 80 100 Z"/>
+        <circle class="tower" cx="160" cy="50" r="5"/>
+        <circle class="tower fault" id="faulty-tower" cx="240" cy="90" r="5"/>
+        <circle class="tower" cx="180" cy="140" r="5"/>
+        <circle class="tower" cx="260" cy="150" r="5"/>
+        <path class="scanner" d="M150 0 L 130 200" stroke="rgba(0,123,255,0.5)" stroke-width="4"/>
+        <g class="team">
+            <rect x="50" y="100" width="20" height="15" fill="orange" rx="3"/>
+            <text class="f" x="45" y="130">Maint. Team</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'focal_marketing_funnel': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:10px; text-anchor:middle;}
+            .item{opacity:0; animation:fadeIn 0.5s forwards;}
+            @keyframes fadeIn{to{opacity:1;}}
+            .cust{animation:fall 2s linear forwards; fill:#ccc;}
+            @keyframes fall{
+                from{transform:translateY(0); opacity:1;}
+                to{transform:translateY(110px); opacity:0;}
+            }
+            .filtered{fill:var(--accent-color); animation-delay:0.1s;}
+        </style>
+        <text class="f item" x="200" y="20">Personalization Funnel</text>
+        <path d="M100 30 L 150 160 H 250 L 300 30 Z" fill="#f0f0f0"/>
+        
+        <circle class="cust" cx="150" cy="40" r="5"/>
+        <circle class="cust filtered" cx="175" cy="40" r="5"/>
+        <circle class="cust" cx="200" cy="40" r="5"/>
+        <circle class="cust filtered" cx="225" cy="40" r="5"/>
+        <circle class="cust" cx="250" cy="40" r="5"/>
+        
+        <g class="item" style="animation-delay:2.2s;">
+            <rect x="150" y="165" width="100" height="25" fill="gold" rx="5"/>
+            <text class="f" x="200" y="180" style="font-weight:bold;">Targeted Offer</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'focal_loyalty_ladder': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:10px;}
+            .step{opacity:0; animation:build 0.5s ease-out forwards;}
+            @keyframes build{from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;}}
+            .climber{animation:climb 3s ease-in-out 2s forwards;}
+            @keyframes climb{
+                0%{transform:translate(0,0);} 
+                33%{transform:translate(60px,-40px);}
+                66%{transform:translate(120px,-80px);}
+                100%{transform:translate(180px,-120px);}
+            }
+        </style>
+        <g class="step" style="animation-delay:0.2s;">
+            <rect x="50" y="160" width="80" height="20" fill="#cd7f32"/>
+            <text class="f" x="70" y="174" fill="white">Bronze</text>
+        </g>
+        <g class="step" style="animation-delay:0.4s;">
+            <rect x="110" y="120" width="80" height="20" fill="#c0c0c0"/>
+            <text class="f" x="135" y="134">Silver</text>
+        </g>
+        <g class="step" style="animation-delay:0.6s;">
+            <rect x="170" y="80" width="80" height="20" fill="#ffd700"/>
+            <text class="f" x="195" y="94">Gold</text>
+        </g>
+        <g class="step" style="animation-delay:0.8s;">
+            <rect x="230" y="40" width="80" height="20" fill="#e5e4e2"/>
+            <text class="f" x="250" y="54">Platinum</text>
+        </g>
+        <g class="climber">
+            <circle cx="80" cy="150" r="8" fill="var(--accent-color)"/>
+            <path d="M 80 142 a 10 10 0 0 0 0 -12" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
+        </g>
+    </svg>`;
+    return c;
+},
+            // CHART: This generator follows the single-line convention as its configuration object is simple.
+            'client_history_diagram': (c) => { return createChart(c, {type:'line',data:{labels:['2005 (Launch)','2006','2007 (Price Wars)','2008'],datasets:[{label:'Market Position & Revenue',data:[50,80,45,40],borderColor:'#ff6384',backgroundColor:'rgba(255,99,132,0.2)',fill:true,tension:0.1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Initial Success Followed by Price Wars'}}}}); },
+
+// SVG: This generator is formatted for readability, which is best practice for complex SVG/HTML.
+            'client_problem_diagram': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font:bold 12px var(--font-family); text-anchor:middle;}
+            .item{animation:fade-in 0.5s ease-out forwards; opacity:0;}
+            @keyframes fade-in{to{opacity:1;}}
+            .arrow{animation:drop 1s ease-in forwards; transform-origin:center;}
+            @keyframes drop{from{transform:translateY(-20px);opacity:0;} to{transform:translateY(0);opacity:1;}}
+        </style>
+        <g class="item">
+            <text class="f" x="80" y="60">ARPU</text>
+            <path class="arrow" d="M80 70 L 80 140 L 70 130 M 80 140 L 90 130" stroke="red" stroke-width="3" fill="none"/>
+        </g>
+        <g class="item" style="animation-delay:0.5s;">
+            <circle cx="200" cy="100" r="25" fill="#ccc"/>
+            <path d="M200 80 L 230 100 L 200 120" stroke="var(--main-text-color)" fill="none" stroke-width="3"/>
+            <text class="f" x="200" y="150">Subscriber Churn</text>
+        </g>
+        <g class="item" style="animation-delay:1s;">
+            <rect x="290" y="70" width="80" height="60" rx="5" fill="rgba(255,99,132,0.8)"/>
+            <text class="f" fill="white" x="330" y="95">RED</text>
+            <text class="f" fill="white" x="330" y="115">FLAG</text>
+        </g>
+    </svg>`; 
+    return c; 
+},
+
+// CHART: This generator also follows the single-line convention.
+        'client_market_diagram': (c) => { return createChart(c, {type:'doughnut',data:{labels:['Prepaid (PAYG)','Postpaid'],datasets:[{data:[95,5],backgroundColor:['#36a2eb','#c9cbcf'],borderColor:'var(--pane-bg-right)',borderWidth:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Market Context: 95% Prepaid'}}}}); },
+
+// SVG: This more complex SVG is also formatted for best-practice readability.
+        'client_need_diagram': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font:bold 12px var(--font-family); text-anchor:middle;}
+            .item{animation:fade-in 1s ease-out forwards; opacity:0;}
+            @keyframes fade-in{to{opacity:1;}}
+            .line{stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw 2s ease-out 1s forwards;}
+            @keyframes draw{to{stroke-dashoffset:0;}}
+            .risk{animation:pulse 1.5s infinite alternate; fill:red;}
+            @keyframes pulse{to{opacity:0.3;}}
+        </style>
+        <g transform="translate(50, 50)" class="item">
+            <circle cx="0" cy="50" r="30" fill="rgba(0,123,255,0.2)"/>
+            <circle cx="0" cy="50" r="10" fill="var(--accent-color)"/>
+            <path d="M-25 25 L 25 75 M-25 75 L 25 25" stroke="var(--accent-color)" stroke-width="2"/>
+            <text class="f" x="0" y="110">Predictability</text>
+        </g>
+        <path class="line" d="M120 100 C 180 120, 220 60, 280 80 S 350 130, 380 100" stroke="#ccc" stroke-width="3" fill="none"/>
+        <path class="line" d="M120 100 C 180 100, 220 100, 380 100" stroke="var(--accent-color)" stroke-width="2" fill="none" stroke-dasharray="5 5" style="animation-delay:1.5s;"/>
+        <circle class="risk" cx="255" cy="70" r="8" style="opacity:0; animation-delay:2s;"/>
+        <text class="f" x="255" y="60" style="opacity:0; animation:fade-in 1s 2s forwards;">Risk</text>
+    </svg>`; 
+    return c; 
+},
+'roadmap_phase1_diagnose': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px;}
+            .item, .line{opacity:0; animation:fade-in 0.5s ease-out forwards;}
+            .check{stroke-dasharray:50; stroke-dashoffset:50; animation:draw 0.5s ease-out forwards;}
+            @keyframes fade-in{to{opacity:1;}} @keyframes draw{to{stroke-dashoffset:0;}}
+        </style>
+        <text class="f" x="100" y="30" text-anchor="middle" style="font-weight:bold;">Diagnostic Toolkit</text>
+        <rect x="30" y="40" width="140" height="130" fill="#f0f0f0" rx="5" class="item"/>
+        <text class="f item" x="40" y="60" style="animation-delay:0.2s;">✓ Churn</text>
+        <text class="f item" x="40" y="80" style="animation-delay:0.4s;">✓ Customer Exp.</text>
+        <text class="f item" x="40" y="100" style="animation-delay:0.6s;">✓ Network Health</text>
+        <text class="f item" x="40" y="120" style="animation-delay:0.8s;">✓ Marketing</text>
+        <text class="f item" x="40" y="140" style="animation-delay:1.0s;">✓ Loyalty</text>
+        <g class="item" style="animation-delay:1.2s;">
+            <path d="M240 70 h80 v80 h-80z M240 90 h80 M240 110 h80 M240 130 h80" fill="#ccc" stroke="#333" stroke-width="0.5"/>
+            <text class="f" x="280" y="60" text-anchor="middle">Data Infrastructure</text>
+        </g>
+        <path class="line" d="M170 105 H 240" stroke="#333" stroke-width="2" style="animation-delay:1.4s;"/>
+        <path class="check" d="M260 95 l10 10 l20 -20" stroke="var(--accent-color)" stroke-width="4" fill="none" style="animation-delay:1.6s;"/>
+    </svg>`;
+    return c;
+},
+'roadmap_phase2_pilot': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .cust{fill:#ccc; animation:flow 2s ease-in-out forwards;}
+            .at-risk{fill:red;}
+            @keyframes flow{
+                from{transform:translateX(0); opacity:1;} 
+                to{transform:translateX(140px); opacity:0;}
+            }
+            .item{opacity:0; animation:pop 1s 2s ease-out forwards;}
+            @keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}
+        </style>
+        <text class="f" x="80" y="40">Pilot Group</text>
+        <circle class="cust" cx="80" cy="80" r="8"/>
+        <circle class="cust at-risk" cx="60" cy="100" r="8" style="animation-delay:0.1s;"/>
+        <circle class="cust" cx="100" cy="100" r="8" style="animation-delay:0.2s;"/>
+        <circle class="cust at-risk" cx="80" cy="120" r="8" style="animation-delay:0.3s;"/>
+        <rect x="150" y="70" width="100" height="60" fill="var(--accent-color)" rx="5"/>
+        <text class="f" x="200" y="105" fill="white" style="font-size:10px;">AI Churn Model</text>
+        <g class="item" transform="translate(320, 100)">
+            <path d="M0 -30 L -15 -10 H 15 Z" fill="#FFC107"/>
+            <rect x="-10" y="-10" width="20" height="25" fill="#FFC107"/>
+            <text class="f" y="30">Pilot Success</text>
+        </g>
+    </svg>`;
+    return c;
+},
+'roadmap_phase3_scale': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f { font-family: var(--font-family); fill: var(--main-text-color); font-size: 11px; text-anchor: middle; }
+            
+            /* The pilot circle that expands and fades */
+            .pilot-group { animation: expand 1.5s ease-out 0.5s forwards; transform-origin: center; }
+            @keyframes expand {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(5); opacity: 0; }
+            }
+
+            /* The full-scale elements that fade in */
+            .full-base { opacity: 0; animation: fadeIn 1s ease-out 1.5s forwards; }
+            @keyframes fadeIn { to { opacity: 1; } }
+
+            /* The arrows that draw and fade in */
+            .arrow { opacity: 0; animation: fadeIn 1s 2.5s forwards; marker-end: url(#head); }
+        </style>
+        
+        <defs>
+            <marker id="head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/>
+            </marker>
+        </defs>
+
+        <g class="pilot-group">
+            <circle cx="200" cy="100" r="20" fill="var(--accent-color)" opacity="0.8"/>
+            <text class="f" x="200" y="135">Pilot</text>
+        </g>
+        
+        <g class="full-base">
+            <rect x="80" y="40" width="240" height="100" rx="10" fill="rgba(0,123,255,0.2)"/>
+            <text class="f" x="200" y="85">Full Scale Rollout to</text>
+            <text class="f" x="200" y="105" style="font-weight:bold;">Entire Subscriber Base</text>
+            
+            <path class="arrow" d="M120 140 v 25 h -20"/>
+            <text class="f arrow" x="100" y="180">Marketing</text>
+            
+            <path class="arrow" d="M280 140 v 25 h 20"/>
+            <text class="f arrow" x="300" y="180">Retention</text>
+        </g>
+    </svg>`;
+    return c;
+},
+'roadmap_phase4_sustain': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .item{opacity:0; animation:pop 0.5s ease-out forwards;}
+            @keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}
+            .flow-arrow{transform-origin:center; animation:rotate 8s linear infinite;}
+            @keyframes rotate{to{transform:rotate(360deg);}}
+        </style>
+        <g class="item">
+            <circle cx="200" cy="100" r="30" fill="#f0f0f0"/>
+            <path d="M190 90 h20 v25 l-20 -5z M195 80 l10-10 l-10 0z" fill="var(--accent-color)"/>
+            <text class="f" x="200" y="125" style="font-weight:bold;">T-Nor Team</text>
+        </g>
+        <g class="flow-arrow">
+            <path d="M200,30 A 70 70 0 0 1 270,100" fill="none" stroke="#ccc" stroke-width="2"/>
+            <path d="M270,100 L 260 95 L 265 105 Z" fill="#ccc"/>
+            <text class="f item" x="255" y="55" style="animation-delay:0.5s;">Manage Models</text>
+        </g>
+        <g class="flow-arrow" style="transform:rotate(120deg);">
+             <path d="M200,30 A 70 70 0 0 1 270,100" fill="none" stroke="#ccc" stroke-width="2"/>
+            <path d="M270,100 L 260 95 L 265 105 Z" fill="#ccc"/>
+            <text class="f item" transform="rotate(-120)" x="-145" y="155" style="animation-delay:0.8s;">Gather Data</text>
+        </g>
+         <g class="flow-arrow" style="transform:rotate(240deg);">
+             <path d="M200,30 A 70 70 0 0 1 270,100" fill="none" stroke="#ccc" stroke-width="2"/>
+            <path d="M270,100 L 260 95 L 265 105 Z" fill="#ccc"/>
+            <text class="f item" transform="rotate(-240)" x="-105" y="-195" style="animation-delay:1.1s;">Continuously Optimize</text>
+        </g>
+    </svg>`;
+    return c;
+}
         };
 
         // --- Added: New p5.js background art from NodeBg.html ---
@@ -592,9 +1413,9 @@
             renderPageSwitcher();
 
             // Activate the correct background for the new page
-            if (currentPageIndex === 3 || currentPageIndex === 4) { // Pages 4 and 5 get Node Art
+            if (currentPageIndex === 3 || currentPageIndex === 4|| currentPageIndex === 10|| currentPageIndex === 11) { // Pages 4 and 5 get Node Art
     p5Sketch = new p5(p5_sketch, bgContainer);
-} else if (currentPageIndex === 5 || currentPageIndex === 6) { // Pages 6 and 7 get Wave Art
+} else if (currentPageIndex === 5 || currentPageIndex === 6|| currentPageIndex === 9) { // Pages 6 and 7 get Wave Art
     vanillaWaveArt = new WaveArt(bgContainer);
     vanillaWaveArt.start();
             } else { // All other pages
@@ -613,7 +1434,23 @@
             }
         }
 
-        function renderPageSwitcher() { pageSwitcher.innerHTML = ''; presentationData.forEach((page, index) => { const dot = document.createElement('div'); dot.className = 'dot page-dot'; if (index === currentPageIndex) { dot.classList.add('active'); } dot.dataset.pageIndex = index; pageSwitcher.appendChild(dot); }); }
+        function renderPageSwitcher() {
+    pageSwitcher.innerHTML = '';
+    presentationData.forEach((page, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot page-dot';
+        dot.dataset.pageIndex = index;
+
+        if (index === currentPageIndex) {
+            dot.classList.add('active');
+        } else if (page.dotColor) {
+            // This is the new part: apply the custom color if the dot is not active
+            dot.style.backgroundColor = page.dotColor;
+        }
+
+        pageSwitcher.appendChild(dot);
+    });
+}
         
         function renderMedia(subheadingId, contentIndex = 0) {
             currentCharts.forEach(c => c.destroy()); currentCharts = [];
@@ -670,7 +1507,16 @@
         subheadingList.addEventListener('mouseover', (e) => { const targetLi = e.target.closest('li'); if(targetLi && !targetLi.classList.contains('subheading-category')) { tooltip.innerHTML = targetLi.getAttribute('data-tooltip'); tooltip.style.display = 'block'; } });
         subheadingList.addEventListener('mousemove', (e) => { const targetLi = e.target.closest('li'); if(targetLi && !targetLi.classList.contains('subheading-category')){ const tooltipHeight = tooltip.offsetHeight; const viewportHeight = window.innerHeight; let topPosition = e.clientY + 15; if (topPosition + tooltipHeight > viewportHeight) { topPosition = e.clientY - tooltipHeight - 15; } tooltip.style.left = `${e.clientX + 15}px`; tooltip.style.top = `${topPosition}px`; } });
         subheadingList.addEventListener('mouseout', (e) => { const targetLi = e.target.closest('li'); if(targetLi){ tooltip.style.display = 'none'; } });
-
+        // --- ADD THIS CODE FOR ARROW KEY NAVIGATION ---
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+        const nextPageIndex = (currentPageIndex + 1) % presentationData.length;
+        renderPage(nextPageIndex);
+         } else if (e.key === 'ArrowLeft') {
+        const prevPageIndex = (currentPageIndex - 1 + presentationData.length) % presentationData.length;
+        renderPage(prevPageIndex);
+         }
+});
         // --- Modified function ---
         function init() {
             bgContainer = document.getElementById('background-container'); // Get container
