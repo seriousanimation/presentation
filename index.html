@@ -294,6 +294,7 @@
                     'medianSpeeds': { text: "Median cellular download speed in Pakistan is <b>26.33 Mbps</b>.", tooltip: "Median Speeds (April-25): Cellular (Global: <b>92.31</b>/<b>13.76</b> Mbps | PAK: <b>26.33</b>/<b>9.18</b> Mbps), Fixed (Global: <b>101.37</b>/<b>57.39</b> Mbps | PAK: <b>15.82</b>/<b>15.75</b> Mbps)", content: [{type: 'info-graphic', generator: 'telecomPage_medianSpeedsInfo'}]}
                 }
             },
+            /*
             { // Page 6
                 title: "Case Study: T-Nor's Challenges",
                 subheadings: {
@@ -482,12 +483,12 @@
             content: [{type: 'chart', generator: 'gameplan_realization'}] 
         }
     }
-},
+},*/
 { // page 10
     title: "Applying the Playbook",
     dotColor: 'rgb(255, 255, 160)',
     subheadings:{
-        ' ':{ text: " " }
+        ' ':{ text: "A Case Study" }
     }
 },
 { // Page 11
@@ -585,141 +586,145 @@
 },
 { // Page 14
     title: "AI Adoption Plan for T-Nor",
-    dotColor: 'rgb(160, 255, 160)',
+     dotColor: 'rgb(130, 235, 190)',
     subheadings: {
-        'plan_title': { 
-            text: "Using AI to Mitigate Churn and Enhance Competitiveness", 
-            tooltip: "Using AI to Mitigate Churn and Enhance Competitiveness",
-            content: [{type: 'svg', generator: 'plan_title_diagram'}] 
-        },
-        'plan_intro': {
-            text: "Key AI Interventions to Reduce Churn:",
-            isCategory: true,
-            content: [{type: 'empty'}]
+        'adoption_overview_goal': { 
+            text: "The goal is to foster trust, reduce resistance, and build a collaborative future where AI augments human roles.", 
+            tooltip: "The AI Adoption Plan for T-Nor focuses on Churn management, employee training, inclusion, and change management. The goal is to foster trust, reduce resistance, and build a collaborative future where AI augments human roles.",
+            content: [{type: 'svg', generator: 'adoption_goal_diagram'}] 
         }
     }
 },
 { // Page 15
-    title: "AI Interventions to Reduce Churn (1/2)",
-    dotColor: 'rgb(160, 255, 160)',
+    title: "AI Adoption Plan: Phase 1 & 2",
+    dotColor: 'rgb(130, 235, 190)',
     subheadings: {
-        'category_predication': { text: "<b>Predication and Retention</b>", isCategory: true, content: [{type: 'empty'}] },
-        'item_ml_models': { 
-            text: "• ML Models: XGBoost, Random Forest", 
-            tooltip: "ML Models: XGBoost, Random Forest",
+        'category_phase1': { text: "<b>Phase 1: Awareness and Communication</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_webinars': { 
+            text: "• Webinars, and interactive Q&A sessions to explain the purpose of AI integration.", 
+            tooltip: "Webinars, and interactive Q&A sessions to explain the purpose of AI integration.",
             isIndented: true, 
-            content: [{type: 'svg', generator: 'intervention_ml_models'}] 
+            content: [{type: 'svg', generator: 'adoption_comms_diagram'}] 
         },
-        'item_data': {
-            text: "• Data: CDRs, usage, complaints, location",
-            tooltip: "Data: CDRs, usage, complaints, location",
+        'item_message': {
+            text: "• <b>Message:</b> AI will not be used to cut headcount but to enhance roles and skill development.",
+            tooltip: "Message: AI will not be used to cut headcount but to enhance roles and skill development.",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_data'}]
+            content: [{type: 'svg', generator: 'adoption_message_diagram'}]
         },
-        'item_likelihood': {
-            text: "• Predict churn likelihood",
-            tooltip: "Predict churn likelihood",
+        'category_phase2': { text: "<b>Phase 2: Collaborate and Plan</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_groups': {
+            text: "• Cross-functional AI working groups to identify areas and conduct AI impact assessments.",
+            tooltip: "Cross-functional AI working groups including RF Engineers, Technical Support, Network and operations Support, Strategy and Business Development etc. to identify areas and conduct AI impact assessments.",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_likelihood'}]
+            content: [{type: 'svg', generator: 'adoption_groups_diagram'}]
         },
-        'item_retention': {
-            text: "• Trigger real-time retention offers",
-            tooltip: "Trigger real-time retention offers",
+        'item_tools': {
+            text: "• <b>Tools:</b> Surveys, suggestion boxes, workshops",
+            tooltip: "Tools: Surveys, suggestion boxes, workshops",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_retention'}]
+            content: [{type: 'svg', generator: 'adoption_tools_diagram'}]
         },
-        'item_crm': {
-            text: "• CRM integration for proactive actions",
-            tooltip: "CRM integration for proactive actions",
+        'item_output': {
+            text: "• <b>Output:</b> AI task matrix (Human-led, AI-assisted, Fully automated)",
+            tooltip: "Output: AI task matrix (Human-led, AI-assisted, Fully automated)",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_crm'}]
-        },
-        'category_network': { text: "<b>Network Optimization</b>", isCategory: true, content: [{type: 'empty'}] },
-        'item_maintenance': {
-            text: "• Predictive maintenance using time-series analysis",
-            tooltip: "Predictive maintenance using time-series analysis",
-            isIndented: true,
-            content: [{type: 'chart', generator: 'intervention_maintenance'}]
-        },
-        'item_anomaly': {
-            text: "• Anomaly detection to prevent outages",
-            tooltip: "Anomaly detection to prevent outages",
-            isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_anomaly'}]
-        },
-        'item_allocation': {
-            text: "• Dynamic resource allocation for traffic spikes",
-            tooltip: "Dynamic resource allocation for traffic spikes",
-            isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_allocation'}]
-        },
-        'item_downtime': {
-            text: "• Minimize network downtime",
-            tooltip: "Minimize network downtime",
-            isIndented: true,
-            content: [{type: 'chart', generator: 'intervention_downtime'}]
+            content: [{type: 'svg', generator: 'adoption_matrix_diagram'}]
         }
     }
 },
 { // Page 16
-    title: "AI Interventions to Reduce Churn (2/2)",
-    dotColor: 'rgb(160, 255, 160)',
+    title: "AI Adoption Plan: Phase 3 & 4",
+    dotColor: 'rgb(130, 235, 190)',
     subheadings: {
-        'category_marketing': { text: "<b>Personalized Marketing</b>", isCategory: true, content: [{type: 'empty'}] },
-        'item_recommendation': { 
-            text: "• Recommendation engines (Collaborative Filtering)", 
-            tooltip: "Recommendation engines (Collaborative Filtering)",
-            isIndented: true, 
-            content: [{type: 'svg', generator: 'intervention_recommendation'}] 
-        },
-        'item_bundles': {
-            text: "• Targeted bundles based on usage behavior",
-            tooltip: "Targeted bundles based on usage behavior",
+        'category_phase3': { text: "<b>Phase 3: Training and Upskilling</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_tiers': {
+            text: "• <b>Training Tiers:</b> Includes Basic AI Literacy, Role-Specific Workshops, and Advanced Roles for data teams.",
+            tooltip: "Basic AI Literacy: All staff – Understanding what AI is, ethical use, limitations. Role/Tool-Specific Workshops: customized to specific department. Advanced Roles: Data teams – Prompt engineering, ML model interpretation, AI ethics.",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_bundles'}]
+            content: [{type: 'svg', generator: 'adoption_training_pyramid'}]
         },
-        'item_upsell': {
-            text: "• Cross-sell/up-sell to increase ARPU",
-            tooltip: "Cross-sell/up-sell to increase ARPU",
+        'item_incentives': {
+            text: "• <b>Incentives:</b> Badges, promotions, or bonuses tied to upskilling.",
+            tooltip: "Incentives: Badges, promotions, or bonuses tied to upskilling.",
             isIndented: true,
-            content: [{type: 'chart', generator: 'intervention_upsell'}]
+            content: [{type: 'svg', generator: 'adoption_incentives_diagram'}]
         },
-        'item_campaign': {
-            text: "• Campaign effectiveness tracking",
-            tooltip: "Campaign effectiveness tracking",
-            isIndented: true,
-            content: [{type: 'chart', generator: 'intervention_campaign'}]
-        },
-        'category_automation': { text: "<b>Customer Service Automation</b>", isCategory: true, content: [{type: 'empty'}] },
-        'item_chatbots': {
-            text: "• Chatbots and Voicebots (Regional, Urdu, English)",
-            tooltip: "Chatbots and Voicebots (Regional, Urdu, English)",
+        'category_phase4': { text: "<b>Phase 4: Pilot and Feedback</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_agenting': {
+            text: "• Agenting AIs, Chatbots and Voicebots (Regional, Urdu, English)",
+            tooltip: "Agenting AIs, Chatbots and Voicebots (Regional, Urdu, English)",
             isIndented: true,
             content: [{type: 'svg', generator: 'intervention_chatbots'}]
         },
-        'item_automate': {
-            text: "• Automate FAQs, billing, subscriptions",
-            tooltip: "Automate FAQs, billing, subscriptions",
+        'item_anomalies': {
+            text: "• Anomalies detections, Issuing commands, Automate FAQs, billing, subscriptions",
+            tooltip: "Anomalies detections, Issuing commands, Automate FAQs, billing, subscriptions",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_automate'}]
+            content: [{type: 'svg', generator: 'pilot_tasks_diagram'}]
         },
-        'item_escalation': {
-            text: "• Sentiment-based escalation",
-            tooltip: "Sentiment-based escalation",
-            isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_escalation'}]
-        },
-        'item_adjustments': {
-            text: "• Trigger service adjustments",
-            tooltip: "Trigger service adjustments",
+        'item_trigger_service': {
+            text: "• Trigger service adjustments.",
+            tooltip: "Trigger service adjustments.",
             isIndented: true,
             content: [{type: 'svg', generator: 'intervention_adjustments'}]
-        },
-        'item_trust': {
-            text: "• Enhance brand trust",
-            tooltip: "Enhance brand trust",
+        }
+    }
+},
+{ // Page 17
+    title: "AI Adoption Plan: Phase 5 & Sustainability",
+    dotColor: 'rgb(130, 235, 190)',
+    subheadings: {
+        'category_phase5': { text: "<b>Phase 5: Integrate and scale up.</b>", isCategory: true, content: [{type: 'empty'}] },
+        'item_integrate': {
+            text: "• Integrate successful tools across departments with clear governance structures.",
+            tooltip: "Integrate successful tools across departments with clear governance structures.",
             isIndented: true,
-            content: [{type: 'svg', generator: 'intervention_trust'}]
+            content: [{type: 'svg', generator: 'adoption_scale_diagram'}]
+        },
+        'item_hitl': {
+            text: "• Develop a Human-in-the-Loop (HITL) framework: AI suggestions always require human approval.",
+            tooltip: "Develop a Human-in-the-Loop (HITL) framework: AI suggestions always require human approval.",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'adoption_hitl_diagram'}]
+        },
+        'item_iterative': {
+            text: "• Continue iterative training to adapt to newer tools and evolving workflows.",
+            tooltip: "Continue iterative training to adapt to newer tools and evolving workflows.",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'sustain_training_diagram'}]
+        },
+        'item_sustainability': {
+            text: "• <b>Monitoring and Sustainability:</b> Regular audits to check for bias, job erosion, or overdependence on AI.",
+            tooltip: "Monitoring and Sustainability: Regular audits to check for bias, job erosion, or overdependence on AI.",
+            isIndented: true,
+            content: [{type: 'svg', generator: 'adoption_sustain_diagram'}]
+        }
+    }
+},
+{ // Page 18
+    title: "Next Steps for the Idea Factory Team",
+     dotColor: 'rgb(225, 255, 150)',
+    subheadings: {
+        'next_analyze': { 
+            text: "<b>1. Analyze:</b> The team will analyze feedback from the initial pitch and market research.", 
+            tooltip: "The first step is to thoroughly analyze all feedback gathered from the pitch process, as well as initial market research and diagnostic findings, to identify strengths and areas for improvement.",
+            content: [{type: 'svg', generator: 'nextsteps_analyze'}] 
+        },
+        'next_refine': {
+            text: "<b>2. Refine:</b> Refine the value proposition, service blueprints, and engagement model.",
+            tooltip: "Based on the analysis, the team will refine the core value proposition, polish the service blueprints for each intervention, and optimize the overall client engagement model for maximum impact and clarity.",
+            content: [{type: 'svg', generator: 'nextsteps_refine'}]
+        },
+        'next_simulation': {
+            text: "<b>3. Prepare for Simulation:</b> Conduct internal dry-runs and pressure-test the pitch.",
+            tooltip: "The team will prepare for a full-scale client simulation by conducting multiple internal dry-runs of the refined pitch. This includes pressure-testing the proposal against different potential client objections and questions.",
+            content: [{type: 'svg', generator: 'nextsteps_simulation'}]
+        },
+        'next_catalog': {
+            text: "<b>4. The Solution Catalog:</b> Finalize a comprehensive catalog of AI services.",
+            tooltip: "'The Solution Catalog' is a complete portfolio of services with Vertical Deep Dives (e.g., AI for Telecom) and Horizontal Applications (e.g., Churn Prediction for any industry).",
+            content: [{type: 'svg', generator: 'nextsteps_catalog'}]
         }
     }
 }
@@ -800,6 +805,231 @@
             'intervention_automate': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); text-anchor:middle; font-size:11px;}.item{opacity:0; animation:fade 0.5s forwards;}@keyframes fade{to{opacity:1}}</style><g class="item"><rect x="100" y="50" width="200" height="110" fill="#f0f0f0" rx="5"/><text class="f" x="200" y="70" style="font-weight:bold">Automated Tasks</text><text class="f item" x="200" y="95" style="animation-delay:0.5s;">✓ FAQs</text><text class="f item" x="200" y="115" style="animation-delay:0.8s;">✓ Billing</text><text class="f item" x="200" y="135" style="animation-delay:1.1s;">✓ Subscriptions</text></g></svg>`; return c; },
             'intervention_escalation': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); text-anchor:middle; font-size:11px;}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s 1s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><text class="f" x="80" y="105" font-size="24">😠</text><text class="f" x="80" y="135">Negative Sentiment</text><path class="line" d="M120 100 H 220" stroke="red" stroke-width="2"/><circle cx="280" cy="100" r="20" fill="#ccc"/><text class="f" x="280" y="135">Human Agent</text></svg>`; return c; },
             'intervention_trust': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.shield{opacity:0; transform:scale(0.5); animation:grow 1s 0.5s forwards; transform-origin:center;}@keyframes grow{to{opacity:1;transform:scale(1);}}</style><text x="200" y="105" text-anchor="middle" font-size="24" font-weight="bold">T-Nor</text><path class="shield" d="M200 50 L 150 80 V 120 C 150 150, 200 170, 200 170 C 200 170, 250 150, 250 120 V 80 Z" fill="rgba(92,184,92,0.5)"/></svg>`; return c; },
+            'sustain_training_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}.flow{animation:rotate 8s linear infinite; transform-origin:center;}</style><g class="flow"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" x="250" y="60" style="animation-delay:0.2s;">New Tools</text></g><g class="flow" style="transform:rotate(120deg)"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" transform="rotate(-120)" x="-120" y="145" style="animation-delay:0.5s;">Iterative Training</text></g><g class="flow" style="transform:rotate(240deg)"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" transform="rotate(-240)" x="-130" y="-185" style="animation-delay:0.8s;">Evolving Workflows</text></g></svg>`; return c; },
+            'adoption_goal_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}</style><g class="item" style="animation-delay:0.2s;"><path d="M150 100 l-30 0 v-20 l-20 0 v50 h50z" fill="#ccc"/><text class="f" x="115" y="145">Human</text></g><g class="item" style="animation-delay:0.5s;"><path d="M250 100 h-30 v-20 h-20 v50 h50z" fill="var(--accent-color)"/><text class="f" x="285" y="145">AI</text></g><g class="item" style="animation-delay:0.8s;"><text class="f" x="200" y="70" font-size="16">Collaboration</text><path d="M170 100 L 230 100" stroke-width="3" stroke="#333"/></g></svg>`; return c; },
+            'adoption_comms_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1}}</style><g class="item"><circle cx="100" cy="100" r="20" fill="var(--accent-color)"/><rect x="80" y="120" width="40" height="20" fill="var(--accent-color)"/></g><rect x="150" y="50" width="150" height="90" fill="#ccc" class="item" style="animation-delay:0.3s;"/><text class="f item" x="225" y="105" style="animation-delay:0.5s;">Webinars & Q&A</text><g class="item" style="animation-delay:0.8s;"><circle cx="330" cy="80" r="10" fill="#f0f0f0"/><text class="f" x="330" y="110">?</text></g><g class="item" style="animation-delay:1s;"><circle cx="350" cy="120" r="10" fill="#f0f0f0"/><text class="f" x="350" y="145">?</text></g></svg>`; return c; },
+            'adoption_message_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}</style><g class="item"><circle cx="100" cy="100" r="30" fill="rgba(217,83,79,0.2)"/><path d="M80 80 L 120 120 M 120 80 L 80 120" stroke="#d9534f" stroke-width="4"/><circle cx="100" cy="100" r="15" fill="#ccc"/><text class="f" x="100" y="150">No Headcount Cuts</text></g><g class="item" style="animation-delay:0.5s;"><circle cx="300" cy="100" r="30" fill="rgba(92,184,92,0.2)"/><path d="M280 105 L 295 120 L 320 90" stroke="#5cb85c" stroke-width="4" fill="none"/><circle cx="300" cy="100" r="15" fill="#ccc"/><text class="f" x="300" y="150">Enhance Roles</text></g></svg>`; return c; },
+            'adoption_groups_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 10px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><g class="item"><circle cx="200" cy="100" r="35" fill="var(--accent-color)"/><text class="f" fill="white" x="200" y="104">AI Working Group</text></g><path class="line" d="M100 50 L 175 85" stroke="#ccc" style="animation-delay:0.5s;"/><g class="item" style="animation-delay:0.5s;"><circle cx="100" cy="50" r="20" fill="#ccc"/><text class="f" x="100" y="54">Engineers</text></g><path class="line" d="M300 50 L 225 85" stroke="#ccc" style="animation-delay:0.8s;"/><g class="item" style="animation-delay:0.8s;"><circle cx="300" cy="50" r="20" fill="#ccc"/><text class="f" x="300" y="54">Support</text></g><path class="line" d="M100 150 L 175 115" stroke="#ccc" style="animation-delay:1.1s;"/><g class="item" style="animation-delay:1.1s;"><circle cx="100" cy="150" r="20" fill="#ccc"/><text class="f" x="100" y="154">Strategy</text></g><path class="line" d="M300 150 L 225 115" stroke="#ccc" style="animation-delay:1.4s;"/><g class="item" style="animation-delay:1.4s;"><circle cx="300" cy="150" r="20" fill="#ccc"/><text class="f" x="300" y="154">Business</text></g></svg>`; return c; },
+            'adoption_tools_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:pop 0.5s ease-out forwards;}@keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}</style><g class="item"><rect x="40" y="60" width="100" height="80" fill="#f0f0f0" rx="5"/><path d="M55 80 l5 5 l10 -10 M70 75 h 55 M55 100 l5 5 l10 -10 M70 95 h 55 M55 120 l5 5 l10 -10 M70 115 h 55" stroke="#333" fill="none"/><text class="f" x="90" y="50">Surveys</text></g><g class="item" style="animation-delay:0.3s;"><rect x="150" y="60" width="100" height="80" fill="#f0f0f0" rx="5"/><path d="M175 80 h 50 v 40 h -50 z M200 80 l -10 15 l 10 15" fill="none" stroke="#333" stroke-width="2"/><text class="f" x="200" y="50">Suggestion Boxes</text></g><g class="item" style="animation-delay:0.6s;"><rect x="260" y="60" width="100" height="80" fill="#f0f0f0" rx="5"/><circle cx="310" cy="100" r="10" fill="var(--accent-color)"/><path d="M290 120 a 20 20 0 0 1 40 0" fill="var(--accent-color)"/><text class="f" x="310" y="50">Workshops</text></g></svg>`; return c; },
+            'adoption_matrix_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}</style><path d="M50 50 v 120 h 300 v -120 M 150 50 v 120 M 250 50 v 120" stroke="#333" fill="none"/><text class="f item" x="100" y="40">Human-Led</text><text class="f item" x="200" y="40" style="animation-delay:0.2s;">AI-Assisted</text><text class="f item" x="300" y="40" style="animation-delay:0.4s;">Fully Automated</text><circle class="item" cx="100" cy="100" r="15" fill="#ccc" style="animation-delay:0.6s;"/><g class="item" style="animation-delay:0.8s;"><circle cx="200" cy="100" r="15" fill="#ccc"/><circle cx="210" cy="110" r="8" fill="var(--accent-color)"/></g><circle class="item" cx="300" cy="100" r="15" fill="var(--accent-color)" style="animation-delay:1s;"/></svg>`; return c; },
+            'adoption_training_pyramid': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}</style><path d="M200 30 L 50 170 H 350 Z" fill="#f0f0f0" class="item"/><path d="M100 123 H 300" stroke="#ccc" class="item" style="animation-delay:0.2s;"/><path d="M150 77 H 250" stroke="#ccc" class="item" style="animation-delay:0.4s;"/><text class="f item" x="200" y="150" style="animation-delay:0.6s;">Basic AI Literacy (All Staff)</text><text class="f item" x="200" y="105" style="animation-delay:0.8s;">Role-Specific Workshops</text><text class="f item" x="200" y="60" style="animation-delay:1s;">Advanced Roles (Data Teams)</text></svg>`; return c; },
+            'intervention_chatbots': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s forwards;}@keyframes fade{to{opacity:1}}</style><path d="M180 80 h40 v40 h-10 l-5-5 v-10 l-5 0z" fill="var(--accent-color)"/><text class="f" x="200" y="140">Chatbot</text><g class="item" style="animation-delay:0.5s;"><rect x="250" y="80" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="100">English</text></g><g class="item" style="animation-delay:0.8s;"><rect x="250" y="115" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="135">Urdu (اردو)</text></g><g class="item" style="animation-delay:1.1s;"><rect x="250" y="150" width="80" height="30" fill="#f0f0f0" rx="5"/><text class="f" x="290" y="170">Regional</text></g></svg>`; return c; },
+            'intervention_adjustments': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}.item{opacity:0; animation:fade 0.5s 0.5s forwards;}@keyframes fade{to{opacity:1;}}.line{stroke-dasharray:300; stroke-dashoffset:300; animation:draw 2s 1s ease-in-out forwards;}@keyframes draw{to{stroke-dashoffset:0;}}.switch-bg{fill:#ccc; transition:fill 0.5s;}.switch-btn{fill:white; transform:translateX(0); transition:transform 0.5s;}.switch.on .switch-bg{fill:#5cb85c;}.switch.on .switch-btn{transform:translateX(20px);}.switch{animation:flip 0.5s 3s forwards;}@keyframes flip{to{transform:scale(1);}}</style><text class="f" x="200" y="30" style="font-weight:bold;">Automatic Service Adjustment</text><g class="item"><path d="M100,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/><text class="f" x="130" y="125">AI Monitor</text></g><path class="line" d="M30 100 H 100 C 120 100, 130 50, 150 50 S 180 150, 200 100 H 370" stroke="#ccc" stroke-width="2" fill="none"/><g class="item" style="animation-delay:2.5s;"><g class="switch"><rect class="switch-bg" x="280" y="80" width="50" height="30" rx="15"/><circle class="switch-btn" cx="295" cy="95" r="12"/></g><text class="f" x="305" y="130">Adjust Service</text></g></svg>`; return c; },
+            'adoption_scale_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}.line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.5s forwards;}@keyframes draw{to{stroke-dashoffset:0}}</style><g class="item"><circle cx="80" cy="100" r="25" fill="#ccc"/><text class="f" x="80" y="140">Pilot</text></g><path class="line" d="M115 100 H 180" stroke="#333" style="animation-delay:0.5s;"/><g class="item" style="animation-delay:0.8s;"><rect x="180" y="50" width="180" height="100" rx="5" fill="rgba(0,123,255,0.2)"/><text class="f" x="270" y="105">Full Scale w/ Governance</text></g></svg>`; return c; },
+            'adoption_hitl_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 12px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}</style><g class="item"><path d="M100 80 h20 v20 h-10 l-5-5 v-10 l-5 0z" fill="var(--accent-color)"/><text class="f" x="110" y="120">AI Suggestion</text></g><g class="item" style="animation-delay:0.5s;"><circle cx="200" cy="100" r="20" fill="#ccc"/><text class="f" x="200" y="135">Human</text></g><path d="M140 100 H 170" stroke="#333"/><path d="M230 100 H 260" stroke="#5cb85c" stroke-width="3"/><g class="item" style="animation-delay:1s;"><path d="M265 90 l 10 10 l -20 10z" fill="#5cb85c"/><text class="f" x="310" y="105">Approval</text></g></svg>`; return c; },
+            'sustain_training_diagram': (c) => { c.innerHTML = `<svg viewBox="0 0 400 200"><style>.f{font:bold 11px var(--font-family);text-anchor:middle;}.item{opacity:0; animation:fade 0.5s ease-out forwards;}@keyframes fade{to{opacity:1;}}.flow{animation:rotate 8s linear infinite; transform-origin:center;}</style><g class="flow"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" x="250" y="60" style="animation-delay:0.2s;">New Tools</text></g><g class="flow" style="transform:rotate(120deg)"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" transform="rotate(-120)" x="-120" y="145" style="animation-delay:0.5s;">Iterative Training</text></g><g class="flow" style="transform:rotate(240deg)"><path d="M200,40 A 60 60 0 0 1 260,100" fill="none" stroke="#ccc"/><text class="f item" transform="rotate(-240)" x="-130" y="-185" style="animation-delay:0.8s;">Evolving Workflows</text></g></svg>`; return c; },
+            'nextsteps_analyze/': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .item{opacity:0; animation:pop 0.5s ease-out forwards;}
+            @keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}
+            .line{stroke-dasharray:100; stroke-dashoffset:100; animation:draw 0.5s forwards;}
+            @keyframes draw{to{stroke-dashoffset:0}}
+        </style>
+        <g class="item" style="animation-delay:0.2s;">
+            <rect x="40" y="40" width="80" height="50" fill="#ccc" rx="5"/>
+            <text class="f" x="80" y="105">Pitch Feedback</text>
+        </g>
+        <g class="item" style="animation-delay:0.4s;">
+            <rect x="40" y="110" width="80" height="50" fill="#ccc" rx="5"/>
+            <text class="f" x="80" y="175">Market Research</text>
+        </g>
+        <path class="line" d="M120 65 H 170" stroke="#333" style="animation-delay:0.6s;"/>
+        <path class="line" d="M120 135 H 170" stroke="#333" style="animation-delay:0.8s;"/>
+        <g class="item" style="animation-delay:1.0s;">
+            <path d="M180,80 l30,-20 l30,20 l-15,30z" fill="var(--accent-color)"/>
+            <text class="f" fill="white" x="210" y="100">Analysis</text>
+        </g>
+        <path class="line" d="M240 100 H 290" stroke="#333" style="animation-delay:1.2s;"/>
+        <g class="item" style="animation-delay:1.4s;">
+            <rect x="290" y="75" width="80" height="50" fill="#5cb85c" rx="5"/>
+            <text class="f" fill="white" x="330" y="105">Insights</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'nextsteps_refine': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .shape{fill:#ccc; animation:refine 2s 1s ease-in-out forwards;}
+            .sparkle{opacity:0; animation:spark 0.5s 3s forwards;}
+            @keyframes refine{
+                0%{fill:#ccc; d:path("M150 100 L 180 50 L 220 50 L 250 100 L 220 150 L 180 150 Z");}
+                100%{fill:var(--accent-color); d:path("M200 40 L 150 100 L 200 160 L 250 100 Z");}
+            }
+            @keyframes spark{ 0%{opacity:1;transform:scale(1);} 100%{opacity:0;transform:scale(0);} }
+        </style>
+        <text class="f" x="100" y="105">Rough Concept</text>
+        <path class="shape" d="M150 100 L 180 50 L 220 50 L 250 100 L 220 150 L 180 150 Z"/>
+        <text class="f" x="300" y="105">Refined Solution</text>
+        <path class="sparkle" fill="gold" d="M200 30 l -5 5 l 5 5 l 5 -5z"/>
+        <path class="sparkle" style="animation-delay:3.1s;" fill="gold" d="M260 100 l -5 5 l 5 5 l 5 -5z"/>
+        <path class="sparkle" style="animation-delay:3.2s;" fill="gold" d="M140 100 l -5 5 l 5 5 l 5 -5z"/>
+    </svg>`;
+    return c;
+},
+        'nextsteps_simulation': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .item{opacity:0; animation:fade 0.5s ease-out forwards;}
+            @keyframes fade{to{opacity:1;}}
+        </style>
+        <g class="item">
+            <circle cx="80" cy="100" r="15" fill="var(--accent-color)"/>
+            <circle cx="120" cy="100" r="15" fill="var(--accent-color)"/>
+            <text class="f" x="100" y="135">Idea Factory Team</text>
+        </g>
+        <rect x="200" y="40" width="160" height="120" fill="#333" rx="5" class="item" style="animation-delay:0.3s;"/>
+        <text class="f item" fill="white" x="280" y="60" style="animation-delay:0.5s;">Client Simulation</text>
+        <g class="item" style="animation-delay:1.0s;">
+            <circle cx="280" cy="100" r="20" fill="#ccc"/>
+            <text class="f" x="280" y="105" font-size="20">?</text>
+            <text class="f" x="280" y="135">Client Questions</text>
+        </g>
+        <g class="item" style="animation-delay:1.5s;">
+            <path d="M150 90 c 20 -30, 80 -30, 100 0" stroke="gold" stroke-width="2" fill="none"/>
+            <path d="M140 100 l10-10 h-10z" fill="gold"/>
+            <text class="f" x="200" y="55">Answers</text>
+        </g>
+    </svg>`;
+    return c;
+},
+        'nextsteps_catalog': (c) => {
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .page{transform-origin:left; animation:turn 1s ease-out 0.5s forwards;}
+            .item{opacity:0; animation:fade 0.5s ease-out forwards;}
+            @keyframes turn{from{transform:perspective(500px) rotateY(0deg);} to{transform:perspective(500px) rotateY(-160deg);}}
+            @keyframes fade{to{opacity:1;}}
+        </style>
+        <text class="f" x="200" y="25" style="font-weight:bold;">The Solution Catalog</text>
+        <rect x="80" y="40" width="240" height="150" fill="#f0f0f0" rx="5"/>
+        <text class="f item" style="animation-delay:1.5s;" x="200" y="70" font-weight="bold">Horizontals</text>
+        <text class="f item" style="animation-delay:1.7s;" x="200" y="90">(Churn, NLP, etc.)</text>
+        <g class="page">
+            <rect x="80" y="40" width="120" height="150" fill="var(--accent-color)" rx="5"/>
+            <text class="f item" fill="white" x="140" y="70" font-weight="bold">Verticals</text>
+            <text class="f item" fill="white" x="140" y="90">(Telecom)</text>
+            <text class="f item" fill="white" x="140" y="110">(Banking)</text>
+        </g>
+    </svg>`;
+    return c;
+},
+            'adoption_sustain_diagram': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font-family:var(--font-family); fill:var(--main-text-color); font-size:11px; text-anchor:middle;}
+            .item{opacity:0; animation:pop 0.5s ease-out forwards;}
+            @keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}
+            
+            /* The path the dot will follow */
+            #motion-path { fill: none; stroke: #ccc; stroke-width: 2; }
+            
+            /* The moving dot */
+            .flow-dot {
+                fill: var(--accent-color);
+                offset-path: path("M200,40 A60,60 0 1,1 199.9,40"); /* Defines the circular motion path */
+                animation: move 4s linear infinite;
+                opacity: 0;
+            }
+            @keyframes move {
+                0% { motion-offset: 0%; opacity: 1; }
+                90% { opacity: 1; }
+                100% { motion-offset: 100%; opacity: 0; }
+            }
+        </style>
+
+        <path id="motion-path" d="M200,40 A60,60 0 1,1 199.9,40"/>
+        
+        <circle class="flow-dot" r="5"/>
+
+        <g class="item" style="animation-delay:0.2s;">
+            <circle cx="200" cy="40" r="15" fill="#f0f0f0"/>
+            <text class="f" x="200" y="20">Regular Audits</text>
+        </g>
+        <g class="item" style="animation-delay:0.5s;">
+            <circle cx="120" cy="130" r="15" fill="#f0f0f0"/>
+            <text class="f" x="120" y="160">Check for Bias</text>
+        </g>
+        <g class="item" style="animation-delay:0.8s;">
+            <circle cx="280" cy="130" r="15" fill="#f0f0f0"/>
+            <text class="f" x="280" y="160">Monitor Job Erosion</text>
+        </g>
+    </svg>`;
+    return c; 
+},
+            'pilot_tasks_diagram': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font:bold 11px var(--font-family);text-anchor:middle;}
+            .node{fill:#ccc;}
+            .anomaly{animation:flash 1s infinite;}
+            @keyframes flash{50%{fill:red;}}
+            .item{opacity:0; animation:fade 0.5s ease-out forwards;}
+            @keyframes fade{to{opacity:1;}}
+        </style>
+        <text class="f item" x="95" y="30">Anomaly Detection</text>
+        <g class="item">
+            <path d="M50 100 L 75 125 L 100 100 L 125 125 L 150 100 M75 75 L 87.5 87.5 L 112.5 87.5 L 125 75" stroke="#ccc" fill="none"/>
+            <circle class="node" cx="50" cy="100" r="8"/><circle class="node" cx="75" cy="125" r="8"/>
+            <circle class="node" cx="100" cy="100" r="8"/><circle class="node anomaly" cx="125" cy="125" r="8"/>
+            <circle class="node" cx="150" cy="100" r="8"/><circle class="node" cx="75" cy="75" r="8"/>
+            <circle class="node" cx="125" cy="75" r="8"/>
+        </g>
+        <line x1="200" y1="20" x2="200" y2="180" stroke="#eee"/>
+        <text class="f item" x="300" y="30" style="animation-delay:0.5s;">Automated Tasks</text>
+        <g class="item" style="animation-delay:0.5s;">
+            <path d="M280 80 h20 v20 h-10 l-5-5 v-10 l-5 0z" fill="var(--accent-color)"/>
+            <text class="f" x="300" y="125">AI</text>
+        </g>
+        <g class="item" style="animation-delay:1.0s;">
+            <text class="f" x="250" y="70">FAQs</text>
+            <text class="f" x="350" y="70">Billing</text>
+            <text class="f" x="250" y="160">Commands</text>
+            <text class="f" x="350" y="160">Subscriptions</text>
+        </g>
+    </svg>`; 
+    return c; 
+},
+            'adoption_incentives_diagram': (c) => { 
+    c.innerHTML = `<svg viewBox="0 0 400 200">
+        <style>
+            .f{font:bold 12px var(--font-family);text-anchor:middle;}
+            .item{opacity:0; animation:pop 0.5s ease-out forwards;}
+            @keyframes pop{from{transform:scale(0)} to{transform:scale(1)}}
+            .line{stroke-dasharray:100; stroke-dashoffset:100; animation:draw 0.5s forwards;}
+            @keyframes draw{to{stroke-dashoffset:0}}
+        </style>
+        <g class="item">
+            <rect x="160" y="80" width="80" height="40" fill="var(--accent-color)" rx="5"/>
+            <text class="f" fill="white" x="200" y="105">Upskilling</text>
+        </g>
+        <path class="line" d="M200 80 L 150 40" stroke="#ccc" style="animation-delay:0.5s;"/>
+        <g class="item" style="animation-delay:0.8s;">
+            <path d="M150 10 l -15 15 l 15 15 l 15-15z" fill="gold"/>
+            <text class="f" x="100" y="30">Badges</text>
+        </g>
+        <g>
+            <path class="line" d="M240 100 H 300" stroke="#ccc" style="animation-delay:1.0s;"/>
+            <g class="item" style="animation-delay:1.3s;">
+                <path d="M310 80 v10 h-15 v15 h15 v10 l10-17.5z" fill="orange"/>
+                <text class="f" x="315" y="130">Promotions</text>
+            </g>
+        </g>
+        <g>
+            <path class="line" d="M200 120 L 150 160" stroke="#ccc" style="animation-delay:1.5s;"/>
+            <g class="item" style="animation-delay:1.8s;">
+                <circle cx="150" cy="180" r="15" fill="limegreen"/>
+                <text class="f" x="100" y="185">Bonuses</text>
+            </g>
+        </g>
+    </svg>`; 
+    return c; 
+},
             'intervention_adjustments': (c) => { 
     c.innerHTML = `<svg viewBox="0 0 400 200">
         <style>
@@ -1413,9 +1643,9 @@
             renderPageSwitcher();
 
             // Activate the correct background for the new page
-            if (currentPageIndex === 3 || currentPageIndex === 4|| currentPageIndex === 10|| currentPageIndex === 11) { // Pages 4 and 5 get Node Art
+            if (currentPageIndex === 3 || currentPageIndex === 4|| currentPageIndex === 6|| currentPageIndex === 7) { // Pages 4 and 5 get Node Art
     p5Sketch = new p5(p5_sketch, bgContainer);
-} else if (currentPageIndex === 5 || currentPageIndex === 6|| currentPageIndex === 9) { // Pages 6 and 7 get Wave Art
+} else if (currentPageIndex === 5 || currentPageIndex === 14) { // Pages 6 and 7 get Wave Art
     vanillaWaveArt = new WaveArt(bgContainer);
     vanillaWaveArt.start();
             } else { // All other pages
